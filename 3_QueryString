@@ -43,7 +43,15 @@ request란 도구가 있으며, 이것은 HttpSerbletRequest의 입력 도구이
 사용자가 전달할 때, 쿼리값을 지정해서 전달하면 이 키워드를 읽어들이며, 
 
 사용자와 Server가 서로 합의하여 합이 맞이야 한다
-  *>
+
+<출력> 
+
+주소 뒤에 + ?cnt=3
+ex) http://localhost:8080/Nana?cnt=5
+
+=> 위처럼 query값을 부여하면 된다.
+ 
+ *>
 
 	out.println((i+1)+" : 안녕 hello!!<br>");
 	}
