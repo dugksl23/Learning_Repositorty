@@ -1,7 +1,7 @@
 
 
-//come.opentutorials.web
-//Nana.java
+//come.opentutorials.web - 클래스 name
+//Nana.java 
 
 import.java.io.IOException;
 import.hava.io.PrinterWiter;
@@ -10,11 +10,13 @@ import.javax.servlet.SerbletRequest;
 import .javax.servlet.ServletRequest;
 import .javax.servlet.ServletRequest;
 
-
+@WebServlet("/Nana")    //서블렛 주석
 
 public class Nana extends HttpServlet{
 
-@overriding void service(HttpServletRequest request, HttpServletReponse) throws IERception {
+@overriding 
+
+ void service(HttpServletRequest request, HttpServletReponse) throws IERception {
  
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset-UTF-8"); 
