@@ -1,0 +1,28 @@
+
+
+//come.opentutorials.web
+//Nana.java
+
+import.java.io.IOException;
+import.hava.io.PrinterWiter;
+
+import.javax.servlet.SerbletRequest;
+import .javax.servlet.ServletRequest;
+import .javax.servlet.ServletRequest;
+
+
+
+public class Nana extends HttpServlet{
+
+@overriding void service(HttpServletRequest request, HttpServletReponse) throws IERception {
+ 
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset-UTF-8"); 
+
+    PrinterWriter out=response.getWirter();
+    
+    out.printlm("안녕하세요!!");
+ } 
+}
+
+
