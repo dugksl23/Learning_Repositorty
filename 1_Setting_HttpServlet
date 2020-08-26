@@ -19,8 +19,8 @@ public class Nana extends HttpServlet{                        //HttpServlet을 �
 
  protected void service(HttpServletRequest request, HttpServletReponse) throws IERception {
  
-    response.setCharacterEncoding("UTF-8");                      //인코딩 
-    response.setContentType("text/html; charset-UTF-8"); 
+    response.setCharacterEncoding("UTF-8");                      //Encoding 인코딩 방식
+    response.setContentType("text/html; charset-UTF-8");         //한글 출력 지원
 
     PrinterWriter out=response.getWirter();
     
