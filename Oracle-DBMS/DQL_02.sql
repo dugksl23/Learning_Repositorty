@@ -50,7 +50,7 @@ select emp_name, salary from employee order by salary asc null first;
 
 
 
---------- [ 문제 ] ----------
+--------- [ 이전 수업 복습 문제 ] ----------
 
 
 -- 1. 입사일이 5년 이상, 10년 이하인 직원 이름, 주민번호, 급여, 입사일 출력
@@ -98,5 +98,63 @@ emp_no like '___4__-2%' order by 3;
 select emp_name"직원명", to_char((floor((sysdate-hire_date)/1000)*(salary*0.1)), 'l999,999,999')"보너스", floor((sysdate-hire_date))||'일'"근무일수" from employee
 where emp_no like '______-1%' and
          bonus is null;
+
+
+
+--------------------[  DQL_02 : 기초 문법  ] -------------------------------------
+
+
+
+
+
+-- 1. length : 문자열을 인자로 return 하는 함수select abc)_
+
+
+select 'char_length_test'"입력 char",length('안녕하세요')"문자 길이" from dual. - 6출력
+select '10000000'"입력 num", length(1000000)"숫자 길이" from dual; -- 7출력
+
+-- '~~'를 통해서 새로운 column을 생성해낼 수 있다.
+
+
+
+
+-- 2. lengthb : 문자열을 인자로 문자열의 byte 크기를 return 하는 함수
+
+select '안녕하세요'"byte test", lengthb('안녕하세요') from dual; -- 15 byte 출력
+
+
+
+-- 3. instr : 문자열 내에서 특정문자를 탐색하여, 해당 문자의 index를 return하는 함수.
+-- string(문자열) in(내에서) 해당문자를 검색하여, 해당문자가 위치한 index를 return.
+
+-- '안녕하세요'에서 요의 index를 반환하시오.
+select '안녕하세요'"instr test", instr('안녕하세요', '요', 1) from dual; 
+
+-- 5를 출력
+
+-- [ 문법 풀이] --
+
+-- instr(p1, p2, p3, p4);
+-- p1 : 탐색 문자열
+-- p2 : 문자열 내에서 찾을 글자. 문자열이면 singlequotation, 숫자면 no quotation.
+-- p3 : 문자열 내에서 n 번째 index부터 p2 검색 수행. 
+-- p4 : 찾을 글자가 등장하는 n번째 index;
+
+select instr('Hello Java Word', 'java) from dual;
+--select 'Hello World Hi Java'"instr test", instr('Hello World Hi Java','J', 1, 1) from dual;
+             
+
+             
+-- quick Quiz 01 : Employee table에서 각 직원의 이메일 @ 기호 위치를 출력해보세요.
+             
+             
+ *검색 대상 : 직원의 이메일
+ *적용 조건 : 이메일 내에서 @의 인덱스를 출력
+ *return type:char형
+ *적용함수 : instr();
+
+select 
+          
+
 
 
