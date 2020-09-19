@@ -122,7 +122,9 @@ select '10000000'"입력 num", length(1000000)"숫자 길이" from dual; -- 7출
 
 select '안녕하세요'"byte test", lengthb('안녕하세요') from dual; -- 15 byte 출력
 
-
+-----------------------------------------------------------------------------------------
+ -----------------------------------------------------------------------------------------
+ 
 
 -- 3. instr : 문자열 내에서 특정문자를 탐색하여, 해당 문자의 index를 return하는 함수.
 -- string(문자열) in(내에서) 해당문자를 검색하여, 해당문자가 위치한 index를 return.
@@ -138,7 +140,7 @@ select '안녕하세요'"instr test", instr('안녕하세요', '요', 1) from du
 -- p1 : 탐색 문자열
 -- p2 : 문자열 내에서 찾을 글자. 문자열이면 singlequotation, 숫자면 no quotation.
 -- p3 : 문자열 내에서 n 번째 index부터 p2 검색 수행. 
--- p4 : 찾을 글자가 등장하는 n번째 index;
+-- p4 : p2가 등장하는 n번째 index를 return;
 
 select 'Hello World Hi Java'"Instr test", instr('Hello World Hi Java', 'J', 1,1) from dual;
 
@@ -154,4 +156,126 @@ select 'Hello World Hi Java'"Instr test", instr('Hello World Hi Java', 'J', 1,1)
  select emp_name, email, '@'"index_test", instr(email, '@', 1,1)"index" from employee; 
  
  
+
  
+
+-- 4. substr : 문자열 내에서 특정 문자를 꺼내온다.
+
+
+-- [ 문법 풀이] --
+
+
+-- ** 정수는 좌측을 기준으로 자를 위치를 결정
+
+-- instr(p1, p2, p3, p4);
+-- p1 : 탐색 문자열
+-- p2 : 문자열 내에서 n번쨰 인덱스부터 문자를 잘라온다.
+-- p3 : p1을 기점으로 n 번(p3)째까지 잘라온다.
+
+
+select '안녕하세요를 빼와보자'"substr_test", substr('안녕하세요를 빼와보자', 1, 4) from dual;
+
+
+-- ** 음수 기준, 오른쪽을 기점으로 하여, 오측에서 2번째까지.
+
+select substr('안녕하세요들?', -3, 2) from dual;
+
+-- 요들까지 출력됨
+
+-- quick Quiz 01  사원명에서 성만 중복없이 사전순으로 출력.
+select distinct emp_name"직원명", substr(emp_name, 1, 1)||'**'"직원 성" from employee order by emp_name;
+
+-- quick Quiz 02  사번, 주민번호, 급여 출력
+--                주민번호 뒷자리는 6자리는 *표로 표시
+
+select substr(emp_name, 1,1)||'**'"성", substr(emp_no, 1,9)||'******'"주민번호" from employee;
+
+
+
+
+
+-- 5. replace : 문자열 내에서 특정 문자열을 교환한다.
+
+
+--- [ 문법 풀이] ----
+-- p1 : 대상 문자열
+-- p2 : p1에서 바꿀 문자를 인자로 넣는다.
+-- p3 : p2에서 교환할 문자를 지정.
+
+select abc('안녕하세요')from dual;
+select '안녕하세요.'"replace_test", replace('안녕하세요.', '안녕', '잘가') from dual;
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+-- [ 숫자 처리 관련 함수 ] ---
+
+
+-- 6. [ abs ] : 절대값을 구하는 함수 absolute value
+-- 절대값이란, 음수 및 양수를 제외한 데이터 본질의 값이다.
+
+select '-3'"나 음수임", abs(-3) from dual;
+
+
+-- 7. [ mod ] 나머지 값 구하기.
+
+
+select 14/7 from dual; -- 출력값이 2
+select 15/7 from dual; -- 출력값이 2.1~~
+
+select mod(15/7) from dual; --나머지 값 2출력
+
+
+--*** 8. [ round ] : 반올림. 소수점 자리르 지정하기 위해서 round 함수를 사용한다.
+
+ -- 123.456
+ ---3-2-1.012
+
+-- 1. 정수 : 소숫점
+
+-- **소수점 첫번째 자리, 파라미터 0은 생략가능
+--    정수는 0이 첫번째, 1이 두번째자리이다.
+--    반올림할 자릿수의 결과물의 자릿수를 입력.
+select round(3.14) from dual; --3
+select fround(3.14, 0) from dual;-- 3
+
+select fround(3.5) from dual; -- 4
+select fround(3.5, 0) from dual; -- 4 
+
+
+-- 2. 음수 : 0의 자리부터 1
+--          10의 자리를 2
+--          정수 기준 우측에서부터 -1이다.
+
+select round(2433, -3) from dual; -- 2000;
+select round(2500, -3) from dual; -- 3000;
+select round 2500, -4) from dual; 0;
+select round(2433, -2) from dual; --2400;
+select round(2433, -1) from dual; -- 2430;
+
+
+
+
+--*** 9. [ floor ] : 소숫점자리를 모두 버린다.
+
+
+select 1000/3 from dual; -- 333.333333;
+select floor(1000/3) from dual; --333;
+select floor((sysdate-hire_date)/365) from employee;
+
+
+
+--*** 10. [ trunc ] : 소숫점자리를 지정하여 버린다.
+-
+
+select trunc(1234.543, 2) from dual; --1234.54
+select trunc(1234.549, 2) from dual; --1234.54
+
+
+-- *** [ ceil ] : 올림함수, 
+-- 소숫점 자리를 지정할 순 없으며, 소숫점 자리를 모두 올림한다.
+
+select cell(1234.567) from dual; --1240;
+
+
+
