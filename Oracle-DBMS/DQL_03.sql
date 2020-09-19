@@ -67,9 +67,188 @@ select sysdate"입대일", add_months(sysdate, 18)"제대일", (add_months(sysda
 -- **날짜끼리는 뺄셈만 가능하다.
                                            
                                            
- 
+-- 4. [ next_day ] : 특정 날짜를 기준으로 가장 가까운 요일을 얻어오는 함수
+                                           
+ select next_day(sysdate, '월요일') from dual;
+ -- session이 한국으로 되어있기에 한국어로 표기한다.
+ -- 이외에도 (일월화수목금토) 순으로 숫자를 입력해도 된다.
+ -- return 값은 date함수이며, 날짜끼리 뺼셈할 땐 일수로 계산되어 뺄셈이 됨.
+
+select next_day(sysdate, 2) from dual; -- 20/09/21(월)이 출력됨.
+select next_day(sysdate, 2)-1 from dual; -- 20/09/20(월)이 출력됨.
+-- -1이 일수로 계산되어 자동 형변환되어서 뺄셈이 이루어진다.
+                                           
+                                           
+-- 5. [ last_day ] 특정 날짜 기간의 마지막 일자를 return 한다.
+-- ex) 지금이 9월이기에 sysdate을 하면 9월이 뜬다.
+--     따라서 9월의 마지막 날인 31일을 return
+
+select last_day(sysdate) from dual;
+
+-- qick quiz_01 다음달의 마지막 일을 구하라.
+
+-- 필요한 return 값은 다음달 마지막 일자.
+-- 미래의 개월수를 받아올 함수, add_months(sysdate, 1)
+-- 특정 미래 기간의 마지막 일자를 구하는 함수 last_day()
+
+select last_day(add_months(sysdate, 1))"다음달 마지막 일" from dual;
+select to_date(last_day(add_months(sysdate, 1)), 'dd')"다음달 마지막 일" from dual;
+
+
+-- 5. [ extract : 발췌 ] 
+-- 특정 시간을 기점으로 해서 년 월 일을 뽑는다.
+
+select extract(year from sysdate) from dual;
+select extract(month from sysdate) from dual; 
+select extract(day from sysdate) from dual; 
+
+-- 현재 시점에서 내년을 뽑아내시오.
+                        
+select extract(year from (add_months(sysdate, 4)))||'년' from dual;   
+
+------------------[ 문제 ]----------------
+
+
+--Q1. employee 테이블에서 사원의 이름, 입사일, 근속년차를 출력하세요.
+-- 입사일을 출력할 땐 yyyy년 m월 d일로 출력 to_date
+-- 년차를 출력할 땐 올림하여 출력 ceil
+-- 입사일 기준으로 오름차순 정렬
+                                     
+select emp_name"직원명", salary, hire_date, round((sysdate-hire_date)/365,0)||'년차' from employee;                                  
+select emp_name"직원명", salary, hire_date, ceil((sysdate-hire_date)/365)||'년차' from employee;                                  
+-- 소숫점 자리 다 올림;
+               
+               
+              
+                        
+                        
+                        
+                        
+--Q2. employee 테이블에서 사원의 이름, 입사일 출력
+-- ||'년'|| => + 개념으로 보면 된다. 
+select emp_name"직원명",
+extract(year from hire_date)||'년'||
+extract(month from hire_date)||'월'||
+extract(day from hire_date)||'일'||"입사일"
+from employee order by 2;               
+                           
+                                           
+                                           
+---------------------------------------------------------------------------------------------------
+               
+               
+----- [ 형변환 함수 ] -------------
+               
+-- 1. [ to_char ]- 날짜를 문자로 변환한다.
+ -- 숫자나 날짜 타입을 , 문자로 변환.
+ --'yyyy/mm/dd hh12:mi:ss day'
+ -- hh12/24 시간을 12시간 단위 or 24 시간 단위로 표기
+ -- mi minute의 약자로 분을 표기
+ -- dy or day => 일 or 일요일              
+               
+select to_char(sysdate, 'yyyy"년" mm"월" dd"일" hh12: mi: ss dy') from dual;
+               
+-- Quiz employee table에서 사원명, 고용일을(1990.02.06(화))로 출력.
+               
+select emp_name"직원명", to_char(hire_date, 'yyyy.mm.dd (dy)')"고용일" from employee;               
                                            
                                            
                                            
+-- 2. [ to_char() ] - 숫자를 문자로.
+-- l은 자국통화를 나타낸다.
+-- 999,999,999로 표기하는 이유는 자릿수가 모자르면 글자가 깨진다.
+-- ex) ###,###,### 그렇기에 충분하게 차리를 만들어줘야 한다.
+select to_char(salary, 'l999,999,999')"급여" from employee;               
+                                           
+
+                                           
+ -- 3. [ltrim or ltrim ] "좌측 정렬 or 우측 정렬
+               
+               
+ select emp_name"직원명", ltrim(to_char(salary, 'l999,999,999'))"급여" from dual;
+                                     
+-------------------------------------------------------------------------------------------
+                                     
+                                     
+                                     
+                                     
+ -- 4. [ to_date ] 문자 또는 숫자 형식의 날짜로 type의 형태로 만들어서 date 를 출력한다.
+-- 숫자 
+select to_date(20200920, 'yyyy/mm/dd') from dual; -- 20/09/20 출력
+select to_date(202009, 'yyyy/mm') from dual; -- 20/09/01 출력
+select to_date(2020, 'yyyy') from dual; -- 20/09/01 출력
+                                     
+                                     
+-- 5. [ nvl(A, 0) ] A가 NULL이면 0을 Return
+-- p1의 인자값은 number
+                                     
+select emp_name"직원", salary, nvl(bonus, 0) from employee;                                     
+                       
+                                     
+-- [ nvl2(A, 1, 0) ] A가 NULL 아니라면 A, null이면 0;
+                                     
+select emp_name, nvl2(bonus, 1,0) from employee;                                     
+                                     
+
+
+
+--------------------------------------------------------
+
+
+-- 6. [ decode(A, A, 'A입니다.', B. 'B입니다.')]  -- java로는 switch문
+-- P1의 분석할 대상값
+-- P2, P2의 인자가 P1과 같다면 P2를 출력
+-- P4, P4의 인자가 P1과 같다면 P4를 출력                                     
+-- 기본 전제가 ==와 같다라면이 전제이며, 크고 작고의 부등호는 조건식 형립이 안 되어서 제한이 많다.
+                                     
+Select decode(1, 1, '1입니다.', 2, '2입니다.') from employee;
+                                     
+-- quiz 01 직원들의 성별을 출력;
+                                     
+return : char for emp_no, 성별                                     
+method : instr(a, -1, 1,1)                                     
+                                     
+select emp_name, emp_no, decode((substr(emp_no, 8,1)), 1, '남', 2, '여')"성별" from employee order by 2;
+-- substr은 숫자로 받아서 문자로 return하지만 오라클의 문맥 인식기능이 있기에
+-- 설령 문자로된 1이라 해도 비교군에 sinlge quotation이 아닌 숫자 1이라고 해도
+-- 문맥검사기에 자동으로 형변환이 이루어지기에 비교군으로서 성립이 된다.
+-- 즉 숫자로 substract했을 때, 비교군이 숫자인(no quotation)이여도 비교군으로서 성립이 된다.
+
+
+
+
+-- ** 7. [ case when end ] java의 if문
+                                     
+-- 직원들의 성별을 그리고 2000년생 을 나누시오.
+-- switch문인 decode의 기능을 모두 수행가능.
+
+select emp_name"직원명", emp_no"생년월일", case
+when substr(emp_no, 8,1)=1 then '남'
+when substr(emp_no, 8,1)=2 then '여'
+else '2000년생'
+end "성별"
+from employee;
+                                     
+                                     
+                               
+
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
                                            
                                            
