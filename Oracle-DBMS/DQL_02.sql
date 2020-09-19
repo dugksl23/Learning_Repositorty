@@ -140,11 +140,9 @@ select '안녕하세요'"instr test", instr('안녕하세요', '요', 1) from du
 -- p3 : 문자열 내에서 n 번째 index부터 p2 검색 수행. 
 -- p4 : 찾을 글자가 등장하는 n번째 index;
 
-select instr('Hello Java Word', 'java) from dual;
---select 'Hello World Hi Java'"instr test", instr('Hello World Hi Java','J', 1, 1) from dual;
-             
+select 'Hello World Hi Java'"Instr test", instr('Hello World Hi Java', 'J', 1,1) from dual;
 
-             
+
 -- quick Quiz 01 : Employee table에서 각 직원의 이메일 @ 기호 위치를 출력해보세요.
              
              
@@ -152,9 +150,8 @@ select instr('Hello Java Word', 'java) from dual;
  *적용 조건 : 이메일 내에서 @의 인덱스를 출력
  *return type:char형
  *적용함수 : instr();
-
-select 
-          
-
-
-
+ 
+ select emp_name, email, '@'"index_test", instr(email, '@', 1,1)"index" from employee; 
+ 
+ 
+ 
