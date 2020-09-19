@@ -14,6 +14,10 @@ select current_date from dual;
 
 -- 2. to_date 
 
+select to_date(sysdate, 'yyyy/mm/dd') from dual;
+select to_date('19900318', 'yyyy/mm/dd') from dual;
+
+
 -- 1. [ to_timestamp(DATE TYPE) ] : 초단위 이하의 밀리세컨드까지 처리를 한다.
 
 select to_timestamp(sysdate) from dual;
@@ -26,6 +30,8 @@ select to_timestamp(sysdate) from dual;
 -- 년차를 구할 때 많이 쓴다.
 -- p1의 날짜 date(시간)까지.
 -- p2 인자의 시간부터
+-- p1 : date 형식의 날자타입
+-- p2 : '20/09/01'
 
 -- months_between에 년원일로 입력하면 소숫점 발생.
 select emp_name"직원명", months_between(sysdate, hire_date)"개월수" from employee; -- 367.123123
@@ -39,10 +45,29 @@ select emp_name"직원명", floor(months_between(sysdate,hire_date)/12)"년차" 
 
                                            
                                            
--- 3. [ add.months(A, B)]
+-- 3. [ add_months(A, B)]
 -- A를 기준으로, B의 숫자(개월수)를 입력하면, B를 더한 미래의 개월수를 RETURN한다.
+-- p1 : date type or '19/01/01'
+-- p2 : 정수                                           
+-- return은 date 타입    
+-- 날짜 타입에 정수룰 나눗셈하면 개월수가 됨.
                                            
                                            
+                                           
+                                           
+                                           
+ -- 1. 입대일(오늘)과 전역일(1년 8개월)을 구하시오                                          
+ select sysdate"입대일", add_months(sysdate, 18)"제대일" from dual;                                         
+                                                                                   
+ -- 2. 군복무 일수를 구하시오.
+  
+                                           
+select sysdate"입대일", add_months(sysdate, 18)"제대일", (add_months(sysdate, 18)-sysdate)"복무일" from dual;
+                                       
+-- **날짜끼리는 뺄셈만 가능하다.
+                                           
+                                           
+ 
                                            
                                            
                                            
