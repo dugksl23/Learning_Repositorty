@@ -1,11 +1,11 @@
-package Secodn_Weeks_review;
+package Java_Fundmental_Program;
 
 import java.util.Scanner;
 
 public class Ai_up_down {
 
 	public static void main(String[] args) {
-		public Ai_up_down() {
+
 		int max, min;
 		int user, com_user = 0, com_ran;
 		int menu;
@@ -88,7 +88,6 @@ public class Ai_up_down {
 				System.out.println("<< 게임 종료 >>");
 				System.exit(0);	
 			}
-
 
 		}
 	}
