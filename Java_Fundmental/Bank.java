@@ -1,22 +1,21 @@
-package Secodn_Weeks_review;
+package Java_Fundmental_Program;
 
 import java.util.Scanner;
 
 public class Bank{
 
-	
-	
+
+
 	static int total=0;
-	
-	public Bank() {//Bank의 생성자
 
 
-		public static void main(String[] args) {
 
-		
-			int deposit, withdraw;
-			total=0;
-			
+	public static void main(String[] args) {
+
+
+		int deposit, withdraw;
+		total=0;
+
 		Scanner sc=new Scanner(System.in);
 
 		menu:for(;;) {
