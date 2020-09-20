@@ -13,9 +13,22 @@ select current_date from dual;
 -------------------------------------------------------------------------
 
 -- 2. to_date 
+-- p1 : 숫자 및 문자를 날짜의 형태로 맞추어서 기입
+-- p2 : p1의 인자를 출력할 날짜의 형태를 지정, 보통 /, :, "년" 으로 표기.
 
-select to_date(sysdate, 'yyyy/mm/dd') from dual;
-select to_date('19900318', 'yyyy/mm/dd') from dual;
+select to_date(sysdate, 'yyyy/mm/dd') from dual; --20/09/20
+select to_date('19900318', 'yyyy/mm/dd') from dual; -- 90/03/18
+select to_date('199006', 'yyyymm') from dual; -- 90년 6월 1일 출력
+select to_date('1990', 'yyyy') from dual; -- 90년 9월 1일 출력
+select to_date('1990', 'yyyy')-1 from dual; -- 90년 8월 30일 출력
+-- to_date처럼 date type에서 -1 및 +1은 하루를 더하고 빼는 것이다.
+-- 다만 to_char()는 date 함수가 아니기에 사칙연산이 되지 않는다.
+
+
+-- 현재 날짜에서 하룰 빼시오.
+select to_date(sysdate, 'yyyy/mm/dd')-1 from dual; -- 20년 9월 19일
+-- 현재 날짜에서 하룰 빼시오.
+select to_date(sysdate, 'yyyy/mm/dd')+1 from dual; -- 20년 9월 19일
 
 
 -- 1. [ to_timestamp(DATE TYPE) ] : 초단위 이하의 밀리세컨드까지 처리를 한다.
@@ -28,8 +41,8 @@ select to_timestamp(sysdate) from dual;
 -- 2. [ months_between(A, B)] : p1의 인자를 기점으로 p2의 날자까지의 개월수를 반환한다. 
 -- return 값은 개월수
 -- 년차를 구할 때 많이 쓴다.
--- p1의 날짜 date(시간)까지.
--- p2 인자의 시간부터
+-- p1의 날짜 date(시간)을 기점으로
+-- p2 인자의 시간이 미래면 -로 출력, 과거면 +로 출력
 -- p1 : date 형식의 날자타입
 -- p2 : '20/09/01'
 
@@ -42,6 +55,8 @@ select emp_name"직원명", floor(months_between(sysdate, hire_date))"개월수"
 
 -- 이 개월수를 다시 12개월(1년치)로 환산.
 select emp_name"직원명", floor(months_between(sysdate,hire_date)/12)"년차" from employee order by 1 asc;
+select emp_name, hire_date, ceil((sysdate-hire_date)/365)"년차" from employee order by 2;
+select emp_name, hire_date, ceil(months_between(sysdate, hire_date)/12)"년차" from employee order by 2;
 
                                            
                                            
@@ -73,12 +88,16 @@ select sysdate"입대일", add_months(sysdate, 18)"제대일", (add_months(sysda
  -- session이 한국으로 되어있기에 한국어로 표기한다.
  -- 이외에도 (일월화수목금토) 순으로 숫자를 입력해도 된다.
  -- return 값은 date함수이며, 날짜끼리 뺼셈할 땐 일수로 계산되어 뺄셈이 됨.
+ 
+ -- 1234567
+ -- 일~토
 
 select next_day(sysdate, 2) from dual; -- 20/09/21(월)이 출력됨.
-select next_day(sysdate, 2)-1 from dual; -- 20/09/20(월)이 출력됨.
--- -1이 일수로 계산되어 자동 형변환되어서 뺄셈이 이루어진다.
+select next_day(sysdate, 2)-1 from dual; -- 20/09/20(일)이 출력됨.y
+select next_day(sysdate, 2)+1 from dual; --  20/09/22(화) 출력
+-- -1 및 +1은 date 함수에서만 가능하다.
                                            
-                                           
+                                          
 -- 5. [ last_day ] 특정 날짜 기간의 마지막 일자를 return 한다.
 -- ex) 지금이 9월이기에 sysdate을 하면 9월이 뜬다.
 --     따라서 9월의 마지막 날인 31일을 return
@@ -94,6 +113,16 @@ select last_day(sysdate) from dual;
 select last_day(add_months(sysdate, 1))"다음달 마지막 일" from dual;
 select to_date(last_day(add_months(sysdate, 1)), 'dd')"다음달 마지막 일" from dual;
 
+                        
+                        
+-- qick quiz_02 지난달의 마지막 일을 구하라.
+
+select sysdate"현재일", last_day(add_months(sysdate, -1)) from dual; -- 20/08/31 출력
+                        
+                        
+                        
+                        
+                        
 
 -- 5. [ extract : 발췌 ] 
 -- 특정 시간을 기점으로 해서 년 월 일을 뽑는다.
@@ -104,7 +133,26 @@ select extract(day from sysdate) from dual;
 
 -- 현재 시점에서 내년을 뽑아내시오.
                         
-select extract(year from (add_months(sysdate, 4)))||'년' from dual;   
+select extract(year from (add_months(sysdate, 4)))||'년' from dual;
+
+-- 현재 시점에서 작년을 뽑아오세요.
+
+select extract(year from sysdate)-1 from dual; -- 2019년
+select extract(year from (add_months('20190909', -1))) from dual; -- 2019
+select extract(year from (to_date(20190909, 'yyyymmdd'))) from dual; -- 2019
+
+** -- 날짜 관련함수에서 to_char는 되지 않음.
+select extract(year from (to_char(20190909, 'yyyymmdd'))) from dual;
+ 
+                                  
+                                  
+ 
+                                  
+                                  
+               
+                                     
+                                   
+                                     
 
 ------------------[ 문제 ]----------------
 
@@ -152,7 +200,11 @@ select to_char(sysdate, 'yyyy"년" mm"월" dd"일" hh12: mi: ss dy') from dual;
                
 select emp_name"직원명", to_char(hire_date, 'yyyy.mm.dd (dy)')"고용일" from employee;               
                                            
-                                           
+-- Quiz employee table에서 사원명, 고용일을(1990(화))로 출력.
+select to_char(hire_date, 'yy"년" (dy)') from employee; -- 20년 (일) 출력
+-- 날짜를 원하는 요일과 형태로 출력할 땐 to_date보다는 to_char가 효율적.
+               
+               
                                            
 -- 2. [ to_char() ] - 숫자를 문자로.
 -- l은 자국통화를 나타낸다.
