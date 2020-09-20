@@ -84,12 +84,22 @@ salary<=2000000;
 
 
 
+
+
+
 -- 5. 급여가 200만~300만원 사이인 여직원 중에서 4월 생일자인 직원을 검색하여 이름 주민번호 급여 부서코드를 출력하되,
 --   주민번호 순으로 내림차순 출력
 
 select emp_name"이름", salary"급여", emp_no"주민번호", nvl(dept_code, '없음')"부서코드" from employee where 
 (salary between 2000000 and 3000000) and
 emp_no like '___4__-2%' order by 3;
+
+
+
+select emp_name, emp_no from employee where 
+substr(emp_no, 8, 1)=2 and
+substr(emp_no, 4,1)=4;
+
 
 -- 6. 남자 사원 중 보너스가 없는 사원의 오늘까지 근무일을 측정하여,
 -- 1000일 마다 (소수점 제외) 급여의 10% 보너스를 계산하여 
@@ -98,6 +108,9 @@ emp_no like '___4__-2%' order by 3;
 select emp_name"직원명", to_char((floor((sysdate-hire_date)/1000)*(salary*0.1)), 'l999,999,999')"보너스", floor((sysdate-hire_date))||'일'"근무일수" from employee
 where emp_no like '______-1%' and
          bonus is null;
+         
+select emp_name, ltrim(to_char(floor((((sysdate-hire_date)/1000))*(salary*0.1)), 'l999,999,999'))"10% bonus based 1000day" from employee where bonus is null and
+substr(emp_no, 8, 1)=1;
 
 
 
@@ -223,7 +236,7 @@ select '-3'"나 음수임", abs(-3) from dual;
 select 14/7 from dual; -- 출력값이 2
 select 15/7 from dual; -- 출력값이 2.1~~
 
-select mod(15/7) from dual; --나머지 값 2출력
+select mod(15, 7) from dual; --나머지 값 1출력
 
 
 --*** 8. [ round ] : 반올림. 소수점 자리르 지정하기 위해서 round 함수를 사용한다.
@@ -271,11 +284,18 @@ select floor((sysdate-hire_date)/365) from employee;
 select trunc(1234.543, 2) from dual; --1234.54
 select trunc(1234.549, 2) from dual; --1234.54
 
+select trunc(((sysdate-hire_date)/365),0) from employee;
+-- 소숫점 첫번째 자리(인덱스로는 0번)을 버리는 기능은
+-- floor() 함수와 같은 기능을 수행하며, 0은 생략가능.
+-- 따라서 소숫점 첫번째 자리를 잘라낸다는 가정 하에서는
+-- trunc()의 함수는 소숫점 첫번째 자리에서는 0을 생략가능하므로,
+-- 이 점에 한해서만, floor()와 trunc()함수의 기능을 같다고 할 수 있다.
+
 
 -- *** [ ceil ] : 올림함수, 
 -- 소숫점 자리를 지정할 순 없으며, 소숫점 자리를 모두 올림한다.
-
+-- 회사의 연차를 구할 때 사용된다. 소숫점 첫번째 자리를 무조건 올림.
 select cell(1234.567) from dual; --1240;
-
+select ceil((sysdate-hire_date)/365)"연차" from employee;
 
 
