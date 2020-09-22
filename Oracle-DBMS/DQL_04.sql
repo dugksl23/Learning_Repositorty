@@ -341,6 +341,13 @@ select
 
             
   
+select  
+dept_code,
+avg(salary)
+from employee
+where dept_code in ('D6', 'D9')
+ group by dept_code
+  having avg(salary)>3000000;
   
   
 
