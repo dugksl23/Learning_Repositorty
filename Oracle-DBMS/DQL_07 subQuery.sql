@@ -417,7 +417,7 @@ salary > (select salary from employee where salary=3500000);
                                                                                   
                                                                                   
 -- Q1. D1 또는 D5 부서의 사원들의 급여중에서
---     EMPLOYEE TABLE의 SALARY보다 적은 급여를 가진 사원, 부서코드, 급여를 모두 출력하시오.
+--     EMPLOYEE TABLE의 SALARY보다 / 적은 급여를 가진 사원, 부서코드, 급여를 모두 출력하시오.
                                                                    
 SELECT 
     emp_name,
@@ -429,23 +429,20 @@ from employee
 -- single-row subquery returns more than one row
 -- 즉 다중행에 서브쿼리에서 2개 이상의 데이타를 반환해서 발생했기에 불가능하다는 것이다.
 -- 이를 해결하기 위해서는 쓰는 것이 all 또는 any이다.
-    
-                                                                   
+                                                                                          
+--** ANY는 subQuery의 where절의 비교구문에 a or b
+--   and는 subQuery의 where절의 비교구문에 a and b                                                                       
+                                                                          
+                                                      
 select
  emp_name,
  salary
 from employee
  where salary < any (select salary from employee where dept_code in ('D1', 'D5'));
-
-                                                                                          
---** ANY는 subQuery의 where절의 비교구문에 a or b
---   and는 subQuery의 where절의 비교구문에 a and b                                                                       
-                                                                          
-                                                                          
-                                                                          
+                                                       
                                                                                  
 -- Q2. 부서별 평균 급여 중 /가장 낮은 부서의 급여보다/ - subquery
---     / main 크거나 같은 급여를 가진 사원의 이름, 급여, 부서명 출력
+--     크거나 같은 급여를 가진 사원의 이름, 급여, 부서명 출력 - /main
 
 -- *Output : salary, emp_name, dept_title              
 -- *required table:  EMPLOYEE, department
@@ -455,7 +452,7 @@ from employee
                    -- 먼저 모든 사원의 이름과 부서명 직급코드를 출력하는 것이기에
                    -- 1차적으로 main query 내에서 매핑을 시킨다.                                                       
                    -- 그다음, employee의 salary을 기준으로, 
-                   -- subquery에서 (mini(salary)를 부서별로 그룹핑하는 것을) 비교군으로 salary를 return.
+                   -- subquery에서 (AVG(salary)를 부서별로 그룹핑하는 것을) 비교군으로 salary를 return.
                    -- 직급코드를 기점으로 main 쿼리와 subQuery 매핑.                                                       
 -- 3. (subquery)  : (select avg(salary) from employee);                    
 --                  
@@ -488,13 +485,63 @@ select
 emp_name,
 salary
     from employee
-      where salary >
+      where salary >=
     any (select avg(salary) from employee group by dept_code);
    
                                                                      
 
     
-                                                                      
+--** 두개의 결과값이 다름, 물어보자.
+
+
+
+
+-- Q3. G2부서의 모든 사람들보다 /작은 급여를 받는 사람을 출력하세요./ - subquery
+
+-- *Output : salary, emp_name              
+-- *required table: EMPLOYEE
+-- 1. from(table) : employee
+-- 2. where(if)   : salary < any               
+                   -- employee의 salary을 기준으로, 
+                   -- subquery에서 (mini(salary)를 부서별로 그룹핑하는 것을) 비교군으로 salary를 return.
+                                                                  
+-- 3. (subquery)  : (select salary from employee);                    
+--                  
+-- 4. group by    :  (Group by dept_code)
+-- 5. having      :   
+-- 6. order by    : 
+-- 7. select      : salary, emp_name
+ --8. SELECT의 상관 QUERY : 
+--   (상호연관 단일 Query)                                                                     
+                                                                     
+
+
+select
+   EMP_NAME,
+   SALARY
+FROM EMPLOYEE
+    WHERE SALARY < ALL (SELECT SALARY FROM EMPLOYEE group by dept_code, salary having dept_code='D2');
+
+
+-- ** ORA-00979: not a GROUP BY expression
+--    즉 group by 표현식이 아니다라는 뜻이다.
+--    select 절에 있는 그룹함수를 제외한 모든 컬럼을  group by 절에 포삼시키고 조회해야
+--     그룹화가 되며 에러가 사라진다.
+
+-- **또 다른 풀이.
+
+select
+ emp_name,
+ salary
+from employee
+ where salary < all (select salary from employee where dept_code='D2');
+                                                                     
+
+                                                                     
+--** 다중행 subQUERY(WHERE 절에 2중 조건문이 있는 subQuery문)은 크다 작다를 all any를 붙여줘야지만 가능하다.
+--    단일행 쿼리 및 노멀 query문에서는 크다 작다 같다 비교가 모두 가능하지만,
+--     서브쿼리의 다중행 쿼리에서는 여러조건들을 가지기에 비교할 때에는 필수적으로 />= all/ <= any /in을 쓴다.
+                                                                     
        
                                                                           
                                                                           
