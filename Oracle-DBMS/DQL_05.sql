@@ -251,11 +251,94 @@ select
 
 
 
+-- 10. 한국과 일본에 근무하는 직원들의 사원명 부서명 지역명 국가명을 조회하시오.
+              
+ select
+   emp_name,
+   dept_title,
+   local_name,
+   national_code
+      from employee e, department, location
+         where                       -- 같은 값을 가진 서로 다른 두 테이블의 매칭시켜, 두 테이블 내에서 원하는 값만을 출력. 
+           dept_id=dept_code and       -- 매칭된 후에는 원하는 coulmn을 출력 가능.
+           location_id=local_code and
+           national_code in ('KO', 'JP');   
+              
+ 
+              
+              
+-- 11. 같은 부서에 근무하는 직원들의 사원명, 부서명, 동료이름을 조회
+-- 필요값 : 사원명(E1. EMP_NAME), 부서명(DEPT_TITLE), 동료이름(E2.EMP_NAME)
+-- 필요 COLUMN : EMPLOYEE, DEPARTMENT, 
+-- SELF JOIN
+-- 키워드는 같은 부서.
+-- 일반적으로는 부서를 기준으로 일하는 EMP_NAME을 출력하라면, 단일 쿼리문으로 가능.
+-- 하지만 같은 같은 부서라는 말이 들어가고, 비교 대상이 나와 다른 누군가이기에.
+-- E1, E2, DEPARTMENT가 필요.             
+
+ SELECT
+    E1.EMP_NAME,
+    D.DEPT_TITLE,
+    E2.EMP_NAME
+FROM EMPLOYEE E1, DEPARTMENT D, EMPLOYEE E2  --DEPT_TITLE을 기준으로
+    WHERE                                    -- 동료 1(E1) 동료2(E2)가 함께 일하고 있는가? 
+      E1.DEPT_CODE=D.DEPT_ID AND             -- E1에서 부서와 매핑시킨 후 이름을  부서명 출력
+      E1.DEPT_CODE=D.DEPT_ID;  
+     
+              
+                  
+    
+            
+              
+              
+-- 12.  보너스 포인트가 없는 직원중에서 
+--       직급이 차장과 사원의 사원명 직급명, 급여 조회. 
+-- Output : emp_name, job_name, salary                
+-- table :  employee, department
+-- 1. from(table) : employee, department 
+-- 2. where(if)   : dept_id=dept_code
+--                  bonus is null
+--                  job_name in ('사원', '차장')  
+ --3. group by    :  
+ --4. having      :  
+ --5. order by    :            
+              
            
+   select * from job; ---
+   select 
+   emp_id,
+   job_name,
+   salary
+   
+   from employee e, job j
+    where 
+        bonus is null and
+        e.job_code=j.job_code and -- 중복된 값을 가진 컬럼이 있다면, 일치된 각각의 컬럼내에서 
+        j.job_name in ('차장', '사원')                  -- select에서 지정된 값들을 출력한다.
+        order by 1;
               
 
+
+
+-- 13.  재직중인 직원 수와 퇴사한 직원의 수
               
+-- Output : count(*)             
+-- table :  ent_yn
+-- 1. from(table) : employee 
+-- 2. where(if)   : decode, case when
+--                    
+ --3. group by    :  -- 컬럼을 기준으로 그룹핑을 하여 범위를 좁힌다. 컬럼명을 기입하면 된다.
+ --4. having      :  
+ --5. order by    :                    
               
-              
+ select DECODE(SUBSTR(ENT_YN,1,1),'Y','퇴사','N','재직') 재직여부, 
+count(*) "인원 수" from employee 
+group by ent_yn;
+  
+                
+         DECODE(ENT_YN, 'Y','퇴사', 'N', '재직')      
+                
+                
+                    
               
               
