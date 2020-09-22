@@ -239,6 +239,38 @@ select
 from employee                                                                                     -- 상관쿼리는 from이라는 employee라는 for문 내에서
   where dept_code in ('D1', 'D2') AND                                                             -- employee의 dept_code와 상관쿼리인 from의
         SALARY >                                                                                  -- department 테이블의 column인 dept_id와 매핑될 때         
-        (SELECT AVG(SALARY) FROM EMPLOYEE GROUP BY DEPT_CODE HAVING DEPT_CODE='D5');              -- department table에서 dept_title column을 return한다.                                                       
-                                                               
-                                                               
+        (SELECT AVG(SALARY) FROM EMPLOYEE GROUP BY DEPT_CODE HAVING DEPT_CODE='D5');              -- department table에서 dept_title column을 return한다.     
+        
+        
+        
+        
+---------- [ 02. 다중행 subQuery ]----------------------
+
+
+
+-- 01. 송중기나 박나리가 /속한 부서에 속한 사람들의 정보.
+
+-- *Output : *               
+-- *required table:  EMPLOYEE
+-- 1. from(table) : employee
+-- 2. where(if)   : dept_code
+--                 -- 부서명을 기준으로, subquery에서 (송종기 또는 박나리가 속한 dept_code)를 비교군으로 return.
+-- 3. (subquery)  : (select dept_code from department where emp_name='송종기' or emp_name='박나라');                    
+--                   
+-- 4. group by    :  
+-- 5. having      :
+-- 6. order by    : 
+-- 7. select      : *
+ --8. SELECT의 상관 QUERY : 
+--   (상호연관 단일 Query) 
+
+select *
+from employee
+where dept_code in
+      (select dept_code from employee where emp_name='송종기' or emp_name='박나라');
+                            
+-- **부서 정보는 dept_code 또는 dept_title로 해당 정보를 매핑시킬 수가 있다.
+--   상기의 문제는 같은 부서라는 전제조건이기에, dept_code만으로도 전제조건을 만족시킬 수가 있다.
+
+
+
