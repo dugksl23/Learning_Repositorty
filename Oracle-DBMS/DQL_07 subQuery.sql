@@ -364,7 +364,7 @@ from employee, department
           job_code in (select job_code from job where job_code not in ('부사장','대표'));
                                                                
                                                                        
----------- [ 03. 다중행의 All 과 any == and 와 or ]----------------------                                                                      
+---------- [ 03. 다중열의 All 과 any == and 와 or ]----------------------                                                                      
  -- in이 == 같다라는 의미를 갖는다면
  -- All 은 A AND B A이며 B인 조건 구문이며,
  -- ANY 는 A OR B A 또는 B인 조건 구문의 SUBQUERY의 제일 앞에 쓰이는 구문이며, 
@@ -542,6 +542,41 @@ from employee
 --    단일행 쿼리 및 노멀 query문에서는 크다 작다 같다 비교가 모두 가능하지만,
 --     서브쿼리의 다중행 쿼리에서는 여러조건들을 가지기에 비교할 때에는 필수적으로 />= all/ <= any /in을 쓴다.
                                                                      
-       
-                                                                          
+ 
+
+--------------------------- [ 04. 다중행&다중열 subQuery ] --------------------------------------
+      
+-- 다중행, 다중열은 where 절에서 비교를 할 데이블도 두개이다.
+-- 따라서 main query의 비교대상이 될 where 절의 table도 동일해야 한다.
+
+-- 01. 기술지원부이면서 급여가 200만원인 직원 이름, 부서코드, 급여 출력
+    
+    
+select 
+    emp_name,
+    dept_code,
+    salary
+from employee 
+    where salary in (select salary from employee, department where dept_id=dept_code and dept_title='기술지원부');
+                                                          
+                                                                     
+-- 02. 직급별로 가장 낮은 /급여를 받는 직원의 이름, 사번, 부서 코드, 입사일과 연봉.
+-- 직급별 가장 낮은 급여 -- group by
+
+
+select
+  emp_name,
+  dept_code,
+  emp_id,
+  salary*12,
+  hire_date 
+from employee 
+    where salary in
+          (select min(salary) from employee group by job_code);
+
+-- ** 문제점
+-- 직급별로 가장 낮은 급여를 받는 사람이란 직급별로 한사람씩이라는 건데... 상기의 코드로는 윤은혜가 출력됨.                                                                     
+-- 단순한 group by를 통한 정렬은 중복을 제거해도...                                                                      
+                                                                      
+                                                                   
                                                                           
