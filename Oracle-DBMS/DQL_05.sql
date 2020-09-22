@@ -236,19 +236,16 @@ nvl(e.bonus, 0) 보너스
 -- 09. 급여 등급 테이블의 최대 급여(MAX_SALARY)에서 -500000보다 많이 받는 직원들의
 --     사원명, 직급명, 급여, 연봉 조회(사원테이블과 급여등급 테이블을 SAL_LEVEL 컬럼으로 조인)
 
-
-SELECT 
+select
  e.emp_name 직원,
  j.job_name 직급,
  salary 급여,
  salary*12 연봉
- from employee e, department d, job j, sal_grade s
+ from employee e, job j, sal_grade s
      where 
-       e.dept_code=d.dept_id and
        j.job_code=e.job_code and
-              
-       max(s.sal_grade)>
-
+       s.sal_level=e.sal_level and       
+       (s.max_sal)-500000>salary;
 
               
 
