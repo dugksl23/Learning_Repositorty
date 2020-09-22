@@ -219,21 +219,38 @@ nvl(e.bonus, 0) 보너스
               
  -- 08. 부서 코드가 D2인, 사원명, 직급명, 부서명, 근무지역명 조회.
 
- select 
-e.emp_name 직원,
-j.job_name 직급,
-d.dept_title 부서,
-l.local_name 극무지역
-     from employee e, job j, department d, location l
-        where 
-            e.job_code=j.job_code and
-            e.dept_code=d.dept_id and
-            d.location_id=l.local_code and
-            dept_code ='D2';
-             
               
+  select 
+    e.emp_name 직원명,
+    j.job_name 직급,
+    d.dept_title 부서,
+    l.local_name
+       from employee e, department d, job j, location l
+          where 
+             e.dept_code=d.dept_id and
+             e.job_code=j.job_code and
+             d.location_id=l.local_code and
+             e.dept_code='D2'
+               ORDER BY 3;
+
+-- 09. 급여 등급 테이블의 최대 급여(MAX_SALARY)에서 -500000보다 많이 받는 직원들의
+--     사원명, 직급명, 급여, 연봉 조회(사원테이블과 급여등급 테이블을 SAL_LEVEL 컬럼으로 조인)
+
+
+SELECT 
+ e.emp_name 직원,
+ j.job_name 직급,
+ salary 급여,
+ salary*12 연봉
+ from employee e, department d, job j, sal_grade s
+     where 
+       e.dept_code=d.dept_id and
+       j.job_code=e.job_code and
               
-        
+       max(s.sal_grade)>
+
+
+              
 
 
 
