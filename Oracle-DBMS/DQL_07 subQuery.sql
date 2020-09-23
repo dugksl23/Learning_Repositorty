@@ -131,7 +131,7 @@ select
   salary
 from employee
 
-  where emp_id!='윤은해' and
+  where emp_name!='윤은해' and
   salary in
        (select salary from employee where emp_name='윤은해');
        
@@ -142,7 +142,7 @@ select
   salary
 from employee
 
-  where emp_id!='윤은해' and
+  where emp_name not like'윤은해' and
   salary =
        (select salary from employee where emp_name='윤은해');       
        
@@ -253,7 +253,16 @@ from employee                                                                   
   where dept_code in ('D1', 'D2') AND                                                             -- employee의 dept_code와 상관쿼리인 from의
         SALARY >                                                                                  -- department 테이블의 column인 dept_id와 매핑될 때         
         (SELECT AVG(SALARY) FROM EMPLOYEE GROUP BY DEPT_CODE HAVING DEPT_CODE='D5');              -- department table에서 dept_title column을 return한다.     
-        
+ 
+ 
+ select      
+    (select depT_title from department where dept_code=dept_id),
+    emp_name,
+    SALARY
+ FROM EMPLOYEE
+   WHERE DEPT_CODE IN ('D1' , 'D2') AND
+               SALARY > (SELECT AVG(SALARY) FROM EMPLOYEE WHERE DEPT_CODE='D5');
+ 
         
         
         
@@ -289,7 +298,7 @@ where dept_code in
 
 
 
--- 02. 송중기나 박나리가 /속한 부서에 속한 사람들의 정보.
+-- 02. 차태현과 전지연의 급여등급과 같은 사원의 직급코드와 사원명을 출력하시오
 
 -- 차태현, 전지연 사원의 급여등급(sal_level)과 같은 사원의 직급코드 사원명 출력
 -- 단, 차태현 전지연은 빼고 출력.
@@ -476,7 +485,7 @@ from employee, department
           salary < any (select avg(salary) from employee group by dept_code);
 
 
---** 상관 Query를 통한 풀이
+--** 상관 Query를 통한 풀이 
 
 
 
