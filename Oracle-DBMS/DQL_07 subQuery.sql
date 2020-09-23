@@ -456,11 +456,11 @@ from employee
 -- *Output : salary, emp_name, dept_title              
 -- *required table:  EMPLOYEE, department
 -- 1. from(table) : employee, department
--- 2. where(if)   :  dept_id=dept_code and 
---                   salary < any               
+-- 2. where(if)   :  dept_code, salary, 
+--                                  
                    -- 먼저 모든 사원의 이름과 부서명 직급코드를 출력하는 것이기에
                    -- 1차적으로 main query 내에서 매핑을 시킨다.                                                       
-                   -- 그다음, employee의 salary을 기준으로, 
+                   -- 그다음, employee의 salary와 dept_code를 기준으로, 
                    -- subquery에서 (AVG(salary)를 부서별로 그룹핑하는 것을) 비교군으로 salary를 return.
                    -- 직급코드를 기점으로 main 쿼리와 subQuery 매핑.                                                       
 -- 3. (subquery)  : (select avg(salary) from employee);                    
@@ -472,40 +472,23 @@ from employee
  --8. SELECT의 상관 QUERY : 
 --   (상호연관 단일 Query) 
                                                                      
-                                                                     
-                                                                          
-                                                                          
-                                                                          
-select
+                      select 
     emp_name,
-    dept_title,
-    salary
-from employee, department
-    where dept_code=dept_id and
-          salary < any (select avg(salary) from employee group by dept_code);
+     (SELECT DEPT_TITLE FROM DEPARTMENT WHERE DEPT_CODE=DEPT_ID),
+    salary                                                      
+from employee
+    where (job_code, salary) in (select job_code, min(salary) from employee group by job_code); 
 
 
---** 상관 Query를 통한 풀이 
-
-
-
-select 
-(select dept_title from department where dept_code=dept_id),
-emp_name,
-salary
-    from employee
-      where salary >=
-    any (select avg(salary) from employee group by dept_code);
-   
+--**직급별 최소값, 직급별 최대값, 부서별 평균 연봉값 : 다중행 다중열 query.
+          
                                                                      
-
-    
---** 두개의 결과값이 다름, 물어보자.
+                                                                    
 
 
 
 
--- Q3. G2부서의 모든 사람들보다 /작은 급여를 받는 사람을 출력하세요./ - subquery
+-- Q3. D2부서의 모든 사람들보다 /작은 급여를 받는 사람을 출력하세요./ - subquery
 
 -- *Output : salary, emp_name              
 -- *required table: EMPLOYEE
@@ -524,27 +507,12 @@ salary
 --   (상호연관 단일 Query)                                                                     
                                                                      
 
-
-select
-   EMP_NAME,
-   SALARY
-FROM EMPLOYEE
-    WHERE SALARY < ALL (SELECT SALARY FROM EMPLOYEE group by dept_code, salary having dept_code='D2');
-
-
--- ** ORA-00979: not a GROUP BY expression
---    즉 group by 표현식이 아니다라는 뜻이다.
---    select 절에 있는 그룹함수를 제외한 모든 컬럼을  group by 절에 포삼시키고 조회해야
---     그룹화가 되며 에러가 사라진다.
-
--- **또 다른 풀이.
-
 select
  emp_name,
  salary
 from employee
- where salary < all (select salary from employee where dept_code='D2');
-                                                                     
+ where salary < ANY (select salary from employee where dept_code='D2');
+-- 즉 모든 사람들이기에 한사람 별로 작은 사람들을 모두 출력한다. 그렇기에 ALL 이 아닌 ANY(개별로)                                
 
                                                                      
 --** 다중행 subQUERY(WHERE 절에 2중 조건문이 있는 subQuery문)은 크다 작다를 all any를 붙여줘야지만 가능하다.
@@ -559,15 +527,11 @@ from employee
 -- 따라서 main query의 비교대상이 될 where 절의 table도 동일해야 한다.
 
 -- 01. 기술지원부이면서 급여가 200만원인 직원 이름, 부서코드, 급여 출력
+ -- 기술지원부 이면서 급여 = dept_code=dept_id, salary   
     
-    
-select 
-    emp_name,
-    dept_code,
-    salary
-from employee 
-    where salary in (select salary from employee, department where dept_id=dept_code and dept_title='기술지원부');
-                                                          
+from employee
+    where salary=2000000 and dept_code in (select dept_id from department where dept_title='기술지원부');
+                                              
                                                                      
 -- 02. 직급별로 가장 낮은 /급여를 받는 직원의 이름, 사번, 부서 코드, 입사일과 연봉.
 -- 직급별 가장 낮은 급여 -- group by job_code
@@ -585,8 +549,140 @@ from employee
 
 -- ** 문제점
 -- 직급별로 가장 낮은 급여를 받는 사람이란 직급별로 한사람씩이라는 건데... 상기의 코드로는 윤은혜가 출력됨.                                                                     
--- 단순한 group by를 통한 정렬은 중복을 제거해도... 잡코드로 그룹핑에 대해서 더 알아볼 필요 있음.
+-- 단순한 group by를 통한 정렬은 중복을 제거해도... 잡코드로 그룹핑한 후에 최소값이랑 비교해서
+-- 같은 값이기에 결국 그 값과 같은 모든 사람을 출력하는 구문이라서 틀렸다.
+-- 따라서 직급별, 가장 낮은 급여를 따로 매핑해줘야 한다.
                                                                      
-                                                                      
+                                                                     
+     select 
+        emp_name,
+        emp_id,
+        salary,
+        salary*12,
+        to_char(hire_date, 'yyyy"년"mm"월"dd"일"')
+      from employee  
+        where (salary, job_code) in (select min(salary), job_code from employee group by job_code);
+                                                                     
+
+
+-- 03. 기술 지원부에 속한 사람 중 연봉이 가장 높은 사람의 이름 부서코드 급여 출력.
+
+-- *Output : salary, emp_name, dept_code              
+-- *required table: EMPLOYEE
+-- 1. from(table) : employee
+-- 2. where(if)   : salary in              
+                   -- employee의 salary을 기준으로, 
+                   -- subquery에서 (mix(salary)를 부서별로 그룹핑하는 것을) 비교군으로 salary를 return.
+                                                                  
+-- 3. (subquery)  : (select salary from employee, department where dept_code=dept_id and dept_title='기술지원부');                    
+--                  
+-- 4. group by    :  (Group by dept_code)
+-- 5. having      :   
+-- 6. order by    : 
+-- 7. select      : salary, emp_name
+ --8. SELECT의 상관 QUERY : 
+--   (상호연관 단일 Query)                                                                        
+ 
+select     
+   emp_name,
+   dept_code,
+   salary
+from employee
+   where salary in (select max(salary) from employee, department where dept_code=dept_id and dept_title='기술지원부');
+                                                                          
+ --- 다중행 다중열 쿼리                                                                    
+
+ select 
+    emp_name,
+    salary,
+    dept_code
+from employee 
+    where (salary, dept_code) in (select max(salary), dept_code from employee, department where dept_code=dept_id group by dept_code, dept_title having dept_title='기술지원부');
+                                                                                                           
+ --- 4. 매니저가 있는 직원중 급여가 전체사원 급여 평균을 넘는 직원의 사번, 이름, 매니저 이름,
+--      급여(만원단위)를 출력.
+                                                                     
+  
+
+  select
+    e1.emp_name,
+    e1.emp_id,
+    e2.emp_name,
+    to_char(e1.salary*12, 'l999,999,999')
+from employee e1, employee e2
+    where e1.manager_id is not null and  
+                e1.manager_id=e2.emp_id and
+                e1.salary > (select avg(salary) from employee);                                                                  
+                                                                     
+                                                                     
+ --  Q5. 각 직급별/ 급여 등급이 가장 높은 직원의 이름, 직급 코드, 급여등급.
+
+ select 
+    emp_name"dlfma",                                                                     
+    job_code"직급코드", 
+    sal_level"급여등급",
+    ltrim(to_char(salary, 'l999,999,999'), ' ')"급여"
+from employee
+    where( sal_level, job_code) in (select min(sal_level), job_code from employee group by job_code);
+
+ --  Q6.  부서별 평균 급여가 220만원 이상인 부서명, 평균급여를 출력해주세요.
+
+select
+    dept_title"부서",
+    ltrim(to_char(floor(avg(salary)),'l999,999,999'), ' ')"급여"
+from employee, department
+    where  dept_id=dept_code                                                    
+        group by dept_title
+         having avg(salary)>2200000
+          order by 2;
+                     
+                                                                     
+                                                                     
+   --------------------------------- [ 05 순위 매기는 함수 ] ----------------------------------
+                                                                     
+                                                                     
+  ---- 1. ranl() over()
+
+-- over의 소괄호에 누굴 기준으로 정렬할지를 정한다.
+-- 단 동점인 경우에는 한 랭크를건너 뛰고 정렬하며
+-- 다음 순위를 건너띄기도 한다.
+-- 즉 21위가 두명, 다음 순위는 23위가 된다.
+
+select rank() over(order by salary desc)순위, emp_name, salary from employee;
+-- 좌측에 순위가 1등부터 정렬되어서 매겨진다.
+
+
+-- 02. 동점 순위(21ㅇ 만들지 않는 방식.
+--     동점 순위를 20위가 2명, 그다음은 21위로 바로 이어진다.
+
+select dense_rank()over(order by salary desc)순위, emp_name, salary from employee;
+
+
+-- 03. row number() over()
+-- 행마다 고유한 번호를 가지며, 임의에 번호 및 순위를 매기려고 할 때 사용된다.
+-- 사용빈도는 매우 높기에 외워두자!
+                                                                     
+
+select row number() over(order by salary desc)순위, emp_name, salary from employee;
+
+
+
+
+--------------------------[ column들을 담아두는 임시 테이블 wuth temp ] -----
+
+with temp as ( select emp_id, emp_name, emp_no from employee)
+select emp_id from temp;
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
+                                                                     
                                                                    
                                                                           
