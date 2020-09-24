@@ -193,3 +193,8 @@ grant select on tester.members to tester02;
 
 
 select * from tester.members;
+                                                                  
+                                                                  
+                                                                  
+                                                                  
+                                                                  
