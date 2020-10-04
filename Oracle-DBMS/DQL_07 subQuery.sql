@@ -477,22 +477,25 @@ select emp_name, SALARY, DEPT_CODE
  --8. SELECT의 상관 QUERY : 
 --   (상호연관 단일 Query) 
                                                                      
+
 select 
     emp_name,
-     (SELECT DEPT_TITLE FROM DEPARTMENT WHERE DEPT_CODE=DEPT_ID),
-    salary                                                      
-from employee
-    where (job_code, salary) in (select job_code, min(salary) from employee group by job_code); 
+    salary,
+    dept_title
+from employee, department
+    where dept_code=dept_id and
+    salary < any (select min(salary) from employee group by dept_code); 
+                                                                                  
 
+--**직급별 최소값, 직급별 최대값, 부서별 평균 연봉값을 비교군으로 둘때 크다 작다라면
+-- where 절에서 dept_code=dept_id를 묶고 그 다음에 부서별 평균 급여를 서브쿼리로 두면 된다.                                                                                  
+-- 하지만 in 일 때에는 다중행 다중열 query로서 인자가 2개가 된다..
 
---**직급별 최소값, 직급별 최대값, 부서별 평균 연봉값 : 다중행 다중열 query.
-          
-                                                                     
-                                                                    
-
-
-
-
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
 -- Q3. D2부서의 모든 사람들보다 /작은 급여를 받는 사람을 출력하세요./ - subquery
 
 -- *Output : salary, emp_name              
@@ -533,10 +536,25 @@ from employee
 
 -- 01. 기술지원부이면서 급여가 200만원인 직원 이름, 부서코드, 급여 출력
  -- 기술지원부 이면서 급여 = dept_code=dept_id, salary   
-    
+
+SELECT   
+    EMP_NAME,
+    SALARY,
+    DEPT_CODE  
 from employee
     where salary=2000000 and dept_code in (select dept_id from department where dept_title='기술지원부');
+ 
+                                                                                  
                                               
+   SELECT
+    EMP_NAME,
+    DEPT_CODE,
+    SALARY
+ FROM EMPLOYEE   
+  WHERE (DEPT_CODE, SALARY) IN (SELECT DEPT_ID, SALARY FROM DEPARTMENT, EMPLOYEE WHERE SALARY=2000000 AND DEPT_TITLE='기술지원부');
+                                              
+                                                                                  
+                                                                                  
                                                                      
 -- 02. 직급별로 가장 낮은 /급여를 받는 직원의 이름, 사번, 부서 코드, 입사일과 연봉.
 -- 직급별 가장 낮은 급여 -- group by job_code
