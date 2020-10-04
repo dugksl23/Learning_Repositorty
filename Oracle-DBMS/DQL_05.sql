@@ -153,7 +153,9 @@ select
  -- to_date을 통해 해당날짜를 지정하여 날짜 type yyyymmdd로 만들고
  -- to_char는 년월일 시분초를 원하는 형태로 출력이 가능하기에
  -- to_char(to_date(20251225,'yyyymmdd'),'day') from dual;
-            
+   
+ -- to_char(251225, 'yyyymmdd')는 문자열에서 문자열이기에 불가능하다.
+ -- tochar는 문자열과 숫자를 년월일이 아니라, to_date으로 날자를 만들고 해야 한다.             
               
  -- 04. 주민번호가 1970년대생이면서 성별이 여자이며
  --     성이 전씨인 직원들의 사원명, 주민번호, 부서명, 직급명
@@ -167,7 +169,7 @@ from employee e, department d, job j
 where 
  e.dept_code=d.dept_id and
  e.job_code=j.job_code and
- substr(e.emp_no,1,2)>=70 and
+ substr(e.emp_no,1,2)=7 and
  substr(e.emp_no,8,1)=2 and
  emp_name like '전%'
    order by 4,3,2;
