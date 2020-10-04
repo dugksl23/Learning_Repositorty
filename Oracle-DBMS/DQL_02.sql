@@ -22,7 +22,7 @@ select emp_name"직원명", salary"급여" from employee order by salary asc;
 select emp_name"직원명", salary"급여" from employee order by salary desc;
 
 
--- 03. colmn으로 정렬 가능.
+-- 03. colmn index 순으로 정렬 가능.
 
 select emp_name"직원명",  salary from employee order by 2;
 
@@ -42,8 +42,17 @@ select * from employee order by dept_code, job_code;
 -- 정렬 대상에 null 값은 자동적으로 후순으로 배치된다.
 -- null 값을 order by에서 상위에 출력하는 문법.
 
-select emp_name, salary from employee order by salary null first;
-select emp_name, salary from employee order by salary asc null first;
+
+select emp_name, bonus from employee order by bonus;
+-- 위의 query문을 날리면, null은 제일 하단으로 정렬된다.
+-- 따라서 order by bonus nulls first를 하게 된다면 null이 상단에 위치하게 된다.
+
+select emp_name, salary from employee order by salary nulls first;
+select emp_name, salary from employee order by salary asc nulls first;
+
+-- quiz 01 null을 상단에 두며, bonus 비율이 높은 순으로 정렬.
+
+select emp_name, bonus from employee order by bonus desc nulls first;
 
 
 
@@ -139,7 +148,7 @@ select '안녕하세요'"byte test", lengthb('안녕하세요') from dual; -- 15
  -----------------------------------------------------------------------------------------
  
 
--- 3. instr : 문자열 내에서 특정문자를 탐색하여, 해당 문자의 index를 return하는 함수.
+-- 3. instr : 문자열 내에서 특정문자를 탐색하여, 해당 문자가 위치한 n번째 index를 return하는 함수.
 -- string(문자열) in(내에서) 해당문자를 검색하여, 해당문자가 위치한 index를 return.
 
 -- '안녕하세요'에서 요의 index를 반환하시오.
@@ -247,7 +256,7 @@ select mod(15, 7) from dual; --나머지 값 1출력
 -- 1. 정수 : 소숫점
 
 -- **소수점 첫번째 자리, 파라미터 0은 생략가능
---    정수는 0이 첫번째, 1이 두번째자리이다.
+--   소숫점 첫번쨰 자리는 0, 1이 두번째자리이다.
 --    반올림할 자릿수의 결과물의 자릿수를 입력.
 select round(3.14) from dual; --3
 select fround(3.14, 0) from dual;-- 3
