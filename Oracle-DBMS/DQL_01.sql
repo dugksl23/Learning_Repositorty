@@ -136,25 +136,35 @@ select emp_name"직원명", hire_date"입사년도" from employee where floor(sy
  -- distinct는 무조건 column입력부분 제일 맨 앞에 와야한다.
 
  
- -- 11. [between A and B] - 숫자를 대상으로만 하는 a부터 b까지의 범위
+ -- 11. [between A and B] - 숫자 및 날짜(date) 대상으로만 하는 a부터 b까지의 범위
  -- 급여가 300만원 or 400만원 이상 출력하시오.
  
  select emp_name, salary from employee where salary between 30000000 and 4000000;
+ (select emp_name, salary from employee where salary<=3000000 and salary=>5000000);
  
+ -- between 은 a 부터 b까지의 number형에 대해서만 범위를 지정하여 검색하는 기능이다.
+ -- 대상이 되는 column으로 크다, 작다의 기호가 위치해있어야 한다.
  
- -- between 은 a 부터 b까지의 숫자 또는 문자에 대해서 범위를 지정하여 검색하는 기능이다.
  --12 [ is nu; is not null;]
  
  select emp_name"명칭", bonus"보너스" from employee where bonus is not null;
  select emp_name"명칭", bonus"보너스" from employee where bonus is null;
  
+ -- column의 타입이 숫자일 때, 값이 null이 아니라면 출력. 
  --  column의 타입이 숫자일 때, 값이 null이라면 출력
- -- column의 타입이 숫자일 때, 값이 null이 아니라면 출력.
+
  
  
  -- 13. [ and 와 or ]
  select emp_name, dept_code, salary from employee where dept_code='D1' or dept_code='D2';
 
+ -- ex) and : where salary=>3000000 and salary<=5000000; 
+ --     where salary between 3000000 and 5000000;  
+ -->    where A>= and b<= 의 부동호를 통한 범위 지정과  where A between a and b;와 같다.
+ 
+ -- ex) or : where salary 3000000 or salary 5000000;
+ --     in () : where salary in (3000000, 5000000)l
+ --     *subquery문에서는 같다라는 의미를 갖는다.
  
  
  -- 14. [in / not in ] : ~거나, ~거나 ~인 것을 출력하시오/ ~가 아니거나 ~가 아니거나 ~가 아닌 것을 출력
@@ -187,7 +197,9 @@ select emp_name, email from employee where email like '%a%';
  select emp_name"이름" from employee where emp_name like '전__';
  
  
+ -- quiz 2 : 성이 민씨이며, 이름의 마지막이 이 자인 사람을 출력하시오.
  
+ select emp_name from employee where emp_name like '민%%이';
  
  -- 18. [ - / #_escape ] : 탈출문자이며, 특정 기호에게 능력이 부여되지 않게끔 하는 탈출능력을 부여한다.
  --                       구분자의 역할을 한다.
@@ -293,10 +305,10 @@ select emp_name, salary, bonus from employee where floor(sysdate-hire_date)/365>
  -- 14. 급여가 300만원 이상 400만원 이하인 직원의 이름 부서 급여 출력.
  
  select emp_name, dept_code, salary from empoyee where salary>=30000000 and salary<=4000000;
+ sleect emp_name, dept_code, salary from employee where salary between 3000000 and 4000000;
  
  
- 
--- 15. hire date를 토대로, between 사용해보기.
+-- 15. hire_date를 토대로, between 사용해보기.
 --   date 함수 0'5/01/01' 에서 '10/12/31'
 
 select emp_name"직원명" from empoyee where hire_date between '05/01/01' and '10/12/31';
