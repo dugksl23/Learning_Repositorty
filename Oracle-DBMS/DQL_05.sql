@@ -284,14 +284,12 @@ select
     E2.EMP_NAME
 FROM EMPLOYEE E1, DEPARTMENT D, EMPLOYEE E2  --DEPT_TITLE을 기준으로
     WHERE                                    -- 동료 1(E1) 동료2(E2)가 함께 일하고 있는가? 
-      E1.DEPT_CODE=D.DEPT_ID AND             -- E1에서 부서와 매핑시킨 후 이름을  부서명 출력
-      E1.DEPT_CODE=D.DEPT_ID;  
-     
-              
-                  
-    
-            
-              
+      E1.DEPT_CODE=E2.DEPT_CODE AND          -- 같은 부서를 비교해야 하기에 E1과 E2의 DEPT_CODE를 SELF JOIN
+      E1.DEPT_CODE=D.DEPT_ID;                -- E1에서 부서와 매핑시킨 후 부서명 출력
+      e1.emp_name!=e2.emp_name order by 2,1;  -- 그리고 이름을 같지 않게 하는 것은, 같게 하면
+                                               -- 같은 것들끼리만 매핑되어서 21개만 출력되기에
+                                               -- 부셔벌 같은 동료를 출력할 수가 없다.
+
               
 -- 12.  보너스 포인트가 없는 직원중에서 
 --       직급이 차장과 사원의 사원명 직급명, 급여 조회. 
@@ -342,5 +340,15 @@ group by ent_yn;
                 
                 
                     
-              
+    select case
+  
+  when enT_yn='Y' then '재직'
+  when enT_yn='N' then '퇴직'
+  END 퇴직여부,
+  COUNT(*)
+  FROM EMPLOYEE GROUP BY case
+  
+  when enT_yn='Y' then '재직'
+  when enT_yn='N' then '퇴직'
+  END;            
               
