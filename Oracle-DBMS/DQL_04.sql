@@ -66,23 +66,37 @@ select
     where extract(year from hire_date)>=2004 and
     dept_code in ('D5','D9');
     
+ 
+ select 
+  emap_name,
+  hire_date,
+from employee
+  where hire_date like '04'% and
+        dept_code='D5' or dept_code='D9';
+        
+  select 
+    emp_name,
+    hire_date
+  from employee
+    where dept_code in ('D5', 'D9') and
+          substr(hire_date, 1,2)=2004;
+    
     
 -- 9. 직원명과 입사일을 오늘까지의 근무일 수를 조회.
 
 select 
   emp_name 직원명,
-  (sysdate-hire_date) 근무일수
+  ceil(sysdate-hire_date) 근무일수
   from employee;
   
 -- 10. 모든 직원의 나이중 가장 많은 나이와 가장 적은 나이만 출력
 
 select 
- emp_name 직원명,
  120-max(substr(emp_no, 1,2))최연소 and
  120-min(substr(emp_no, 1,2))최장수 and
  from employee;               
                 
--- 최연소 32, 최장수 58 출력
+-- 최연소 21, 최장수 58 출력
 
 -- 11. 회사에서 야근을 해야 되는 부서를 발표한다.
 --     부서코드가 D5, D6, D9이며,
@@ -103,7 +117,7 @@ SELECT
 
 -- 요약 정리 --
 
--- 1. 3강까지 배웠던 orcle 문법은 단일행 함수이다.
+-- 1. 3강까지 배웠던 oracle 문법은 단일행 함수이다.
 -- 2. 함수가 행 하나하나에 적용된다는 것이다.
 -- 3. 이번 4강에서는 그룹합수에 대해서 알아보자.
 
@@ -198,15 +212,15 @@ where dept_code in ('D6', 'D9')
             
  -- qucik Quiz 01 ---
             
--- 1. 그룹별 급여를 가장 많이 받는 부셔코드를 출력하시오.
+-- 1. 그룹별 급여를 가장 많이 받는 사람의 월급과부셔코드를 출력하시오.
 
 select 
-  max(salary)
-  dept_code
-   from employee
-    group by dept_code
-    order by nulls 1 first;
-
+dept_code,
+max(salary)
+from employee
+ where dept_code is not null
+group by dept_code;
+order by nulls first;
 
 
 -- nulls first는 order by에서 상위로 위치시키는 함수이다.
@@ -216,12 +230,12 @@ select
             
 -- 2. 부서별 인원수를 구하시오.
 
-select 
-  dept_code 부서코드,            
-  count(*)
-  from employee
-  group by dept_code
-  order by 1;      
+ select
+    dept_code,
+    count(*)
+from employee
+    group by dept_code  
+    order by 2 desc;
 
 
 
@@ -254,12 +268,18 @@ to_char(avg(salary), 'l999,999,999') "급여 평균"
       group by job_code
         order by 3;
 
---  함수에서는 no quotation
--- r그러나 함수에서는 꼭 double quotation이 필요하다.
+                 
+select job_code, count(*), ceil(avg(salary))
+  from employee
+where dept_code not in ('j1')
+  group by job_code order by 1;
+                 
+-- 띄어쓰기를 할 때는 "" 필요하며, 띄어쓰기 대신 _ 언더바를 주고 해도 된다.
+              
             
             
             
--- 5. employee tabledptj 직급이 j1인 사람 제외하고
+-- 5. employee table의 직급이 j1인 사람 제외하고
 --    입사년도 및 입사년도별 인원수를 조회하여, 년도 기준 오름차순 정렬.
 
 select
@@ -268,29 +288,29 @@ select
     from employee
       where job_code not like 'J1'
          group by extract(year from hire_date)
-           order by 2 DESC;
+           order by 1 asc;
 
     
 select  
-job_code, 
 to_char(hire_date, 'yy')"입사년도", 
 count(*)"년도별 인원수" 
 from employee 
 where substr(job_code, 1,2) not like 'J1'
-group by job_code, to_char(hire_date, 'yy') 
-order by 1 asc, 2 desc;            
+group by to_char(hire_date, 'yy') 
+order by 1 asc;            
           
 
 
 -- 6. employee table에서 연대생 별 급여 평균
 
-select
-    substr(emp_no, 1,2) "출생년도",
-    to_char(avg(salary), 'l999,999,999') "급여 평균",
-    count(*) "년생 숫자"
-      from employee
-        group by substr(emp_no, 1,2), salary, bonus
-         order by 1;
+           
+ select 
+    substr(emp_no, 1,2),
+    ceil(avg(salary)),
+    count(*)
+from employee
+    group by substr(emp_no, 1,2) order by 1;
+               
 --> group by는 column 그 어떤 것으로도 가능하다.
 --> 설령 from에 등장하지 않은 table라고 해도 쓸 수 있다.       
 
@@ -307,8 +327,7 @@ select
              group by dept_code, job_code
               order by 1;
 
--- 
-            
+--  8. 성별 인원수를 출력.            
 
 select 
     nvl(dept_code, '인턴')"직급코드",
