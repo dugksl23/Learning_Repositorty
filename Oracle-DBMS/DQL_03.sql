@@ -15,6 +15,12 @@ select current_date from dual;
 -- 2. to_date 
 -- p1 : 숫자 및 문자를 날짜의 형태로 맞추어서 기입
 -- p2 : p1의 인자를 출력할 날짜의 형태를 지정, 보통 /, :, "년" 으로 표기.
+-- 출력되는 형태는 yyyymmdd or yyyy/mm/dd 로 년월일까지 무조건 출력이 되며,
+-- sysdate또한 일까지 표기가 되기에 일자까지 표기가 된다.
+-- 하지만 날짜 형태로된 string 문자열 or 숫자를 년월 또는 년도만 입력했을 경우
+--  ex) '1990', 'yyyy') 이런식으로 맞춰서 입력해줘야 하며, 나머지 월일은 해당 월로 출력되며,
+--                      일자는 1일로 표기된다.
+-- 시스템에 설정된 월에 맞춰서 나머지 월일이 출력된다.
 
 select to_date(sysdate, 'yyyy/mm/dd') from dual; --20/09/20
 select to_date('19900318', 'yyyy/mm/dd') from dual; -- 90/03/18
@@ -37,6 +43,9 @@ select to_timestamp(sysdate) from dual;
 
 --20/09/19/00:00:00.0000000000, 9자리까지 처리.
 
+select to_char(sysdate, 'yy/mm/dd (dy) hh:mi:ss') from dual;
+select to_char(sysdate, 'yy/mm/dd (day) hh:mi:ss') from dual;
+
 
 -- 2. [ months_between(A, B)] : p1의 인자를 기점으로 p2의 날자까지의 개월수를 반환한다. 
 -- return 값은 개월수
@@ -47,6 +56,7 @@ select to_timestamp(sysdate) from dual;
 -- p2 : '20/09/01'
 
 -- months_between에 년원일로 입력하면 소숫점 발생.
+-- months between (from, to)
 select emp_name"직원명", months_between(sysdate, hire_date)"개월수" from employee; -- 367.123123
 
 -- 소숫점으로 인해서 floor로 소숫점 버림.(나눗셈이 있기에)
@@ -61,7 +71,7 @@ select emp_name, hire_date, ceil(months_between(sysdate, hire_date)/12)"년차" 
                                            
                                            
 -- 3. [ add_months(A, B)]
--- A를 기준으로, B의 숫자(개월수)를 입력하면, B를 더한 미래의 개월수를 RETURN한다.
+-- A를 기준으로, B의 숫자(개월수)를 입력하면, B를 더한 미래의 년월일를 RETURN한다.
 -- p1 : date type or '19/01/01'
 -- p2 : 정수                                           
 -- return은 date 타입    
@@ -240,7 +250,7 @@ select emp_name"직원", salary, nvl(bonus, 0) from employee;
 -- [ nvl2(A, 1, 0) ] A가 NULL 아니라면 A, null이면 0;
                                      
 select emp_name, nvl2(bonus, 1,0) from employee;                                     
-                                     
+select nvl2(bonus, '보너스 없음', '보너스 있음') from employee;                                     
 
 
 
