@@ -4,6 +4,10 @@
 ------------------------------------- Chater 1 : subQuery란? -----------------------------------
 
 -- query문 내에 또 다른 query를 추가하는 것을 바로 subQuery라고 한다.
+-- JOIN문은 두개의 테이블을 매핑하여 하나의 결과물을 만들어내는 것이라면,
+-- subQuery문 또한 두개의 명령어로 하나의 테이블 내에서 검색한 결과를 
+-- 다른 테이블에 전달하여 검색하는 것이다. 즉 main query를 subquery와 비교하여 하나의 결과물을 도출해내는 것이다.
+
 -- 예제를 통해 query의 중요성을 알아보자
 
 -- 01. 전지연의 manager를 알아내시오.
@@ -56,7 +60,7 @@ select
   emp_id,
   salary
 from employee
-  where salary >
+  where salary =>
     (select avg(salary) from employee);
     
 --** 이미 main query에서 조건문으로 평균급여보다 크다 라는 조건문 먼저 실행이 되었기에
@@ -270,7 +274,7 @@ from employee                                                                   
 -- 다중행이란, query 문 내에 조건이 2개 이상 붙었을 경우를 뜻한다.
 
 
--- 01. 송중기나 박나리가 /속한 부서에 속한 사람들의 정보.
+-- 01. 송종기나 박나라가 /속한 부서에 속한 사람들의 정보.
 
 -- *Output : *               
 -- *required table:  EMPLOYEE
@@ -294,7 +298,9 @@ where dept_code in
 -- **부서 정보는 dept_code 또는 dept_title로 해당 정보를 매핑시킬 수가 있다.
 --   상기의 문제는 같은 부서라는 전제조건이기에, dept_code만으로도 전제조건을 만족시킬 수가 있다.
 
-
+               
+ SELECT * FROM EMPLOYEE WHERE DEPT_CODE IN
+ (SELECT DEPT_CODE FROM EMPLOYEE WHERE EMP_NAME IN ('송종기', '박나라'));    
 
 
 
@@ -339,7 +345,10 @@ from employee
           emp_name!='전지연' and
           sal_level in (select sal_level from employee where emp_name in ('차태연','전지연'));
 
-            
+SELECT EMP_NAME, JOB_CODE
+FROM EMPLOYEE
+WHERE EMP_NAME NOT IN ('차태현', '전지연')AND SAL_LEVEL IN (SELECT SAL_LEVEL FROM EMPLOYEE WHERE EMP_NAME IN ('차태현', '전지연')) ORDER BY 2
+;            
 
 -- 03. 직급이 대표나 부사장이 아닌 /모든 사원의 이름 부서명 직급코드 출력
 
@@ -377,7 +386,9 @@ from employee, department
  -- in이 == 같다라는 의미를 갖는다면
  -- All 은 A AND B A이며 B인 조건 구문이며,
  -- ANY 는 A OR B A 또는 B인 조건 구문의 SUBQUERY의 제일 앞에 쓰이는 구문이며, 
- -- 이때는 다중행 쿼리문에서 MAIN QUERY의 WHERE 문의 비교구문으로 대상 COLUMN에도>/<를 사용가능.                                  
+ -- 이때는 다중행 쿼리문에서 MAIN QUERY의 WHERE 문의 비교구문으로 대상 COLUMN에도>/<를 사용가능.      
+ -- AND = BETWEEN A AND B = (QUERY 문 비교시) ><= ALL (2가지의 RETURN값을 가짐.)
+ -- OR = IN ('A', 'B') = ><= or (2가지 reutnr 값 가짐)                                                                       
                                                                        
                                                                       
 select
@@ -392,13 +403,13 @@ select
    emp_name,
    salary
 from employee
-    where salary >3000000 or
-           salary >5000000
+    where salary >=3000000 or
+           salary <=5000000
                                                  
                                                                        
 -- ** 단일 subQuery의 return table로는 크다 작다를 비교할 수 있다.
 --    하지만 다중 subQuery 같은 경우는 이제까지는, subQuery의 조건구문을 충족하는 subQuery의 return table과
---    main query의 비교 table이 같다라는 전제 즉, in 또는 = 또는 단일문 쿼리의 number형에 관해서만 크다 작다로만 진행이 되었다.
+--    main query의 비교 table이 같다라는 전제 즉, in 또는 = 또는 단일문 쿼리의 number형 또는 문자형에 관해서만 크다 작다로만 진행이 되었다.
 --    그렇기에 단일 query가 아닌, 다중행 또는 query에서도 크거나 작나 라는 표시를 위해서 any 또는 All을 사용하게 해준 것이다
 --     체크 포인트.** 
                                                                        
@@ -428,13 +439,13 @@ salary > (select salary from employee where salary=3500000);
 -- Q1. D1 또는 D5 부서의 사원들의 급여중에서
 --     EMPLOYEE TABLE의 SALARY보다 / 적은 급여를 가진 사원, 부서코드, 급여를 모두 출력하시오.
                                                                    
-SELECT 
-    emp_name,
-    salary,
-    dept_code
-from employee
-    where salary > (select salary from employee where dept_code in ('D5', 'D1'));
 
+select emp_name, SALARY, DEPT_CODE
+    from employee
+        where dept_code in('D1', 'D5') AND
+        salary < ANY (select salary from employee);
+
+-- 또는 이기에 ANY이다.
 -- single-row subquery returns more than one row
 -- 즉 다중행에 서브쿼리에서 2개 이상의 데이타를 반환해서 발생했기에 불가능하다는 것이다.
 -- 이를 해결하기 위해서는 쓰는 것이 all 또는 any이다.
@@ -442,12 +453,6 @@ from employee
 --** ANY는 subQuery의 where절의 비교구문에 a or b
 --   and는 subQuery의 where절의 비교구문에 a and b                                                                       
                                                                           
-                                                      
-select
- emp_name,
- salary
-from employee
- where salary < any (select salary from employee where dept_code in ('D1', 'D5'));
                                                        
                                                                                  
 -- Q2. 부서별 평균 급여 중 /가장 낮은 부서의 급여보다/ - subquery
@@ -472,7 +477,7 @@ from employee
  --8. SELECT의 상관 QUERY : 
 --   (상호연관 단일 Query) 
                                                                      
-                      select 
+select 
     emp_name,
      (SELECT DEPT_TITLE FROM DEPARTMENT WHERE DEPT_CODE=DEPT_ID),
     salary                                                      
