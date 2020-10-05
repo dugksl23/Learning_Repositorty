@@ -584,6 +584,11 @@ from employee
     where salary in
           (select min(salary) from employee group by job_code);
 
+                                                                                  
+                                                                                  
+select  min("avg") from (select avg(salary)"avg" from employee group by dept_code);
+select min(avg(salary)) from employee group by dept_code;    
+               
 -- ** 문제점
 -- 직급별로 가장 낮은 급여를 받는 사람이란 직급별로 한사람씩이라는 건데... 상기의 코드로는 윤은혜가 출력됨.                                                                     
 -- 단순한 group by를 통한 정렬은 중복을 제거해도... 잡코드로 그룹핑한 후에 최소값이랑 비교해서
@@ -649,8 +654,11 @@ from employee
 from employee e1, employee e2
     where e1.manager_id is not null and  
                 e1.manager_id=e2.emp_id and
-                e1.salary > (select avg(salary) from employee);                                                                  
+                e1.salary > (select avg(salary) from employee);                
+select emp_name,salary,magnaer_id from (select salary from employee where manager_id is not null)                                                  
                                                                      
+                                                                                 
+                                                                                  
                                                                      
  --  Q5. 각 직급별/ 급여 등급이 가장 높은 직원의 이름, 직급 코드, 급여등급.
 
@@ -700,7 +708,7 @@ select dense_rank()over(order by salary desc)순위, emp_name, salary from emplo
 -- 사용빈도는 매우 높기에 외워두자!
                                                                      
 
-select row number() over(order by salary desc)순위, emp_name, salary from employee;
+select row_number() over(order by salary desc)순위, emp_name, salary from employee;
 
 
 
