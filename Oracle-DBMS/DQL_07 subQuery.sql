@@ -655,9 +655,10 @@ from employee e1, employee e2
     where e1.manager_id is not null and  
                 e1.manager_id=e2.emp_id and
                 e1.salary > (select avg(salary) from employee);                
-select emp_name,salary,magnaer_id from (select salary from employee where manager_id is not null)                                                  
-                                                                     
-                                                                                 
+                                                   
+ select emp_name, salary from (select emp_name, salary from employee where manager_id is not null) where salary > all (select avg(salary) from employee);                                               
+      
+                                                                                
                                                                                   
                                                                      
  --  Q5. 각 직급별/ 급여 등급이 가장 높은 직원의 이름, 직급 코드, 급여등급.
