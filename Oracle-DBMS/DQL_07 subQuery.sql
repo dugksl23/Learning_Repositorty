@@ -380,7 +380,17 @@ select
 from employee, department
     where dept_code=dept_id and 
           job_code in (select job_code from job where job_code not in ('부사장','대표'));
-                                                               
+ 
+
+
+-- 직급별 ~~가 아니지만, 부서명 출력을 위해 첫번째로 dept_code=dept_id를 매핑 그 후 조건을 건다.
+-- 다중행 다중열 서브쿼리에서 매핑은 불가하다. 매핑한 상태에서 리턴하는것은가능.
+                                                                       
+                                                                       
+                                                                       
+
+                                                                       
+                                                                       
                                                                        
 ---------- [ 03. 다중열의 All 과 any == and 와 or ]----------------------                                                                      
  -- in이 == 같다라는 의미를 갖는다면
@@ -490,7 +500,11 @@ from employee, department
 --**직급별 최소값, 직급별 최대값, 부서별 평균 연봉값을 비교군으로 둘때 크다 작다라면
 -- where 절에서 dept_code=dept_id를 묶고 그 다음에 부서별 평균 급여를 서브쿼리로 두면 된다.                                                                                  
 -- 하지만 in 일 때에는 다중행 다중열 query로서 인자가 2개가 된다..
-
+-- 무엇보다도 이건 대소크기의 비교이기 때문에 먼저 join문으로 매핑을 해야 한다.
+-- 아니면 쿼리문 내에서 reutrn하면서 매핑이 가능해진다.
+                                                                                  
+-- 대소 관계의 크기에서 문자는 알파벳 순이기에 비교 불가이다.
+                                                                                 
                                                                                   
                                                                                   
                                                                                   
@@ -519,7 +533,7 @@ select
  emp_name,
  salary
 from employee
- where salary < ANY (select salary from employee where dept_code='D2');
+ where salary < all (select salary from employee where dept_code='D2');
 -- 즉 모든 사람들이기에 한사람 별로 작은 사람들을 모두 출력한다. 그렇기에 ALL 이 아닌 ANY(개별로)                                
 
                                                                      
