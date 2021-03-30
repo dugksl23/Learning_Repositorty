@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:c=""
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DashForge">
+    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+
+
+    <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="ThemePixels">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>PlatS</title>
+
+    <!-- vendor css -->
+    <link href="../../lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
+
+    <!-- quill CSS -->
+    <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<header class="navbar navbar-header navbar-header-fixed">
+    <a href="#" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+    <div class="navbar-brand">
+        <a href="/" class="df-logo">Plat<span>S</span></a>
+    </div><!-- navbar-brand -->
+    <div id="navbarMenu" class="navbar-menu-wrapper">
+        <div class="navbar-menu-header">
+            <a href="/" class="df-logo">Plat<span>S</span></a>
+            <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+        </div><!-- navbar-menu-header -->
+        <ul class="nav navbar-menu">
+        </ul>
+    </div><!-- navbar-menu-wrapper -->
+    <div class="navbar-right">
+        <a sec:authorize="isAuthenticated()" href="/goMyInfo" class="btn btn-buy">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>MyInfo</span>
+        </a>
+
+        <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>Logout</span>
+        </a>
+    </div><!-- navbar-right -->
+</header><!-- navbar -->
+
+<div class="content content-fixed content-auth">
+    <div class="container" th:each="i : ${updateWriting}">
+
+        <form method="post">
+            <div class="form-group">
+                <label class="d-block">
+                    <strong>Title</strong>
+                </label>
+                <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title" minlength="4" maxlength="50" th:value="${i.title}">
+            </div>
+            <div id="editor-container2" name="writing_content" class="ht-200" style="height:500px;">
+                [[${i.content}]]
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+            <button class="btn btn-secondary" id="cancel" type="button">Cancel</button>
+        </form>
+
+    </div>
+
+
+</div><!-- media -->
+</div><!-- container -->
+</div><!-- content -->
+
+<footer class="footer mg-t-auto">
+    <div>
+        <span>&copy; 2019 DashForge v1.0.0. </span>
+        <span>Created by <a href="http://themepixels.me">ThemePixels</a></span>
+    </div>
+    <div>
+        <nav class="nav">
+            <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
+            <a href="../../change-log.html" class="nav-link">Change Log</a>
+            <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>
+        </nav>
+    </div>
+</footer>
+
+
+</div>
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<script src="https://cdn.quilljs.com/1.1.9/quill.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+<script>
+    $('#cancel').on('click',function(){
+        alert("오나요?");
+        location.href="/";
+    })
+    var quill2 = new Quill('#editor-container2', {
+        modules: {
+            toolbar: [
+                ['bold', 'italic'],
+                ['link', 'blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'
+    });
+</script>
+
+
+
+<script>
+    $('#submit').on('click', function(){
+        console.log($('#title').val()+$('#editor-container2').html());
+        if ($('#writing_title').val()!='' && $('#editor-container2').html()!='') {
+            $.ajax({
+                url:"/procUpdateWriting",
+                data:{
+                    writingIdx:'[[${updateWriting.writingIdx}]]',
+                    writer:'[[${nick}]]',
+                    title:$('#title').val(),
+                    content:quill2.getText()
+                }
+            })
+        }
+    })
+</script>
+
+</body>
+</html>
