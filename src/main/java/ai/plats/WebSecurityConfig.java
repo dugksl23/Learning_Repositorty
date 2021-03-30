@@ -1,4 +1,4 @@
-package ai.plats.domain.account.configuartion;
+package ai.plats;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

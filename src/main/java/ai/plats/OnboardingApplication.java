@@ -1,4 +1,4 @@
-package ai.plats.onboarding;
+package ai.plats;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

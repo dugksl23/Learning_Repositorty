@@ -1,9 +1,9 @@
 package ai.plats.onboarding;
 
 
-import ai.plats.domain.user.service.ClientJoinService;
-import ai.plats.domain.account.service.ClientLoginService;
-import ai.plats.domain.user.service.ClientUpdateService;
+import ai.plats.domain.user.service.UserJoinService;
+import ai.plats.domain.account.service.UserLoginService;
+import ai.plats.domain.user.service.UserUpdateService;
 import ai.plats.domain.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +22,11 @@ import java.util.Optional;
 public class MainController {
 
     @Autowired
-    ClientLoginService clientLoginService;
+    UserLoginService userLoginService;
     @Autowired
-    ClientJoinService clientJoinService;
+    UserJoinService userJoinService;
     @Autowired
-    ClientUpdateService clientUpdateService;
+    UserUpdateService userUpdateService;
 
     @RequestMapping(value = {"/goHome", "/"}, method = RequestMethod.GET)
     public String goHome() {
@@ -55,7 +55,7 @@ public class MainController {
         System.out.println(">>" + "MyInfo");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = clientUpdateService.findClientByEmail(username);
+        Optional<User> vo = userUpdateService.findClientByEmail(username);
 
 
         if (vo.isPresent()) {
@@ -75,7 +75,7 @@ public class MainController {
         System.out.println(">>" + "goInfoUpdate");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = clientUpdateService.findClientByEmail(username);
+        Optional<User> vo = userUpdateService.findClientByEmail(username);
 
         if (vo.isPresent()) {
             model.addAttribute("userInfo", vo.get());
@@ -98,10 +98,10 @@ public class MainController {
         String nick = request.getParameter("nick");
         String pwd = request.getParameter("pwd");
 
-        Optional<User> vo = clientJoinService.findClientByEmail(email);
+        Optional<User> vo = userJoinService.findClientByEmail(email);
 
         if (vo.isPresent() == false) {
-            User joinVo = clientJoinService.joinClient(new User(email, pwd, nick, "N",LocalDateTime.now(), LocalDateTime.now()));
+            User joinVo = userJoinService.joinClient(new User(email, pwd, nick, "N",LocalDateTime.now(), LocalDateTime.now()));
             if (joinVo != null) return "가입 성공";
             else return "가입 실패 ! 오류 발생 !";
         } else {
@@ -121,15 +121,15 @@ public class MainController {
         Optional<User> vo;
         //이메일 중복검
         if (kinds.equals("email")) {
-            vo = clientUpdateService.findClientByEmail(content);  //새로운 정보(바꿀 email) 기준으로 중복 탐색
+            vo = userUpdateService.findClientByEmail(content);  //새로운 정보(바꿀 email) 기준으로 중복 탐색
 
             if (vo.isPresent()) {
                 return "중복된 이메일입니다. 다른 이메일을 입력해주세요.";
             } else {
-                Optional<User> changeVo = clientUpdateService.findClientByEmail(principal.getName());
+                Optional<User> changeVo = userUpdateService.findClientByEmail(principal.getName());
                 changeVo.get().setClientEmail(content);
                 changeVo.get().setModDate(LocalDateTime.now());
-                clientUpdateService.updateMyInfo(changeVo.get());
+                userUpdateService.updateMyInfo(changeVo.get());
                 return "이메일 변경 완료";
             }
 
@@ -137,10 +137,10 @@ public class MainController {
 
         if (kinds.equals("nick")) {
             //nick 변경시에는 vo를 이용했음  , nick 은 중복검사를 하지 않아서
-            vo = clientUpdateService.findClientByEmail(principal.getName());
+            vo = userUpdateService.findClientByEmail(principal.getName());
             vo.get().setClientEmail(content);
             vo.get().setModDate(LocalDateTime.now());
-            clientUpdateService.updateMyInfo(vo.get());
+            userUpdateService.updateMyInfo(vo.get());
 
         }
         return "닉네임 변경 완료";
@@ -155,7 +155,7 @@ public class MainController {
 
         String ori_pwd = request.getParameter("ori_pwd");
         String new_pwd = request.getParameter("new_pwd");
-        String result=clientUpdateService.changePwdLogic(principal.getName(), ori_pwd, new_pwd);
+        String result= userUpdateService.changePwdLogic(principal.getName(), ori_pwd, new_pwd);
 
         if (result.equals("변경 성공")) {
             return "변경 성공";

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientLoginService implements UserDetailsService {
+public class UserLoginService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
