@@ -111,14 +111,14 @@
 
                         <div class="bd bg-gray-50 pd-y-15 pd-x-15 pd-sm-x-20">
                             <div class="input-group update_input">
-                                <input type="text" id="input_nick" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" th:value="${userInfo.getNick()}">
+                                <input type="text" id="input_nick" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" th:value="${userInfo.getUserNick()}">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-light" type="button"  id="button_nick">닉네임 수정</button>
                                 </div>
                             </div>
                             <!--수정-->
                             <div class="input-group update_input">
-                                <input type="text"  id="input_email" class="form-control"  placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" th:value="${userInfo.getClientEmail()}">
+                                <input type="text"  id="input_email" class="form-control"  placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" th:value="${userInfo.getUserEmail()}">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-light" type="button" id="button_email" >이메일 수정</button>
                                 </div>
@@ -127,7 +127,7 @@
                                 </form>
                             </div>
 
-                            <form   id="change_pwd_form">
+                            <form   id="change_pwd_form" onsubmit="return false;">
                             <fieldset class="form-fieldset">
                                 <legend>비밀번호 변경</legend>
                                 <div class="form-group">
@@ -237,6 +237,8 @@
                 //data = JSON.parse(data); // JSON 형태로 파싱
                 if(data=='닉네임 변경 완료'){
                     alert(data);
+                    // window.location.reload();
+
                 }
                 else{
                     alert(data+'\n'+ "아이디(email)가 변경되었습니다."+'\n'+"다시 로그인 해주세요 ! ");

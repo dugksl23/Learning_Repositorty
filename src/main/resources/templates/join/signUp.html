@@ -179,8 +179,6 @@
       // 이메일 검증에 사용할 정규식 변수 regExp에 저장 if (emailVal.match(regExp) != null) { alert('Good!'); } else { alert('Error'); }
 
 
-
-
       $('.createBtn').on('click', function(){
         // var data=$(".createBtn").val();
 
@@ -229,8 +227,6 @@
           return false;
 
         }
-
-
         if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/.test(pwd)){
           alert("비밀번호는 영문 대문자 , 영문 소문자 , 숫자 , 특수문자가 반드시 포함되어야 합니다.");
           return  false;
@@ -240,8 +236,6 @@
           alert('비밀번호가 일치하지 않습니다.');
           return false;
         }
-
-
 
         $.ajax({
           url: "/procJoin",

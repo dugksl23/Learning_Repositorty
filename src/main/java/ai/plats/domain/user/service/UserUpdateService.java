@@ -17,15 +17,12 @@ public class UserUpdateService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
-    public Optional<User> findClientByEmail(String email){
-        return userRepository.findByClientEmail(email);
+    public Optional<User> findUserByEmail(String email){
+        return userRepository.findByUserEmail(email);
     }
 
-    public Optional<User> findClientByNick(String nick){
-
-        return userRepository.findByNick(nick);
+    public Optional<User> findUserByNick(String nick){
+        return userRepository.findByUserNick(nick);
     }
 
     public User updateMyInfo(User user){
@@ -33,10 +30,9 @@ public class UserUpdateService {
     }
 
     public String  changePwdLogic(String name, String ori_pwd, String new_pwd) {
-        Optional<User> vo= userRepository.findByClientEmail(name);
-
-        if(passwordEncoder.matches(ori_pwd,vo.get().getClientPwd())){
-            vo.get().setClientPwd(passwordEncoder.encode(new_pwd));
+        Optional<User> vo= userRepository.findByUserEmail(name);
+        if(passwordEncoder.matches(ori_pwd,vo.get().getUserPwd())){
+            vo.get().setUserPwd(passwordEncoder.encode(new_pwd));
 
             System.out.println("비밀번호 변경 성공");
             userRepository.save(vo.get());

@@ -15,13 +15,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idxClient;
+    private int idxUser;
     @Column(length = 50)
-    private String clientEmail;
+    private String userEmail;
     @Column(length = 255)
-    private String clientPwd;
+    private String userPwd;
     @Column(length = 30)
-    private String nick;
+    private String userNick;
 
     @Column(length = 10)
     private String withDraw;
@@ -37,48 +37,54 @@ public class User {
 
     }
 
-
-    public User(String clientEmail, String clientPwd, String nick, String withDraw, LocalDateTime regDate, LocalDateTime modDate) {
-        this.clientEmail = clientEmail;
-        this.clientPwd = clientPwd;
-        this.nick = nick;
+    public User(String userEmail, String userPwd, String userNick, String withDraw, LocalDateTime regDate, LocalDateTime modDate) {
+        this.userEmail = userEmail;
+        this.userPwd = userPwd;
+        this.userNick = userNick;
         this.withDraw = withDraw;
         this.regDate = regDate;
         this.modDate = modDate;
     }
 
-    public int getIdx_client() {
-        return idxClient;
+    public int getIdxUser() {
+        return idxUser;
     }
 
-    public void setIdx_client(int idx_client) {
-        this.idxClient = idx_client;
+    public void setIdxUser(int idxUser) {
+        this.idxUser = idxUser;
     }
 
-    public String getClientEmail() {
-        return clientEmail;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setClientEmail(String clientEmail) {
-        this.clientEmail = clientEmail;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getClientPwd() {
-        return clientPwd;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public void setClientPwd(String clientPwd) {
-        this.clientPwd = clientPwd;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
-    public String getNick() {
-        return nick;
+    public String getUserNick() {
+        return userNick;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setUserNick(String userNick) {
+        this.userNick = userNick;
     }
 
+    public String getWithDraw() {
+        return withDraw;
+    }
+
+    public void setWithDraw(String withDraw) {
+        this.withDraw = withDraw;
+    }
 
     public LocalDateTime getRegDate() {
         return regDate;
