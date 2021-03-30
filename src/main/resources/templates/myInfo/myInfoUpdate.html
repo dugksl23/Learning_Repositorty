@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DashForge">
+    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/dashforge">
+    <meta property="og:title" content="DashForge">
+    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
+
+    <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="ThemePixels">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>DashForge Responsive Bootstrap 4 Dashboard Template</title>
+
+    <!-- vendor css -->
+    <link href="../../lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <!--myCss-->
+    <link rel="stylesheet" href="myCss/myCustom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--ajax 설정 -->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <!--    <link rel="stylesheet" href="../../assets/css/dashforge.profile.css">-->
+</head>
+<body class="page-profile">
+
+<header class="navbar navbar-header navbar-header-fixed">
+    <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+    <div class="navbar-brand">
+        <div class="myLogo" onclick="location.href='/goHome'" style="cursor:pointer"><span>PLAT.</span><span>S</span></div>
+    </div><!-- navbar-brand -->
+
+
+
+
+    <div class="navbar-right">
+        <!--로그아웃-->
+        <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>Logout</span>
+        </a>
+        <form id="logout-form" th:action="@{/logout}" method="POST">
+            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+        </form>
+
+        <!--로그아웃-->
+    </div><!-- navbar-right -->
+    <div class="navbar-search">
+        <div class="navbar-search-header">
+            <input type="search" class="form-control" placeholder="Type and hit enter to search...">
+            <button class="btn"><i data-feather="search"></i></button>
+            <a id="navbarSearchClose" href="" class="link-03 mg-l-5 mg-lg-l-10"><i data-feather="x"></i></a>
+        </div><!-- navbar-search-header -->
+
+    </div><!-- navbar-search -->
+</header><!-- navbar -->
+
+
+
+
+<div class="content content-fixed content-profile myinfocontent">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="media d-block d-lg-flex">
+
+            <div class="media-body mg-t-40 mg-lg-t-0 pd-lg-x-10">
+
+
+                <div class="card mg-b-20 mg-lg-b-25">
+                    <div class="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between">
+                        <h2 class="tx-uppercase tx-semibold mg-b-0">회원 정보 수정</h2>
+
+                    </div><!-- card-header -->
+                    <div class="card-body pd-20 pd-lg-25">
+                        <div class="media align-items-center mg-b-20">
+                            <div class="media-body pd-l-15">
+
+                            </div>
+
+                        </div><!-- media -->
+
+                        <div class="bd bg-gray-50 pd-y-15 pd-x-15 pd-sm-x-20">
+                            <div class="input-group update_input">
+                                <input type="text" id="input_nick" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" th:value="${userInfo.getNick()}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-light" type="button"  id="button_nick">닉네임 수정</button>
+                                </div>
+                            </div>
+                            <!--수정-->
+                            <div class="input-group update_input">
+                                <input type="text"  id="input_email" class="form-control"  placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" th:value="${userInfo.getClientEmail()}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-light" type="button" id="button_email" >이메일 수정</button>
+                                </div>
+                                <form id="test-form" th:action="@{/logout}" method="POST">
+                                    <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+                                </form>
+                            </div>
+
+                            <form   id="change_pwd_form">
+                            <fieldset class="form-fieldset">
+                                <legend>비밀번호 변경</legend>
+                                <div class="form-group">
+                                    <label class="d-block">기존 비밀번호</label>
+                                    <input type="password" class="form-control" placeholder="기존 비밀번호" name="ori_pwd" id="ori_pwd">
+                                </div>
+                                <div class="form-group">
+                                    <label class="d-block">새로운 비밀번호 (8자 ~ 15자)</label>
+                                    <input type="password" class="form-control" placeholder="새로운 비밀번호" name="new_pwd" id="new_pwd">
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="changePwd();">변경 확인</button>
+                                <button class="btn btn-secondary" type="reset">다시 입력</button>
+                            </fieldset>
+                            </form>
+                            <div class="inform_bottom">
+                            <button type="button" class="btn btn-danger btn_withdraw" onclick="withDrawBtn()">회원 탈퇴</button>
+                            </div>
+                            <!----------->
+                            <span class="d-none d-sm-block tx-12 tx-color-03 align-self-start" th:text="|회원정보 수정 날짜 : ${#temporals.format(userInfo.getModDate(),'YYYY-MM-DD HH:mm:SS')}|">회원정보 수정 날짜</span>
+
+                            <!--                            <p class="mg-b-0 tx-14">Full-time, $60,000 - $80,000 annual</p>-->
+                        </div>
+                    </div>
+
+                </div><!-- card -->
+
+            </div><!-- media-body -->
+
+        </div><!-- media -->
+    </div><!-- container -->
+</div>
+
+
+
+
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../lib/feather-icons/feather.min.js"></script>
+<script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="../../assets/js/dashforge.js"></script>
+
+
+<script >
+
+    var form;
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) { xhr.setRequestHeader(header, token); });
+
+    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    let checkKor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+
+
+    $('#button_nick').on('click',function(){
+
+        var content = $('#input_nick').val();
+        console.log(">>>"+content);
+        form={
+            kinds:'nick',
+            content:content
+        }
+        if(content.length==0){
+            alert('공백을 입력하지마세요');
+        }
+        else if((content.length<5)||(content.length>10)){
+            alert("nick name은 5자 이상 10자 이하로 입력하십시오");
+        }else{
+            changeEmailOrNick(form);
+        }
+
+
+    });
+
+
+    $('#button_email').on('click',function(){
+
+       var content=$('#input_email').val();
+        console.log(">>>"+content);
+        form={
+            kinds:'email',
+            content:content
+        }
+        if(content.length==0){
+            alert('공백을 입력하지마세요');
+        }
+        else if(content.match(regExp) == null) {
+            alert("이메일 형식이 올바르지 않습니다.");
+        }
+        else{
+            changeEmailOrNick(form);
+        }
+
+    });
+
+    function changeEmailOrNick(form){
+
+        $.ajax({
+            url: "/procUpdateMyInfo",
+            contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+            type        :   "post",
+            data        :   form,
+            success: function(data) { // 결과 받기
+                //data = JSON.parse(data); // JSON 형태로 파싱
+                if(data=='닉네임 변경 완료'){
+                    alert(data);
+                }
+                else{
+                    alert(data+'\n'+ "아이디(email)가 변경되었습니다."+'\n'+"다시 로그인 해주세요 ! ");
+                    document.getElementById('test-form').submit();
+                }
+            },
+            error:function(data){
+                alert("실패");
+
+            }
+        });
+
+    };
+
+
+    function changePwd(){
+        // console.log(">>"+$('#ori_pwd').val());
+        // console.log(">>"+$('#new_pwd').val());
+
+        ori_pwd=$('#ori_pwd').val();
+        new_pwd=$('#new_pwd').val();
+
+        var pwdForm={
+            ori_pwd:ori_pwd,
+            new_pwd:new_pwd
+        }
+
+        if(ori_pwd.length==0||new_pwd.length==0){
+            return false;
+        }
+        if((new_pwd.length<8)||(ori_pwd.length>15)){
+            alert("비밀번호는 8자 이상 15자 이하로 입력하십시오");
+            return  false;
+        }
+        if(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(new_pwd)){
+            alert('비밀번호에 한글은 입력 할 수 없습니다!!');
+            return false;
+        }
+        if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/.test(new_pwd)){
+            alert("비밀번호는 영문 대문자 , 영문 소문자 , 숫자 , 특수문자가 반드시 포함되어야 합니다.");
+            return  false;
+        }
+
+        $.ajax({
+            url: "/procChangePwd",
+            contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+            type        :   "post",
+            data        :   pwdForm,
+            success: function(data) { // 결과 받기
+                //data = JSON.parse(data); // JSON 형태로 파싱
+                if(data=='변경 성공'){
+                    alert(data);
+                    window.location.reload();
+                }else{
+                    alert(data+'\n기존 비밀번호가 틀렸습니다. 다시 입력해주세요.');
+                }
+
+            },
+            error:function(data){
+                alert("ajax 오류");
+
+            }
+        });
+
+    };
+
+    function withDrawBtn(){
+
+        if(confirm('정말 탈퇴하시겠습니까?')==true){
+            console.log('확인');
+        }else{
+            return;
+        }
+
+
+
+    }
+
+
+
+</script>
+
+</body>
+</html>

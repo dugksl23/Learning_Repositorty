@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+
+
+
+  h2:
+    console:
+      enabled: true
+      path: /h2_db
+  datasource:
+    url: jdbc:h2:file:~/newdb/testdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: kim
+    password: 1234
+
+
