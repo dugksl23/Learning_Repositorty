@@ -41,7 +41,7 @@ public class MainController {
         System.out.println(">>goHome");
         if (cPage == null) {
             System.out.println("cpage ====>" + cPage);
-            cPage = 1;
+            cPage = 0;
             size = 10;
         }
         System.out.println("cPage===>"+cPage);
