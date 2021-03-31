@@ -77,6 +77,8 @@ public class Controller {
     public String procUpdateWriting(Writing writing, Model m) {
         System.out.println("수정 글 번호 =======>?" + writing.getWritingIdx());
         System.out.println("수정 이전 글 내용 =======>?" + writing.getContent());
+
+
         Writing viewWriting = writingService.updateWriting(writing);
         System.out.println("수정 후의 글 내용===>"+viewWriting.getContent());
 
