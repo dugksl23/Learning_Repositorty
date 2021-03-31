@@ -157,6 +157,9 @@
                     title:$('#title').val(),
                     content:quill2.getText()
                 }
+            }).done(function(res){
+                alert(res);
+                location.href=res;
             })
         }
     })

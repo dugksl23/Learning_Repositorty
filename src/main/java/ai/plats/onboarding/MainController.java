@@ -1,3 +1,4 @@
+/*
 package ai.plats.onboarding;
 
 
@@ -41,7 +42,7 @@ public class MainController {
         System.out.println(">>goHome");
         if (cPage == null) {
             System.out.println("cpage ====>" + cPage);
-            cPage = 1;
+            cPage = 0;
             size = 10;
         }
         System.out.println("cPage===>"+cPage);
@@ -72,7 +73,7 @@ public class MainController {
         System.out.println(">>" + "MyInfo");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = userUpdateService.findClientByEmail(username);
+        Optional<User> vo = userUpdateService.findUserByEmail(username);
 
 
         if (vo.isPresent()) {
@@ -92,7 +93,7 @@ public class MainController {
         System.out.println(">>" + "goInfoUpdate");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = userUpdateService.findClientByEmail(username);
+        Optional<User> vo = userUpdateService.findUserByEmail(username);
 
         if (vo.isPresent()) {
             model.addAttribute("userInfo", vo.get());
@@ -138,13 +139,13 @@ public class MainController {
         Optional<User> vo;
         //이메일 중복검
         if (kinds.equals("email")) {
-            vo = userUpdateService.findClientByEmail(content);  //새로운 정보(바꿀 email) 기준으로 중복 탐색
+            vo = userUpdateService.findUserByEmail(content);  //새로운 정보(바꿀 email) 기준으로 중복 탐색
 
             if (vo.isPresent()) {
                 return "중복된 이메일입니다. 다른 이메일을 입력해주세요.";
             } else {
-                Optional<User> changeVo = userUpdateService.findClientByEmail(principal.getName());
-                changeVo.get().setClientEmail(content);
+                Optional<User> changeVo = userUpdateService.findUserByEmail(principal.getName());
+                changeVo.get().setUserEmail(content);
                 changeVo.get().setModDate(LocalDateTime.now());
                 userUpdateService.updateMyInfo(changeVo.get());
                 return "이메일 변경 완료";
@@ -154,8 +155,8 @@ public class MainController {
 
         if (kinds.equals("nick")) {
             //nick 변경시에는 vo를 이용했음  , nick 은 중복검사를 하지 않아서
-            vo = userUpdateService.findClientByEmail(principal.getName());
-            vo.get().setClientEmail(content);
+            vo = userUpdateService.findUserByEmail(principal.getName());
+            vo.get().setUserEmail(content);
             vo.get().setModDate(LocalDateTime.now());
             userUpdateService.updateMyInfo(vo.get());
 
@@ -183,3 +184,4 @@ public class MainController {
 
 
 }
+*/
