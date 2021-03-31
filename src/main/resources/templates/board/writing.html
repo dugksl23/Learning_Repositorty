@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:c=""
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
     <!-- Twitter -->
-    <meta name="twitter:site" content="@themepixels">
-    <meta name="twitter:creator" content="@themepixels">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="DashForge">
-    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta content="@themepixels" name="twitter:site">
+    <meta content="@themepixels" name="twitter:creator">
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="DashForge" name="twitter:title">
+    <meta content="Responsive Bootstrap 4 Dashboard Template" name="twitter:description">
+    <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" name="twitter:image">
     <!--test code-->
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
 
 
-    <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
-    <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
+    <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image">
+    <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image:secure_url">
+    <meta content="image/png" property="og:image:type">
+    <meta content="1200" property="og:image:width">
+    <meta content="600" property="og:image:height">
 
     <!-- Meta -->
-    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="author" content="ThemePixels">
+    <meta content="Responsive Bootstrap 4 Dashboard Template" name="description">
+    <meta content="ThemePixels" name="author">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+    <link href="../../assets/img/favicon.png" rel="shortcut icon" type="image/x-icon">
 
     <title>PlatS</title>
 
@@ -41,8 +41,8 @@
     <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
 
     <!-- DashForge CSS -->
-    <link rel="stylesheet" href="../../assets/css/dashforge.css">
-    <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
+    <link href="../../assets/css/dashforge.css" rel="stylesheet">
+    <link href="../../assets/css/dashforge.auth.css" rel="stylesheet">
 
     <!-- quill CSS -->
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
@@ -55,32 +55,35 @@
 <body>
 
 <header class="navbar navbar-header navbar-header-fixed">
-    <a href="#" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+    <a class="burger-menu" href="#" id="mainMenuOpen"><i data-feather="menu"></i></a>
     <div class="navbar-brand">
-        <a href="/" class="df-logo">Plat<span>S</span></a>
+        <a class="df-logo" href="/">Plat<span>S</span></a>
     </div><!-- navbar-brand -->
-    <div id="navbarMenu" class="navbar-menu-wrapper">
+    <div class="navbar-menu-wrapper" id="navbarMenu">
         <div class="navbar-menu-header">
-            <a href="/" class="df-logo">Plat<span>S</span></a>
-            <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+            <a class="df-logo" href="/">Plat<span>S</span></a>
+            <a href="" id="mainMenuClose"><i data-feather="x"></i></a>
         </div><!-- navbar-menu-header -->
         <ul class="nav navbar-menu">
         </ul>
     </div><!-- navbar-menu-wrapper -->
     <div class="navbar-right">
-        <a sec:authorize="isAuthenticated()" href="/goMyInfo" class="btn btn-buy">
+        <a class="btn btn-buy" href="/goMyInfo" sec:authorize="isAuthenticated()">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+            <line x1="3" x2="21" y2="6" yF1="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>MyInfo</span>
         </a>
 
-        <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
+        <a class="btn btn-buy" href="#" onclick="document.getElementById('logout-form').submit();"
+           sec:authorize="isAuthenticated()">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+            <line x1="3" x2="21" y2="6" yF1="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>Logout</span>
         </a>
 
-        <form id="logout-form" th:action="@{/logout}" method="POST">
+        <form id="logout-form" method="POST" th:action="@{/logout}">
             <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
         </form>
     </div><!-- navbar-right -->
@@ -89,15 +92,16 @@
 <div class="content content-fixed content-auth">
     <div class="container">
 
-        <form onsubmit="return false;" id="writingForm">
+        <form id="writingForm" onsubmit="return false;">
             <div class="form-group">
                 <label class="d-block"><strong>Title</strong></label>
-                <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title" minlength="4" maxlength="50">
+                <input class="form-control" id="title" maxlength="50" minlength="4" name="writing_title"
+                       placeholder="Enter some title" type="text">
             </div>
-            <div id="editor-container2" name="writing_content" class="ht-200" style="height:500px;" required>
+            <div class="ht-200" id="editor-container2" name="writing_content" required style="height:500px;">
             </div>
             <br>
-            <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
             <button class="btn btn-secondary" id="cancel" type="button">Cancel</button>
         </form>
 
@@ -115,9 +119,9 @@
     </div>
     <div>
         <nav class="nav">
-            <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
-            <a href="../../change-log.html" class="nav-link">Change Log</a>
-            <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>
+            <a class="nav-link" href="https://themeforest.net/licenses/standard">Licenses</a>
+            <a class="nav-link" href="../../change-log.html">Change Log</a>
+            <a class="nav-link" href="https://discordapp.com/invite/RYqkVuw">Get Help</a>
         </nav>
     </div>
 </footer>
@@ -131,16 +135,15 @@
 
 
 <script>
-    $('#cancel').on('click',function(){
-        alert("오나요?");
-        location.href="/";
+    $('#cancel').on('click', function () {
+        location.href = "/";
     })
     var quill2 = new Quill('#editor-container2', {
         modules: {
             toolbar: [
                 ['bold', 'italic'],
                 ['link', 'blockquote', 'code-block', 'image'],
-                [{ list: 'ordered' }, { list: 'bullet' }]
+                [{list: 'ordered'}, {list: 'bullet'}]
             ]
         },
         placeholder: 'Compose an epic...',
@@ -151,31 +154,37 @@
 </script>
 
 
-
 <script>
 
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) { xhr.setRequestHeader(header, token); });
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
 
 
-    $('#submit').on('click', function(){
-        alert($('#writing_title').val()+quill2.getText());
-        console.log($('#title').val()+justHtml);
+    $('#submit').on('click', function () {
 
-        if ($('#title').val()=='' && quill2.getText()=='') {
-                 return false;
+        var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
+        var contentSize = (quill2.getLength() >= 5 && quill2.getLength() <= 5000) ? true : false;
+
+        if ($('#title').val() == '' && quill2.getText() == '') {
+            alert("제목과 내용을 입력해주세요.");
+            return false;
+        } else if (titleSize == false) {
+            alert("제목은 4자 이상, 50자 이하로 입력해주세요.");
+        } else if (contentSize == false) {
+            alert("내용은 5000자 이하로 입력해주세요.");
         } else {
             $.ajax({
-                url:"/procWriting",
-                type:"post",
-                data:{
-                    writer:'[[${nick}]]',
-                    title:$('#title').val(),
-                    content:quill2.getText()
+                url: "/procWriting",
+                type: "post",
+                data: {
+                    writer: '[[${nick}]]',
+                    title: $('#title').val(),
+                    content: quill2.getText()
                 }
-            }).done(function(res){
-                alert(res);
+            }).done(function (res) {
                 if (res == "success") {
                     location.href = "/";
                 }

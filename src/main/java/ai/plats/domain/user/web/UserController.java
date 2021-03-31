@@ -33,13 +33,14 @@ public class UserController {
     @RequestMapping({"/", "/goHome"})
     public String goHome(Model m, Integer cPage, Integer size) {
         System.out.println(">>goHome");
+
         if (cPage == null) {
             System.out.println("cpage ====>" + cPage);
             cPage = 0;
             size = 10;
         }
-        System.out.println("cPage===>"+cPage);
-        System.out.println("size====>"+size);
+        System.out.println("cPage===>" + cPage);
+        System.out.println("size====>" + size);
 
         List<Writing> writingList = writingService.boardList(cPage, size);
         m.addAttribute("writingList", writingList);
@@ -168,7 +169,7 @@ public class UserController {
 
         String ori_pwd = request.getParameter("ori_pwd");
         String new_pwd = request.getParameter("new_pwd");
-        String result= userUpdateService.changePwdLogic(principal.getName(), ori_pwd, new_pwd);
+        String result = userUpdateService.changePwdLogic(principal.getName(), ori_pwd, new_pwd);
 
         if (result.equals("변경 성공")) {
             return "변경 성공";
