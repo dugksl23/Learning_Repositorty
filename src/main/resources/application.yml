@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -10,7 +10,8 @@ spring:
       enabled: true
   freemarker:
     cache: false
-
+  main:
+    allow-bean-definition-overriding: true
 
 
   h2:
