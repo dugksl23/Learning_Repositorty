@@ -3,6 +3,7 @@ package ai.plats;
 import ai.plats.domain.account.service.AuthFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/goLogin").loginProcessingUrl("/login").defaultSuccessUrl("/goHome")
+                .failureHandler(authFailureHandler())
                 .usernameParameter("clientEmail")
                 .passwordParameter("clientPwd")
                 .permitAll()
@@ -63,6 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //이 요청 곧 MvcConfig에서 뷰리졸버를 통해 login.html로 보낸다.
 
     }
+
+
+
+
+
 
 
     @Bean
