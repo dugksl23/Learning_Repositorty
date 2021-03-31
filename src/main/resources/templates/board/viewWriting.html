@@ -73,6 +73,10 @@
             <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>Logout</span>
         </a>
+
+        <form id="logout-form" th:action="@{/logout}" method="POST">
+            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+        </form>
     </div><!-- navbar-right -->
 </header><!-- navbar -->
 
@@ -104,7 +108,8 @@
             <div class="col-md-11"></div>
             <div class="col-md-1 text-end">
                 <span class="text-end" id="submit"><a th:href="@{/goUpdateWriting(writingIdx=${viewWriting.getWritingIdx()})}">수정</a></span>
-                <span class="text-end"><a href="">삭제</a></span>
+                <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
+
             </div>
         </div>
         <div class="row" style="height:20px;"></div>
@@ -130,6 +135,22 @@
 
 
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    function delWriting(){
+
+        var result=confirm("삭제하시겠습니까?");
+
+        if (result) {
+            location.href="/goDelWriting?writingIdx=[[${viewWriting.writingIdx}]]";
+        }
+    }
+
+</script>
+
 </body>
 </html>

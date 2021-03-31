@@ -16,6 +16,9 @@
     <meta name="twitter:title" content="DashForge">
     <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <!--test code-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
 
 
     <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
@@ -76,18 +79,22 @@
             <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>Logout</span>
         </a>
+
+        <form id="logout-form" th:action="@{/logout}" method="POST">
+            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+        </form>
     </div><!-- navbar-right -->
 </header><!-- navbar -->
 
 <div class="content content-fixed content-auth">
     <div class="container">
 
-        <form>
+        <form onsubmit="return false;" id="writingForm">
             <div class="form-group">
                 <label class="d-block"><strong>Title</strong></label>
                 <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title" minlength="4" maxlength="50">
             </div>
-            <div id="editor-container2" name="writing_content" class="ht-200" style="height:500px;">
+            <div id="editor-container2" name="writing_content" class="ht-200" style="height:500px;" required>
             </div>
             <br>
             <button class="btn btn-primary" type="submit" id="submit">Submit</button>
@@ -146,13 +153,22 @@
 
 
 <script>
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) { xhr.setRequestHeader(header, token); });
+
+
     $('#submit').on('click', function(){
-        console.log(justHtml);
-        console.log(quill2.getText());
-        console.log($('#title').val()+$('#editor-container2').html()!='');
-        if ($('#writing_title').val()!='' && quill2.getText()!='') {
+        alert($('#writing_title').val()+quill2.getText());
+        console.log($('#title').val()+justHtml);
+
+        if ($('#title').val()=='' && quill2.getText()=='') {
+                 return false;
+        } else {
             $.ajax({
                 url:"/procWriting",
+                type:"post",
                 data:{
                     writer:'[[${nick}]]',
                     title:$('#title').val(),

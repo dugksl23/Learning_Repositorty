@@ -15,7 +15,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class WritingController {
     @Autowired
     WritingService writingService;
 
@@ -86,6 +86,14 @@ public class Controller {
         return redirect_url;
     }
 
+
+    @RequestMapping({"/goDelWriting"})
+    public String delWriting(Writing writing) {
+        System.out.println("삭제 글 번호 =======>?" + writing.getWritingIdx());
+        Writing result = writingService.delWriting(writing);
+
+        return "redirect:/";
+    }
 
 
 

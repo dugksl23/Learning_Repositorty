@@ -23,6 +23,7 @@ public class WritingService {
     }
 
     public Writing writing(Writing writing) {
+        writing.setDelWriting("N");
         Writing result = this.writingRepository.save(writing);
         return result;
     }
@@ -44,6 +45,17 @@ public class WritingService {
 
     public Writing updateWriting(Writing writing) {
         Writing result = this.writingRepository.save(writing);
+        return result;
+    }
+
+    public Writing delWriting(Writing writing) {
+        System.out.println("삭제 글 번호 =======>?" + writing.getWritingIdx());
+
+        Writing result = writingRepository.findByWritingIdx(writing.getWritingIdx());
+                System.out.println("삭제될 게시글의 번호 ====>"+result.getWritingIdx());
+                result.setDelWriting("Y");
+                result = writingRepository.save(result);
+
         return result;
     }
 
