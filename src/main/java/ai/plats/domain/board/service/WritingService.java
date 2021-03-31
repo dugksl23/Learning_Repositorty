@@ -37,7 +37,7 @@ public class WritingService {
         Pageable pageable = PageRequest.of(cPage, size, Direction.DESC, "regDate");
 
         Page<Writing> result = writingRepository.findByDelWriting("N", pageable);
-                //writingRepository.findAll(pageRequest).getContent();
+        //writingRepository.findAll(pageRequest).getContent();
         //System.out.println("return 된 게시글의 갯수" + boardList.size());
         List<Writing> boardList = result.getContent();
         return boardList;

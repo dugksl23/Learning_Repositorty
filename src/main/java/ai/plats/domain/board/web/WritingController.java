@@ -7,6 +7,7 @@ import ai.plats.domain.board.service.WritingService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.Optional;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class WritingController {
     @Autowired
     WritingService writingService;
@@ -28,10 +29,10 @@ public class WritingController {
 
 
     @RequestMapping({"/goWriting"})
-    public String writing(Model m, Principal p) {
-        System.out.println(p.getName());
-        Optional<User> c = userJoinService.findClientByEmail(p.getName());
-        m.addAttribute("nick", ((User)c.get()).getUserNick());
+    public String writing(Model model, Principal principal) {
+        System.out.println(principal.getName());
+        Optional<User> c = userJoinService.findClientByEmail(principal.getName());
+        model.addAttribute("nick", ((User)c.get()).getUserNick());
         return "board/writing";
     }
 

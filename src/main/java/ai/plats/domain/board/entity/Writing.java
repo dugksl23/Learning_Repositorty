@@ -2,6 +2,7 @@ package ai.plats.domain.board.entity;
 
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,20 +14,24 @@ public class Writing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int writingIdx;
-    private String writer;
+    private  String writer;
     @Column(nullable = false)
     private String title;
     @Column(length = 5000, nullable = false)
     private String content;
     @CreationTimestamp
     private LocalDateTime regDate;
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime modiDate;
     private String delWriting;
 
-
     public Writing() {
 
+    }
+
+    public Writing(String title, String content) {
+        this.content = content;
+        this.title = title;
     }
 
     public Writing(int writingIdx, String writer, String title, String content, LocalDateTime regDate, LocalDateTime modiDate, String delWriting) {
