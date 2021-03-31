@@ -63,3 +63,9 @@ html,body{
     margin-bottom:15px;
 
 }
+
+.error_msg{
+    font-weight: 700;
+    color:red;
+
+}

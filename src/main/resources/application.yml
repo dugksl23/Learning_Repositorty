@@ -10,7 +10,8 @@ spring:
       enabled: true
   freemarker:
     cache: false
-
+  main:
+    allow-bean-definition-overriding: true
 
 
   h2:
