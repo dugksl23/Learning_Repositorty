@@ -60,6 +60,11 @@
 
     <div class="navbar-right">
         <!--로그아웃-->
+        <a sec:authorize="isAuthenticated()" href="/goHome" class="btn btn-buy">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg> <span>HOME</span>
+        </a>
         <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -96,7 +101,6 @@
                         <div class="media align-items-center mg-b-20">
                             <div class="media-body pd-l-15">
                                 <h3 class="mg-b-3" th:text="|${userInfo.getUserNick()} 님 환영합니다.|">회원닉네임</h3>
-                            <h3 sec:authentication=""></h3>
                             </div>
                             <span class="d-none d-sm-block tx-12 tx-color-03 align-self-start" th:text="|회원가입 날짜 : ${#temporals.format(userInfo.getRegDate(),'YYYY-MM-DD HH:mm:SS')}|">회원가입 날짜</span>
 

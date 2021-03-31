@@ -62,7 +62,7 @@
 <!--            <line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>-->
 <!--            </svg> <span>Login</span>-->
 <!--        </a>-->
-        <a href="/goJoin" class="btn btn-buy">
+        <a href="/goJoin" class="btn btn-buy" sec:authorize="!isAuthenticated()">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>Join</span>
@@ -70,8 +70,11 @@
     </div><!-- navbar-right -->
 </header><!-- navbar -->
 
-<div class="content content-fixed content-auth">
-    <div class="container" style="width:600px;">
+
+
+<div class="content content-fixed content-auth" >
+    <h1 sec:authorize="isAuthenticated()">잘못된 접근입니다.</h1>
+    <div class="container" style="width:600px;" sec:authorize="!isAuthenticated()">
 
         <div class="sign-wrapper mg-lg-l-50 mg-xl-l-60">
             <h3 class="tx-color-01 mg-b-5">로그인</h3>
@@ -89,7 +92,7 @@
                 </div>
 
                 <div class="form-group" >
-                    <label class="mg-b-0-f error_msg">잘못된 로그인 정보입니다. 다시 입력해주세요. </label>
+                    <label class="mg-b-0-f error_msg" th:text="${errorMsg}"></label>
                 </div>
 
                 <button type="submit" class="btn btn-brand-02 btn-block" id="submit" onclick="return loginForm()">로그인</button>
@@ -101,7 +104,7 @@
 </div><!-- container -->
 </div><!-- content -->
 
-<footer class="footer">
+<footer class="footer" sec:authorize="!isAuthenticated()">
     <div>
         <span>&copy; 2021 PlatS</span>
         <span>Created by <a href="http://themepixels.me">PlatS</a></span>
