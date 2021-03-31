@@ -73,13 +73,17 @@ public class Controller {
     }
 
     @RequestMapping({"/procUpdateWriting"})
+    @ResponseBody
     public String procUpdateWriting(Writing writing, Model m) {
         System.out.println("수정 글 번호 =======>?" + writing.getWritingIdx());
         System.out.println("수정 이전 글 내용 =======>?" + writing.getContent());
+
+
         Writing viewWriting = writingService.updateWriting(writing);
         System.out.println("수정 후의 글 내용===>"+viewWriting.getContent());
 
-        return "redirect:goViewWriting?writingIdx="+writing.getWritingIdx();
+        String redirect_url="/goViewWriting?writingIdx="+writing.getWritingIdx();
+        return redirect_url;
     }
 
 

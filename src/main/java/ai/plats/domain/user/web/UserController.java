@@ -1,6 +1,8 @@
 package ai.plats.domain.user.web;
 
 
+import ai.plats.domain.board.entity.Writing;
+import ai.plats.domain.board.service.WritingService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import ai.plats.domain.user.service.UserUpdateService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,12 +29,26 @@ public class UserController {
     @Autowired
     UserJoinService userJoinService;
 
-    @RequestMapping(value = {"/goHome", "/"}, method = RequestMethod.GET)
-    public String goHome() {
-        System.out.println(">>" + "goHome");
 
+    @Autowired
+    WritingService writingService;
+
+    @RequestMapping({"/", "/goHome"})
+    public String goHome(Model m, Integer cPage, Integer size) {
+        System.out.println(">>goHome");
+        if (cPage == null) {
+            System.out.println("cpage ====>" + cPage);
+            cPage = 0;
+            size = 10;
+        }
+        System.out.println("cPage===>"+cPage);
+        System.out.println("size====>"+size);
+
+        List<Writing> writingList = writingService.boardList(cPage, size);
+        m.addAttribute("writingList", writingList);
         return "home/home";
     }
+
 
     @GetMapping("/goJoin")
     public String goJoin() {

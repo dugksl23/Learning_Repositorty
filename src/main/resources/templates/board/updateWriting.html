@@ -153,10 +153,13 @@
                 url:"/procUpdateWriting",
                 data:{
                     writingIdx:'[[${updateWriting.writingIdx}]]',
-                    writer:'[[${nick}]]',
+                    writer:'[[${updateWriting.writer}]]',
                     title:$('#title').val(),
                     content:quill2.getText()
                 }
+            }).done(function(res){
+                alert(res);
+                location.href=res;
             })
         }
     })

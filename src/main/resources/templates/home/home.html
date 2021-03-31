@@ -158,7 +158,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="i : ${writingLis}">
+      <tr th:each="i : ${writingList}">
         <td>[[${i.writingIdx}]]</td>
         <td><a th:href="@{/goViewWriting(writingIdx=${i.writingIdx})}">[[${i.title}]]</a></td>
         <td>[[${i.writer}]]</td>
