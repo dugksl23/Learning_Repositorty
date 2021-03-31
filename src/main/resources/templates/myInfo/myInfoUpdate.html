@@ -143,7 +143,9 @@
                             </fieldset>
                             </form>
                             <div class="inform_bottom">
+                                <form th:action="@{/procWithDraw}"  id="withDrawId" method="post">
                             <button type="button" class="btn btn-danger btn_withdraw" onclick="withDrawBtn()">회원 탈퇴</button>
+                                </form>
                             </div>
                             <!----------->
                             <span class="d-none d-sm-block tx-12 tx-color-03 align-self-start" th:text="|회원정보 수정 날짜 : ${#temporals.format(userInfo.getModDate(),'YYYY-MM-DD HH:mm:SS')}|">회원정보 수정 날짜</span>
@@ -316,7 +318,9 @@
     function withDrawBtn(){
 
         if(confirm('정말 탈퇴하시겠습니까?')==true){
-            console.log('확인');
+            console.log("탈퇴");
+            $('#withDrawId').submit();
+
         }else{
             return;
         }

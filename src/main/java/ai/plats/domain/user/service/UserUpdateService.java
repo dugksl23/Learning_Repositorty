@@ -45,4 +45,19 @@ public class UserUpdateService {
         }
 
     }
+
+
+    public void withDraw(User user){
+        user.setWithDraw("Y");
+        User vo = userRepository.save(user);
+
+        if(vo!=null){
+            System.out.println("회원탈퇴 처리 되었습니다.");
+        }
+        else{
+            System.out.println("회원탈퇴 처리 실패 service");
+
+        }
+    }
+
 }

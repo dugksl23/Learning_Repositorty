@@ -9,10 +9,7 @@ import ai.plats.domain.user.service.UserUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -92,6 +89,24 @@ public class UserController {
         }
 
     }
+
+    @PostMapping("/procWithDraw")
+    public String procWithDraw(Principal principal) {
+        System.out.println(">>" + "procWithDraw");
+        String username = principal.getName();
+        System.out.println("withdraw username --> " + username);
+        Optional<User> vo = userUpdateService.findUserByEmail(username);
+
+        if (vo.isPresent()) {
+            userUpdateService.withDraw(vo.get());
+            return "home/home";
+        } else {
+            System.out.println("회원탈퇴 접근 오류 controller");
+            return "home/home";
+        }
+
+    }
+
 
     @RequestMapping(value = "/procJoin", method = RequestMethod.POST)
     @ResponseBody

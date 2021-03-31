@@ -29,7 +29,7 @@ public class UserLoginService implements UserDetailsService {
         System.out.println("============>"+clientEmail.toString());
 
             List<GrantedAuthority> authorities=new ArrayList<>();
-            Optional<User> vo = userRepository.findByUserEmail(clientEmail);
+            Optional<User> vo = userRepository.findByUserEmailAndWithDraw(clientEmail,"N");
 
         if(vo!=null){
 
