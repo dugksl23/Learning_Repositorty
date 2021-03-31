@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/","/h2_db/**","/goHome","/goLogin","/goJoin","/join","/goMyInfo","/goInfoUpdate","/procJoin","/procUpdateMyInfo","/procChangePwd").permitAll()
+                .antMatchers("/","/h2_db/**","/goHome","/goLogin","/goJoin","/join","/goMyInfo","/goInfoUpdate","/procJoin","/procUpdateMyInfo","/procChangePwd","/goLoginError").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf()
@@ -35,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/goLogin").loginProcessingUrl("/login").defaultSuccessUrl("/goHome")
-                .failureHandler(authFailureHandler())
+                .failureUrl("/goTest")
+                //.failureHandler(authFailureHandler())
                 .usernameParameter("clientEmail")
                 .passwordParameter("clientPwd")
                 .permitAll()
@@ -67,22 +68,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
-
-
-
     @Bean
     public PasswordEncoder passwordEncoder(){
 
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationFailureHandler authFailureHandler(){
-        return new AuthFailureHandler();
-    }
-
+//    @Bean
+//    public AuthenticationFailureHandler authFailureHandler(){
+//        return new AuthFailureHandler();
+//    }
+//
 
 
     @Override

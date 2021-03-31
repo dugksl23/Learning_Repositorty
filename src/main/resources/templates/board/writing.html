@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:c=""
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <meta charset="UTF-8">
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Twitter -->
-    <meta content="@themepixels" name="twitter:site">
-    <meta content="@themepixels" name="twitter:creator">
-    <meta content="summary_large_image" name="twitter:card">
-    <meta content="DashForge" name="twitter:title">
-    <meta content="Responsive Bootstrap 4 Dashboard Template" name="twitter:description">
-    <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" name="twitter:image">
-    <!--test code-->
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DashForge">
+    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
 
 
-    <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image">
-    <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image:secure_url">
-    <meta content="image/png" property="og:image:type">
-    <meta content="1200" property="og:image:width">
-    <meta content="600" property="og:image:height">
+    <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
 
     <!-- Meta -->
-    <meta content="Responsive Bootstrap 4 Dashboard Template" name="description">
-    <meta content="ThemePixels" name="author">
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="ThemePixels">
 
     <!-- Favicon -->
-    <link href="../../assets/img/favicon.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
 
     <title>PlatS</title>
 
@@ -41,8 +38,8 @@
     <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
 
     <!-- DashForge CSS -->
-    <link href="../../assets/css/dashforge.css" rel="stylesheet">
-    <link href="../../assets/css/dashforge.auth.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
 
     <!-- quill CSS -->
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
@@ -55,54 +52,46 @@
 <body>
 
 <header class="navbar navbar-header navbar-header-fixed">
-    <a class="burger-menu" href="#" id="mainMenuOpen"><i data-feather="menu"></i></a>
+    <a href="#" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
     <div class="navbar-brand">
-        <a class="df-logo" href="/">Plat<span>S</span></a>
+        <a href="/" class="df-logo">Plat<span>S</span></a>
     </div><!-- navbar-brand -->
-    <div class="navbar-menu-wrapper" id="navbarMenu">
+    <div id="navbarMenu" class="navbar-menu-wrapper">
         <div class="navbar-menu-header">
-            <a class="df-logo" href="/">Plat<span>S</span></a>
-            <a href="" id="mainMenuClose"><i data-feather="x"></i></a>
+            <a href="/" class="df-logo">Plat<span>S</span></a>
+            <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
         </div><!-- navbar-menu-header -->
         <ul class="nav navbar-menu">
         </ul>
     </div><!-- navbar-menu-wrapper -->
     <div class="navbar-right">
-        <a class="btn btn-buy" href="/goMyInfo" sec:authorize="isAuthenticated()">
+        <a sec:authorize="isAuthenticated()" href="/goMyInfo" class="btn btn-buy">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" x2="21" y2="6" yF1="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
+            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>MyInfo</span>
         </a>
 
-        <a class="btn btn-buy" href="#" onclick="document.getElementById('logout-form').submit();"
-           sec:authorize="isAuthenticated()">
+        <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" x2="21" y2="6" yF1="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
+            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>Logout</span>
         </a>
-
-        <form id="logout-form" method="POST" th:action="@{/logout}">
-            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-        </form>
     </div><!-- navbar-right -->
 </header><!-- navbar -->
 
 <div class="content content-fixed content-auth">
     <div class="container">
 
-        <form id="writingForm" onsubmit="return false;">
+        <form>
             <div class="form-group">
                 <label class="d-block"><strong>Title</strong></label>
-                <input class="form-control" id="title" maxlength="50" minlength="4" name="writing_title"
-                       placeholder="Enter some title" type="text">
+                <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title" minlength="4" maxlength="50">
             </div>
-            <div class="ht-200" id="editor-container2" name="writing_content" required style="height:500px;">
+            <div id="editor-container2" name="writing_content" class="ht-200" style="height:500px;" required>
             </div>
             <br>
-            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
-            <button class="btn btn-secondary" id="cancel" type="button">Cancel</button>
+            <button class="btn btn-primary" type="submit" id="submit">작성 완료</button>
+            <button class="btn btn-secondary" id="cancel" type="button">다시 작성</button>
         </form>
 
     </div>
@@ -119,9 +108,9 @@
     </div>
     <div>
         <nav class="nav">
-            <a class="nav-link" href="https://themeforest.net/licenses/standard">Licenses</a>
-            <a class="nav-link" href="../../change-log.html">Change Log</a>
-            <a class="nav-link" href="https://discordapp.com/invite/RYqkVuw">Get Help</a>
+            <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
+            <a href="../../change-log.html" class="nav-link">Change Log</a>
+            <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>
         </nav>
     </div>
 </footer>
@@ -135,15 +124,15 @@
 
 
 <script>
-    $('#cancel').on('click', function () {
-        location.href = "/";
+    $('#cancel').on('click',function(){
+        location.href="/";
     })
     var quill2 = new Quill('#editor-container2', {
         modules: {
             toolbar: [
                 ['bold', 'italic'],
                 ['link', 'blockquote', 'code-block', 'image'],
-                [{list: 'ordered'}, {list: 'bullet'}]
+                [{ list: 'ordered' }, { list: 'bullet' }]
             ]
         },
         placeholder: 'Compose an epic...',
@@ -154,16 +143,15 @@
 </script>
 
 
-<script>
 
+<script>
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
 
-
-    $('#submit').on('click', function () {
+    $('#submit').on('click', function(){
 
         var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
         var contentSize = (quill2.getLength() >= 5 && quill2.getLength() <= 5000) ? true : false;
