@@ -28,10 +28,8 @@ public class UserLoginService implements UserDetailsService {
         System.out.println("login try..");
         System.out.println("============>"+clientEmail.toString());
 
-        List<GrantedAuthority> authorities=new ArrayList<>();
-
-//        Optional<UserTable> voName = clientRepository.findByUsername(username);
-            Optional<User> vo = userRepository.findByClientEmail(clientEmail);
+            List<GrantedAuthority> authorities=new ArrayList<>();
+            Optional<User> vo = userRepository.findByUserEmail(clientEmail);
 
         if(vo!=null){
 
@@ -45,16 +43,12 @@ public class UserLoginService implements UserDetailsService {
             }
 
             System.out.println(">>"+vo);
-            System.out.println("check value ->"+vo.get().getClientEmail() );
-            return new org.springframework.security.core.userdetails.User(vo.get().getClientEmail(),vo.get().getClientPwd(),authorities);
-
+            System.out.println("check value ->"+vo.get().getUserEmail() );
+            return new org.springframework.security.core.userdetails.User(vo.get().getUserEmail(),vo.get().getUserPwd(),authorities);
         }else{
             System.out.println("유저없음");
             throw new UsernameNotFoundException("User not authorized.");
         }
-//        authorities.add(new SimpleGrantedAuthority("ROLE_USER")); //앞에 ROLE_을 붙여야 home.html에서 정상적으로 hasRole()구문을 인식
-
-
 
 
     }

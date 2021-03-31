@@ -1,9 +1,6 @@
-package ai.plats.onboarding;
+package ai.plats.domain.user.web;
 
 
-import ai.plats.domain.account.service.UserLoginService;
-import ai.plats.domain.board.entity.Writing;
-import ai.plats.domain.board.service.WritingService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import ai.plats.domain.user.service.UserUpdateService;
@@ -18,47 +15,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class MainController {
+public class UserController {
 
-    @Autowired
-    UserLoginService userLoginService;
-    @Autowired
-    UserJoinService userJoinService;
     @Autowired
     UserUpdateService userUpdateService;
 
-    @Autowired WritingService writingService;
+    @Autowired
+    UserJoinService userJoinService;
 
-    @RequestMapping(
-            value = {"/goHome", "/"},
-            method = {RequestMethod.GET}
-    )
-    public String goHome(Model m, Integer cPage, Integer size) {
-        System.out.println(">>goHome");
-        if (cPage == null) {
-            System.out.println("cpage ====>" + cPage);
-            cPage = 1;
-            size = 10;
-        }
-        System.out.println("cPage===>"+cPage);
-        System.out.println("size====>"+size);
+    @RequestMapping(value = {"/goHome", "/"}, method = RequestMethod.GET)
+    public String goHome() {
+        System.out.println(">>" + "goHome");
 
-        List<Writing> writingList = writingService.boardList(cPage, size);
-        m.addAttribute("writingList", writingList);
         return "home/home";
     }
-
-    @GetMapping("/goLogin")
-    public String goLogin() {
-        System.out.println(">>" + "login");
-
-        return "login/signIn";
-    }
-
 
     @GetMapping("/goJoin")
     public String goJoin() {
@@ -72,8 +45,7 @@ public class MainController {
         System.out.println(">>" + "MyInfo");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = userUpdateService.findClientByEmail(username);
-
+        Optional<User> vo = userUpdateService.findUserByEmail(username);
 
         if (vo.isPresent()) {
 
@@ -92,11 +64,10 @@ public class MainController {
         System.out.println(">>" + "goInfoUpdate");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = userUpdateService.findClientByEmail(username);
+        Optional<User> vo = userUpdateService.findUserByEmail(username);
 
         if (vo.isPresent()) {
             model.addAttribute("userInfo", vo.get());
-
             return "myInfo/myInfoUpdate";
         } else {
             System.out.println("myinfo 정보 수정 페이지 접근 오류 발생");
@@ -104,9 +75,6 @@ public class MainController {
         }
 
     }
-
-    //////////////////////////proc/////////////////////////////
-
 
     @RequestMapping(value = "/procJoin", method = RequestMethod.POST)
     @ResponseBody
@@ -118,7 +86,7 @@ public class MainController {
         Optional<User> vo = userJoinService.findClientByEmail(email);
 
         if (vo.isPresent() == false) {
-            User joinVo = userJoinService.joinClient(new User(email, pwd, nick, "N",LocalDateTime.now(), LocalDateTime.now()));
+            User joinVo = userJoinService.joinClient(new User(email, pwd, nick, "N", LocalDateTime.now(), LocalDateTime.now()));
             if (joinVo != null) return "가입 성공";
             else return "가입 실패 ! 오류 발생 !";
         } else {
@@ -138,13 +106,13 @@ public class MainController {
         Optional<User> vo;
         //이메일 중복검
         if (kinds.equals("email")) {
-            vo = userUpdateService.findClientByEmail(content);  //새로운 정보(바꿀 email) 기준으로 중복 탐색
+            vo = userUpdateService.findUserByEmail(content);  //새로운 정보(바꿀 email) 기준으로 중복 탐색
 
             if (vo.isPresent()) {
                 return "중복된 이메일입니다. 다른 이메일을 입력해주세요.";
             } else {
-                Optional<User> changeVo = userUpdateService.findClientByEmail(principal.getName());
-                changeVo.get().setClientEmail(content);
+                Optional<User> changeVo = userUpdateService.findUserByEmail(principal.getName());
+                changeVo.get().setUserEmail(content);
                 changeVo.get().setModDate(LocalDateTime.now());
                 userUpdateService.updateMyInfo(changeVo.get());
                 return "이메일 변경 완료";
@@ -154,17 +122,13 @@ public class MainController {
 
         if (kinds.equals("nick")) {
             //nick 변경시에는 vo를 이용했음  , nick 은 중복검사를 하지 않아서
-            vo = userUpdateService.findClientByEmail(principal.getName());
-            vo.get().setClientEmail(content);
+            vo = userUpdateService.findUserByEmail(principal.getName());
+            vo.get().setUserNick(content);
             vo.get().setModDate(LocalDateTime.now());
             userUpdateService.updateMyInfo(vo.get());
-
         }
         return "닉네임 변경 완료";
-
-
     }
-
 
     @RequestMapping(value = "/procChangePwd", method = RequestMethod.POST)
     @ResponseBody

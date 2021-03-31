@@ -31,7 +31,7 @@ public class Controller {
     public String writing(Model m, Principal p) {
         System.out.println(p.getName());
         Optional<User> c = userJoinService.findClientByEmail(p.getName());
-        m.addAttribute("nick", ((User)c.get()).getNick());
+        m.addAttribute("nick", ((User)c.get()).getUserNick());
         return "board/writing";
     }
 
@@ -56,8 +56,8 @@ public class Controller {
         m.addAttribute("viewWriting", viewWriting);
 
         Optional<User> email = userJoinService.findClientByEmail(p.getName());
-        System.out.println("현재 로그인한 유저 ====>"+email.get().getClientEmail());
-        m.addAttribute("nick", email.get().getNick());
+        System.out.println("현재 로그인한 유저 ====>"+email.get().getUserEmail());
+        m.addAttribute("nick", email.get().getUserNick());
 
         return "/board/viewWriting";
 
