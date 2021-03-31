@@ -7,6 +7,7 @@ import ai.plats.domain.board.service.WritingService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.Optional;
 
-@org.springframework.stereotype.Controller
-public class Controller {
+@Controller
+public class WritingController {
     @Autowired
     WritingService writingService;
 
