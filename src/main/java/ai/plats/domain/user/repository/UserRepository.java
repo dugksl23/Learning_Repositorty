@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,String> {
     //id 는 pk의 형식
 
-    Optional<User> findByClientEmail(String email);
+    Optional<User> findByUserEmail(String email);
 
-    Optional<User> findByNick(String nick);
+    Optional<User> findByUserNick(String nick);
 
 }

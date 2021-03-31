@@ -19,7 +19,7 @@ public class UserJoinService {
 
     public User joinClient(User userVO) {
 
-        userVO.setClientPwd(passwordEncoder.encode(userVO.getClientPwd()));  //평문 암호화
+        userVO.setUserPwd(passwordEncoder.encode(userVO.getUserPwd()));  //평문 암호화
 
        return userRepository.save(userVO);
     }
@@ -27,6 +27,9 @@ public class UserJoinService {
 
     public Optional<User> findClientByEmail(String email){
 
-        return userRepository.findByClientEmail(email);
+        return userRepository.findByUserEmail(email);
     }
 }
+
+
+
