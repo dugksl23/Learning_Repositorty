@@ -2,7 +2,10 @@ package ai.plats.domain.board.web;
 
 
 import ai.plats.domain.account.service.UserLoginService;
+import ai.plats.domain.board.entity.Comments;
 import ai.plats.domain.board.entity.Writing;
+import ai.plats.domain.board.repository.CommentsRepository;
+import ai.plats.domain.board.service.CommentsService;
 import ai.plats.domain.board.service.WritingService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Controller
@@ -28,6 +32,8 @@ public class WritingController {
     UserJoinService userJoinService;//user 서비스
 
 
+    @Autowired
+    CommentsService commentsService;
 
 
     @RequestMapping({"/goWriting"})
@@ -56,6 +62,10 @@ public class WritingController {
         Writing viewWriting = writingService.getMyWriting(writing.getIdxWriting());
         model.addAttribute("viewWriting", viewWriting);
 //        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
+
+        List<Comments> list=commentsService.findByIdxWriting(viewWriting.getIdxWriting());
+
+        model.addAttribute("commetsList",list);
         model.addAttribute("idxUser", principal.getName());
         return "/board/viewWriting";
     }

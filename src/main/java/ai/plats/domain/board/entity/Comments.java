@@ -1,4 +1,4 @@
-package ai.plats.domain.user.entity;
+package ai.plats.domain.board.entity;
 
 
 import org.hibernate.annotations.Check;

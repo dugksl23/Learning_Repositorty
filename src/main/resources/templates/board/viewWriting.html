@@ -38,7 +38,9 @@
     <link rel="stylesheet" href="myCss/myCustom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
+    <!--test code-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
 </head>
 <body>
 <header class="navbar navbar-header navbar-header-fixed">
@@ -92,16 +94,19 @@
             </div>
         </div>
         <div class="input-group comm_input">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <input type="text" class="form-control" id="comments_input" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
             <div class="input-group-append">
-                <button class="btn btn-outline-light" type="button" id="button-addon2">Button</button>
+                <button class="btn btn-outline-light" type="button" id="comments_btn">댓글 남기기</button>
             </div>
         </div>
 
         <div class="comm_div">
-            <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
+<!--            <ul class="list-group">-->
+<!--                <li class="list-group-item">Cras justo odio</li>-->
+<!--                <li class="list-group-item">Dapibus ac facilisis in</li>-->
+<!--            </ul>-->
+            <ul class="list-group" th:each="i : ${commetsList}">
+                <li class="list-group-item" th:text="|${i.getCommWriter()} ---- ${i.getCommContent()}|"></li>
             </ul>
         </div>
 
@@ -132,8 +137,35 @@
 </script>
 
 <script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
 
-    
+    $('#comments_btn').on('click',function(){
+
+        var comments=$('#comments_input').val();
+        $.ajax({
+            url:"/comments_write",
+            data:{
+                idxWriting:'[[${viewWriting.idxWriting}]]',  //게시글번호
+                commContent:comments
+            },
+            type:"post",
+            success:function (data){
+                alert("댓글 등록 ! ");
+                window.location.href=data;
+            },
+            error:function (data){
+                alert("댓글 등록 실패 ! ");
+            }
+
+        })
+
+
+    })
+
 
 
 </script>
