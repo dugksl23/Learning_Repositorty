@@ -92,18 +92,14 @@
 <div class="content content-fixed content-auth">
     <div class="container">
 
-        <form id="writingForm" onsubmit="return false;">
             <div class="form-group">
-                <label class="d-block"><strong>Title</strong></label>
-                <input class="form-control" id="title" maxlength="50" minlength="4" name="writing_title"
-                       placeholder="Enter some title" type="text">
+                <input class="form-control" id="title" name="title" placeholder="Enter some title" type="text">
             </div>
             <div class="ht-200" id="editor-container2" name="writing_content" required style="height:500px;">
             </div>
             <br>
-            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
+            <button class="btn btn-primary" id="submit" type="button">Submit</button>
             <button class="btn btn-secondary" id="cancel" type="button">Cancel</button>
-        </form>
 
     </div>
 
@@ -180,6 +176,7 @@
                 url: "/procWriting",
                 type: "post",
                 data: {
+                    idxUser:"[[${idxUser}]]",
                     writer: '[[${nick}]]',
                     title: $('#title').val(),
                     content: quill2.getText()
