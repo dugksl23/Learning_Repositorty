@@ -85,6 +85,9 @@
 </div><!-- media -->
 </div><!-- container -->
 </div><!-- content -->
+
+
+
 <footer class="footer mg-t-auto">
     <div>
         <span>&copy; 2019 DashForge v1.0.0. </span>
@@ -127,6 +130,7 @@
     $('#submit').on('click', function () {
         var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
         var contentSize = (quill2.getLength() >= 8 && quill2.getLength() <= 5000) ? true : false;
+        console.log(">>>>>>>"+$('#title').val());
         if ($('#title').val() == '' && quill2.getText() == '') {
             alert("제목과 내용을 입력해주세요.");
             return false;
@@ -137,7 +141,7 @@
         } else {
             console.log('[[${updateWriting.regDate}]]');
             $.ajax({
-                url: "/procUpdateWriting",
+                url: "/test",
                 type:"post",
                 data: {
                     idxWriting: '[[${updateWriting.idxWriting}]]',
@@ -145,11 +149,12 @@
                     writer: '[[${updateWriting.writer}]]',
                     title: $('#title').val(),
                     content: quill2.getText(),
-                    //regDate:'[[${updateWriting.regDate}]]',
+                    regDateStr:'[[${updateWriting.regDate}]]',
                     delWriting:'[[${updateWriting.delWriting}]]'
                 }
             }).done(function (res) {
-                location.href = res;
+                alert(res);
+                window.location.href = "/goViewWriting?idxWriting="+'[[${updateWriting.idxWriting}]]';
             })
         }
     })

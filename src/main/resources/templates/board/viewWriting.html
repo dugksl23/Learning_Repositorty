@@ -86,7 +86,8 @@
             </div>
         </div>
         <div class="row" style="height:20px;"></div>
-        <div th:if="${viewWriting.getIdxUser()==idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
+
+        <div th:if="${viewWriting.getIdxUser()}==${idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
             <div class="col-md-11 text-start">
                 <span class="text-end" id="button"><a th:href="@{/goHome}">뒤로 가기</a></span>
             </div>
@@ -100,6 +101,8 @@
 </div><!-- media -->
 </div><!-- container -->
 </div><!-- content -->
+
+
 <footer class="footer mg-t-auto">
     <div>
         <span>&copy; 2019 DashForge v1.0.0. </span>
