@@ -36,7 +36,7 @@ public class WritingController {
 
     @RequestMapping({"/goWriting"})
     public String writing(Model model, Principal principal) {
-        System.out.println(principal.getName());
+
         Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
 
         model.addAttribute("nick", ((User)user.get()).getUserNick());
@@ -49,7 +49,7 @@ public class WritingController {
     @ResponseBody
     public String procWriting(Writing writing, String regDate) {
 
-        this.writingService.writing(writing);
+        writingService.writing(writing);
         String success = "success";
         return success;
     }
@@ -69,9 +69,6 @@ public class WritingController {
 
     @RequestMapping(value="/goUpdateWriting")
     public String goUpdateWriting(Writing writing, Model m) {
-        System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
-        System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
-
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
         m.addAttribute("updateWriting", updateWriting);
@@ -84,7 +81,7 @@ public class WritingController {
     @RequestMapping(value="/procUpdateWriting", method= RequestMethod.POST)
     @ResponseBody
     public String procUpdateWriting(Writing writing) {
-        System.out.println(writing.getIdxWriting());
+
         writing.setRegDate((LocalDateTime) session.getAttribute("regDate"));
         Writing viewWriting = writingService.updateWriting(writing);
 
