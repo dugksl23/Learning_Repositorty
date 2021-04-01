@@ -33,6 +33,12 @@
     <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
     <!-- quill CSS -->
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
+
+    <!--myCss-->
+    <link rel="stylesheet" href="myCss/myCustom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>
 <body>
 <header class="navbar navbar-header navbar-header-fixed">
@@ -85,7 +91,19 @@
                 [[${i.content}]]
             </div>
         </div>
-        <div class="row" style="height:20px;"></div>
+        <div class="input-group comm_input">
+            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-light" type="button" id="button-addon2">Button</button>
+            </div>
+        </div>
+
+        <div class="comm_div">
+            <ul class="list-group">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+            </ul>
+        </div>
 
         <div th:if="${viewWriting.getIdxUser()}==${idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
             <div class="col-md-11 text-start">
@@ -96,26 +114,12 @@
                 <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
             </div>
         </div>
-        <div class="row" style="height:20px;"></div>
     </div>
 </div><!-- media -->
 </div><!-- container -->
 </div><!-- content -->
 
 
-<footer class="footer mg-t-auto">
-    <div>
-        <span>&copy; 2019 DashForge v1.0.0. </span>
-        <span>Created by <a href="http://themepixels.me">ThemePixels</a></span>
-    </div>
-    <div>
-        <nav class="nav">
-            <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
-            <a href="../../change-log.html" class="nav-link">Change Log</a>
-            <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>
-        </nav>
-    </div>
-</footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -125,6 +129,13 @@
             location.href="/goDelWriting?idxWriting=[[${viewWriting.idxWriting}]]";
         }
     }
+</script>
+
+<script>
+
+    
+
+
 </script>
 </body>
 </html>
