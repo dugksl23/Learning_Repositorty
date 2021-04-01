@@ -2,13 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:th="https://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
     <!-- Twitter -->
     <meta content="@themepixels" name="twitter:site">
     <meta content="@themepixels" name="twitter:creator">
@@ -19,38 +17,27 @@
     <!--test code-->
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
-
-
     <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image">
     <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image:secure_url">
     <meta content="image/png" property="og:image:type">
     <meta content="1200" property="og:image:width">
     <meta content="600" property="og:image:height">
-
     <!-- Meta -->
     <meta content="Responsive Bootstrap 4 Dashboard Template" name="description">
     <meta content="ThemePixels" name="author">
-
     <!-- Favicon -->
     <link href="../../assets/img/favicon.png" rel="shortcut icon" type="image/x-icon">
-
     <title>PlatS</title>
-
     <!-- vendor css -->
     <link href="../../lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-
     <!-- DashForge CSS -->
     <link href="../../assets/css/dashforge.css" rel="stylesheet">
     <link href="../../assets/css/dashforge.auth.css" rel="stylesheet">
-
     <!-- quill CSS -->
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
-
-
 </head>
 <body>
-
 <header class="navbar navbar-header navbar-header-fixed">
     <a class="burger-menu" href="#" id="mainMenuOpen"><i data-feather="menu"></i></a>
     <div class="navbar-brand">
@@ -71,7 +58,6 @@
             <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>MyInfo</span>
         </a>
-
         <a class="btn btn-buy" href="#" onclick="document.getElementById('logout-form').submit();"
            sec:authorize="isAuthenticated()">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -81,31 +67,24 @@
         </a>
     </div><!-- navbar-right -->
 </header><!-- navbar -->
-
 <div class="content content-fixed content-auth">
     <div class="container" th:each="i : ${updateWriting}">
-
-            <div class="form-group">
-                <label class="d-block">
-                    <strong>Title</strong>
-                </label>
-                <input class="form-control" id="title"  name="writing_title"
-                       placeholder="Enter some title" th:value="${i.title}" type="text">
-            </div>
-            <div class="ht-200" id="editor-container2" name="writing_content" style="height:500px;">
-                [[${i.content}]]
-            </div>
-            <br>
-            <button class="btn btn-primary" id="submit" type="button">작성완료</button>
-            <button class="btn btn-secondary" id="cancel" type="button" >뒤로가가</button>
-
+        <div class="form-group">
+            <label class="d-block">
+                <strong>Title</strong>
+            </label>
+            <input class="form-control" id="title" name="title" placeholder="Enter some title" th:value="${i.title}" type="text">
+        </div>
+        <div class="ht-200" id="editor-container2" name="writing_content" style="height:500px;">
+            [[${i.content}]]
+        </div>
+        <br>
+        <button class="btn btn-primary" id="submit" type="button">Submit</button>
+        <button class="btn btn-secondary" id="cancel" type="button">Cancel</button>
     </div>
-
-
 </div><!-- media -->
 </div><!-- container -->
 </div><!-- content -->
-
 <footer class="footer mg-t-auto">
     <div>
         <span>&copy; 2019 DashForge v1.0.0. </span>
@@ -119,17 +98,10 @@
         </nav>
     </div>
 </footer>
-
-
 </div>
 <script src="/lib/jquery/jquery.min.js"></script>
-
 <script src="https://cdn.quilljs.com/1.1.9/quill.js"></script>
-<script
-        crossorigin="anonymous"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $('#cancel').on('click', function () {
         location.href = "/";
@@ -146,52 +118,41 @@
         theme: 'snow'
     });
 </script>
-
-
 <script>
-
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
-
     $('#submit').on('click', function () {
-
         var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
-        var contentSize = (quill2.getLength() >= 5 && quill2.getLength() <= 5000) ? true : false;
-
+        var contentSize = (quill2.getLength() >= 8 && quill2.getLength() <= 5000) ? true : false;
         if ($('#title').val() == '' && quill2.getText() == '') {
             alert("제목과 내용을 입력해주세요.");
             return false;
         } else if (titleSize == false) {
             alert("제목은 4자 이상, 50자 이하로 입력해주세요.");
         } else if (contentSize == false) {
-            alert("내용은 5000자 이하로 입력해주세요.");
+            alert("내용은 4자이상, 5000자 이하로 입력해주세요.");
         } else {
+            console.log('[[${updateWriting.regDate}]]');
             $.ajax({
                 url: "/procUpdateWriting",
-                type: "post",
+                type:"post",
                 data: {
-                    writingIdx: '[[${updateWriting.writingIdx}]]',
+                    idxWriting: '[[${updateWriting.idxWriting}]]',
+                    idxUser: '[[${updateWriting.idxUser}]]',
                     writer: '[[${updateWriting.writer}]]',
                     title: $('#title').val(),
-                    content: quill2.getText()
-                },
-                success : function(res){
-                    console.log(">>"+res);
-                    alert('게시물이 수정되었습니다.');
-                    window.location.href=res;
-                },
-                error:function(res){
-                    alert('게시물수정 오류 !! ');
+                    content: quill2.getText(),
+                    //regDate:'[[${updateWriting.regDate}]]',
+                    delWriting:'[[${updateWriting.delWriting}]]'
                 }
-
+            }).done(function (res) {
+                location.href = res;
             })
-
         }
     })
 </script>
-
 </body>
 </html>

@@ -9,9 +9,12 @@ import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @org.springframework.stereotype.Controller
@@ -25,13 +28,18 @@ public class WritingController {
     @Autowired
     UserJoinService userJoinService;//user 서비스
 
+    @Autowired
+    HttpSession session;
+
+
 
 
     @RequestMapping({"/goWriting"})
-    public String writing(Model m, Principal p) {
-        System.out.println(p.getName());
-        Optional<User> c = userJoinService.findClientByEmail(p.getName());
-        m.addAttribute("nick", ((User)c.get()).getUserNick());
+    public String writing(Model model, Principal principal) {
+        System.out.println(principal.getName());
+        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
+        model.addAttribute("nick", ((User)user.get()).getUserNick());
+        model.addAttribute("idxUser", ((User)user.get()).getIdxUser());
         return "board/writing";
     }
 
@@ -47,49 +55,43 @@ public class WritingController {
         return success;
     }
 
-    @RequestMapping(value={"/goViewWriting"},method = RequestMethod.GET)
-    public String procWriting(Writing writing, Model m, Principal p) {
-        System.out.println("viewWriting =======>?" + writing.getWritingIdx());
-        Writing viewWriting = this.writingService.getMyWriting(writing.getWritingIdx());
-        System.out.println("db 조회 후의 데이터 결과 ============>" + viewWriting.getWritingIdx());
-        System.out.println("현재 글의 작성자 ====>"+viewWriting.getWriter());
-        m.addAttribute("viewWriting", viewWriting);
-
-        Optional<User> email = userJoinService.findClientByEmail(p.getName());
-        System.out.println("현재 로그인한 유저 ====>"+email.get().getUserEmail());
-        m.addAttribute("nick", email.get().getUserNick());
-
+    @RequestMapping({"/goViewWriting"})
+    public String procWriting(Writing writing, Model model, Principal principal) {
+        Writing viewWriting = writingService.getMyWriting(writing.getIdxWriting());
+        model.addAttribute("viewWriting", viewWriting);
+        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
+        model.addAttribute("idxUser", user.get().getIdxUser());
         return "/board/viewWriting";
-
     }
 
-    @RequestMapping({"/goUpdateWriting"})
+    @RequestMapping(value="/goUpdateWriting")
     public String goUpdateWriting(Writing writing, Model m) {
-        System.out.println("수정 글 번호 =======>?" + writing.getWritingIdx());
-        Writing updateWriting = writingService.getMyWriting(writing.getWritingIdx());
+        System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
+        System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
+        Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
-
+        m.addAttribute("updateWriting", updateWriting);
+        session.setAttribute("regDate", updateWriting.getRegDate());
         return "board/updateWriting";
     }
 
-    @RequestMapping({"/procUpdateWriting"})
+
+
+
+    @RequestMapping(value="/procUpdateWriting", method= RequestMethod.POST)
     @ResponseBody
-    public String procUpdateWriting(Writing writing, Model m) {
-        System.out.println("수정 글 번호 =======>?" + writing.getWritingIdx());
-        System.out.println("수정 이전 글 내용 =======>?" + writing.getContent());
-
-
+    public String procUpdateWriting(Writing writing) {
+        System.out.println(writing.getIdxWriting());
+        writing.setRegDate((LocalDateTime) session.getAttribute("regDate"));
         Writing viewWriting = writingService.updateWriting(writing);
-        System.out.println("수정 후의 글 내용===>"+viewWriting.getContent());
-
-        String redirect_url="/goViewWriting?writingIdx="+writing.getWritingIdx();
+        String redirect_url="/goViewWriting?idxWriting="+viewWriting.getIdxWriting();
         return redirect_url;
     }
 
 
     @RequestMapping({"/goDelWriting"})
     public String delWriting(Writing writing) {
-        System.out.println("삭제 글 번호 =======>?" + writing.getWritingIdx());
+        System.out.println("삭제 글 번호 =======>?" + writing.getIdxWriting());
         Writing result = writingService.delWriting(writing);
 
         return "redirect:/";
