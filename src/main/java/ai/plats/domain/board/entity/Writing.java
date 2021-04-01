@@ -5,6 +5,7 @@ import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,14 +18,14 @@ public class Writing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idxWriting;
     private int idxUser;
-    private  String writer;
+    private String writer;
     @Column(nullable = false)
     private String title;
     @Column(length = 5000, nullable = false)
     private String content;
     @CreationTimestamp
 
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn", timezone = "Asia/Seoul")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn")
     private LocalDateTime regDate;
     @UpdateTimestamp
@@ -110,6 +111,5 @@ public class Writing {
     public void setDelWriting(String delWriting) {
         this.delWriting = delWriting;
     }
+
 }
-
-

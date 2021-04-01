@@ -58,7 +58,12 @@ html,body{
 }
 
 .btn_withdraw{
-    float: right;
+    position: relative;
+    margin-top:20px;
+    margin-bottom:15px;
+
+}
+.btn_goBack{
     margin-top:20px;
     margin-bottom:15px;
 

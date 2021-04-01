@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class UserLoginController {
 
@@ -21,14 +23,22 @@ public class UserLoginController {
         return "login/signIn";
     }
 
-    @PostMapping("/goLoginError")
-    public String goLoginError(Model model) {
-        System.out.println(">>" + "goLoginError redirect");
-        model.addAttribute("errorMsg","잘못된 로그인 정보입니다.");
+//    @PostMapping("/goLoginError")
+//    public String goLoginError(Model model) {
+//        System.out.println(">>" + "goLoginError redirect");
+//        model.addAttribute("errorMsg","잘못된 로그인 정보입니다.");
+//
+//        return "login/signIn";
+//    }
+
+    @GetMapping("/goTest")
+    public String goTest(HttpServletRequest req,Model model) {
+        System.out.println(">>" + "goTest");
+
+        model.addAttribute("errMsg","잘못된 로그인 정보입니다.");
 
         return "login/signIn";
     }
-
 
 
 
