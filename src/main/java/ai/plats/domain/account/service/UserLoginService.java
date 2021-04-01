@@ -1,10 +1,9 @@
 package ai.plats.domain.account.service;
 
 
-import ai.plats.domain.user.repository.UserRepository;
 import ai.plats.domain.user.entity.User;
+import ai.plats.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,8 +41,10 @@ public class UserLoginService implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             }
             System.out.println(">>"+vo);
-            System.out.println("check value ->"+vo.get().getUserEmail() );
-            return new org.springframework.security.core.userdetails.User(vo.get().getUserEmail(),vo.get().getUserPwd(),authorities);
+            System.out.println("check value ->"+vo.get().getIdxUser() );
+            Integer userIdx = vo.get().getIdxUser();
+
+            return new org.springframework.security.core.userdetails.User(userIdx.toString(),vo.get().getUserPwd(),authorities);
         }else{
             System.out.println("유저없음");
             throw new UsernameNotFoundException("User not authorized.");

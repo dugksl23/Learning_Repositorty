@@ -32,19 +32,17 @@ public class WritingService {
 
     public List<Writing> boardList(int cPage, int size) {
         System.out.println(cPage + size);
-        //PageRequest pageRequest = PageRequest.of(cPage, size, Direction.DESC, "regDate");
-        //System.out.println(pageRequest.getPageNumber());
+
         Pageable pageable = PageRequest.of(cPage, size, Direction.DESC, "regDate");
 
         Page<Writing> result = writingRepository.findByDelWriting("N", pageable);
-                //writingRepository.findAll(pageRequest).getContent();
-        //System.out.println("return 된 게시글의 갯수" + boardList.size());
         List<Writing> boardList = result.getContent();
+
         return boardList;
     }
 
     public Writing getMyWriting(int cPage) {
-        Writing result = this.writingRepository.findByWritingIdx(cPage);
+        Writing result = this.writingRepository.findByIdxWriting(cPage);
         return result;
     }
 
@@ -54,10 +52,10 @@ public class WritingService {
     }
 
     public Writing delWriting(Writing writing) {
-        System.out.println("삭제 글 번호 =======>?" + writing.getWritingIdx());
+        System.out.println("삭제 글 번호 =======>?" + writing.getIdxWriting());
 
-        Writing result = writingRepository.findByWritingIdx(writing.getWritingIdx());
-        System.out.println("삭제될 게시글의 번호 ====>" + result.getWritingIdx());
+        Writing result = writingRepository.findByIdxWriting(writing.getIdxWriting());
+        System.out.println("삭제될 게시글의 번호 ====>" + result.getIdxWriting());
         result.setDelWriting("Y");
         result = writingRepository.save(result);
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface WritingRepository extends JpaRepository<Writing, String> {
     Writing save(Writing writing);
 
-    Writing findByWritingIdx(int idx);
+    Writing findByIdxWriting(int idx);
 
     Page<Writing> findByDelWriting(String delWriting, Pageable pageble);
 

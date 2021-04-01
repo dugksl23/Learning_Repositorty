@@ -1,7 +1,10 @@
 package ai.plats.domain.board.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -13,25 +16,29 @@ public class Writing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int writingIdx;
-    private String writer;
+    private int idxWriting;
+    private int idxUser;
+    private  String writer;
     @Column(nullable = false)
     private String title;
     @Column(length = 5000, nullable = false)
     private String content;
     @CreationTimestamp
+
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn", timezone = "Asia/Seoul")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn")
     private LocalDateTime regDate;
     @UpdateTimestamp
     private LocalDateTime modiDate;
     private String delWriting;
 
-
     public Writing() {
 
     }
 
-    public Writing(int writingIdx, String writer, String title, String content, LocalDateTime regDate, LocalDateTime modiDate, String delWriting) {
-        this.writingIdx = writingIdx;
+    public Writing(int idxWriting, int idxUser, String writer, String title, String content, LocalDateTime regDate, LocalDateTime modiDate, String delWriting) {
+        this.idxWriting = idxWriting;
+        this.idxUser = idxUser;
         this.writer = writer;
         this.title = title;
         this.content = content;
@@ -40,12 +47,21 @@ public class Writing {
         this.delWriting = delWriting;
     }
 
-    public int getWritingIdx() {
-        return writingIdx;
+
+    public int getIdxWriting() {
+        return idxWriting;
     }
 
-    public void setWritingIdx(int writingIdx) {
-        this.writingIdx = writingIdx;
+    public void setIdxWriting(int idxWriting) {
+        this.idxWriting = idxWriting;
+    }
+
+    public int getIdxUser() {
+        return idxUser;
+    }
+
+    public void setIdxUser(int idxUser) {
+        this.idxUser = idxUser;
     }
 
     public String getWriter() {
@@ -95,6 +111,3 @@ public class Writing {
     public void setDelWriting(String delWriting) {
         this.delWriting = delWriting;
     }
-}
-
-

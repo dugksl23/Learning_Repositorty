@@ -9,7 +9,6 @@ import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
@@ -39,11 +38,11 @@ public class WritingController {
     @RequestMapping(value = {"/procWriting"},method = RequestMethod.POST)
     @ResponseBody
     public String procWriting(Writing writing) {
-//        System.out.println("글쓰기 입력받음 ===>");
-//        System.out.println("작성자 ===>" + writing.getWriter());
-//        System.out.println("내용 ===>" + writing.getTitle());
-//        System.out.println("내용 ===>" + writing.getContent());
-        writingService.writing(writing);
+        System.out.println("글쓰기 입력받음 ===>");
+        System.out.println("작성자 ===>" + writing.getWriter());
+        System.out.println("내용 ===>" + writing.getTitle());
+        System.out.println("내용 ===>" + writing.getContent());
+        this.writingService.writing(writing);
         String success = "success";
         return success;
     }
@@ -73,7 +72,7 @@ public class WritingController {
         return "board/updateWriting";
     }
 
-    @RequestMapping(value={"/procUpdateWriting"},method = RequestMethod.POST)
+    @RequestMapping({"/procUpdateWriting"})
     @ResponseBody
     public String procUpdateWriting(Writing writing, Model m) {
         System.out.println("수정 글 번호 =======>?" + writing.getWritingIdx());
@@ -95,5 +94,7 @@ public class WritingController {
 
         return "redirect:/";
     }
+
+
 
 }

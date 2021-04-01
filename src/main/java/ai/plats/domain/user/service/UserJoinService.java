@@ -29,6 +29,16 @@ public class UserJoinService {
 
         return userRepository.findByUserEmail(email);
     }
+
+    public Optional<User> findUserByIdxUser(int userIdx){
+
+        return userRepository.findByIdxUser(userIdx);
+    }
+
+
+
+
+
 }
 
 
