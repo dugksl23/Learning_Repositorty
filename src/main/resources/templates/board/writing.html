@@ -18,6 +18,10 @@
     <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
 
 
+    <!--test code-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
     <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
     <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
     <meta property="og:image:type" content="image/png">
@@ -82,20 +86,17 @@
 <div class="content content-fixed content-auth">
     <div class="container">
 
-        <form>
             <div class="form-group">
                 <label class="d-block"><strong>Title</strong></label>
-                <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title" minlength="4" maxlength="50">
+<!--                <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title" minlength="4" maxlength="50">-->
+                <input type="text" id="title" name="writing_title" class="form-control" placeholder="Enter some title">
             </div>
             <div id="editor-container2" name="writing_content" class="ht-200" style="height:500px;" required>
             </div>
             <br>
-            <button class="btn btn-primary" type="submit" id="submit">작성 완료</button>
-            <button class="btn btn-secondary" id="cancel" type="button">다시 작성</button>
-        </form>
-
+            <button class="btn btn-primary" type="button" id="submit">작성완료</button>
+            <button class="btn btn-secondary" id="cancel" type="button">뒤로가기</button>
     </div>
-
 
 </div><!-- media -->
 </div><!-- container -->
@@ -147,9 +148,12 @@
 <script>
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
+
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
+
+
 
     $('#submit').on('click', function(){
 
@@ -171,11 +175,15 @@
                     writer: '[[${nick}]]',
                     title: $('#title').val(),
                     content: quill2.getText()
+                },
+                success: function(res){
+                    alert('게시글이 정상 등록되었습니다. ');
+                    window.location.href='/goHome';
+                },
+                error:function(res){
+                    alert('에러');
                 }
-            }).done(function (res) {
-                if (res == "success") {
-                    location.href = "/";
-                }
+
             })
         }
     })

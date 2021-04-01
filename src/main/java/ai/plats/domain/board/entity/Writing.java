@@ -2,6 +2,7 @@ package ai.plats.domain.board.entity;
 
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class Writing {
     private String content;
     @CreationTimestamp
     private LocalDateTime regDate;
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime modiDate;
     private String delWriting;
 

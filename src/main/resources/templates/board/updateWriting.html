@@ -85,7 +85,6 @@
 <div class="content content-fixed content-auth">
     <div class="container" th:each="i : ${updateWriting}">
 
-        <form method="post">
             <div class="form-group">
                 <label class="d-block">
                     <strong>Title</strong>
@@ -97,9 +96,8 @@
                 [[${i.content}]]
             </div>
             <br>
-            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
-            <button class="btn btn-secondary" id="cancel" type="button">Cancel</button>
-        </form>
+            <button class="btn btn-primary" id="submit" type="button">작성완료</button>
+            <button class="btn btn-secondary" id="cancel" type="button" >뒤로가가</button>
 
     </div>
 
@@ -173,15 +171,21 @@
         } else {
             $.ajax({
                 url: "/procUpdateWriting",
+                type: "post",
                 data: {
                     writingIdx: '[[${updateWriting.writingIdx}]]',
                     writer: '[[${updateWriting.writer}]]',
                     title: $('#title').val(),
                     content: quill2.getText()
+                },
+                success : function(res){
+                    console.log(">>"+res);
+                    alert('게시물이 수정되었습니다.');
+                    window.location.href=res;
+                },
+                error:function(res){
+                    alert('게시물수정 오류 !! ');
                 }
-            }).done(function (res) {
-
-                location.href = res;
 
             })
         }
