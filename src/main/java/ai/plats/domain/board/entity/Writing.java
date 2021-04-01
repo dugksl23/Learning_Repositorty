@@ -24,7 +24,7 @@ public class Writing {
     private String content;
     @CreationTimestamp
 
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn", timezone = "Asia/Seoul")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn", timezone = "Asia/Seoulㅇ")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.nnnnnn")
     private LocalDateTime regDate;
     @UpdateTimestamp
