@@ -7,6 +7,7 @@ import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import ai.plats.domain.user.service.UserUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -32,18 +34,25 @@ public class UserController {
 
     @RequestMapping({"/", "/goHome"})
     public String goHome(Model m, Integer cPage, Integer size) {
-        System.out.println(">>goHome");
 
-        if (cPage == null) {
+        if (cPage == null|| cPage == 1 || cPage == 0) {
             System.out.println("cpage ====>" + cPage);
             cPage = 0;
             size = 10;
+        } else {
+            cPage=cPage-1;
+            size = 10;
         }
-        System.out.println("cPage===>" + cPage);
-        System.out.println("size====>" + size);
+        System.out.println("request된 페이징"+cPage);
+        Page<Writing> pageOfWriting = writingService.boardList(cPage, size);
+        List<Writing> writingList = pageOfWriting.getContent();
+        System.out.println("조회된 최종 게시물 record"+pageOfWriting.getTotalElements());
 
-        List<Writing> writingList = writingService.boardList(cPage, size);
+        Map<String, Object> navi = writingService.getPagination(cPage,  (int) pageOfWriting.getTotalElements());
+
         m.addAttribute("writingList", writingList);
+        m.addAttribute("navi", navi);
+
         return "home/home";
     }
 

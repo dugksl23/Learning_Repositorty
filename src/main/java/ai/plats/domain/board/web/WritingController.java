@@ -46,10 +46,7 @@ public class WritingController {
     @RequestMapping(value = {"/procWriting"},method = RequestMethod.POST)
     @ResponseBody
     public String procWriting(Writing writing) {
-        System.out.println("글쓰기 입력받음 ===>");
-        System.out.println("작성자 ===>" + writing.getWriter());
-        System.out.println("내용 ===>" + writing.getTitle());
-        System.out.println("내용 ===>" + writing.getContent());
+
         this.writingService.writing(writing);
         String success = "success";
         return success;
@@ -66,8 +63,7 @@ public class WritingController {
 
     @RequestMapping(value="/goUpdateWriting")
     public String goUpdateWriting(Writing writing, Model m) {
-        System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
-        System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
+
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
         m.addAttribute("updateWriting", updateWriting);
@@ -81,7 +77,7 @@ public class WritingController {
     @RequestMapping(value="/procUpdateWriting", method= RequestMethod.POST)
     @ResponseBody
     public String procUpdateWriting(Writing writing) {
-        System.out.println(writing.getIdxWriting());
+
         writing.setRegDate((LocalDateTime) session.getAttribute("regDate"));
         Writing viewWriting = writingService.updateWriting(writing);
         String redirect_url="/goViewWriting?idxWriting="+viewWriting.getIdxWriting();
@@ -91,7 +87,7 @@ public class WritingController {
 
     @RequestMapping({"/goDelWriting"})
     public String delWriting(Writing writing) {
-        System.out.println("삭제 글 번호 =======>?" + writing.getIdxWriting());
+
         Writing result = writingService.delWriting(writing);
 
         return "redirect:/";
