@@ -60,7 +60,7 @@ public class UserController {
         System.out.println(">>" + "MyInfo");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = userUpdateService.findUserByEmail(username);
+        Optional<User> vo = userUpdateService.findUserByIdx(username);
 
         if (vo.isPresent()) {
 
@@ -79,7 +79,7 @@ public class UserController {
         System.out.println(">>" + "goInfoUpdate");
         String username = principal.getName();
         System.out.println("username --> " + username);
-        Optional<User> vo = userUpdateService.findUserByEmail(username);
+        Optional<User> vo = userUpdateService.findUserByIdx(username);
 
         if (vo.isPresent()) {
             model.addAttribute("userInfo", vo.get());
@@ -96,7 +96,7 @@ public class UserController {
         System.out.println(">>" + "procWithDraw");
         String username = principal.getName();
         System.out.println("withdraw username --> " + username);
-        Optional<User> vo = userUpdateService.findUserByEmail(username);
+        Optional<User> vo = userUpdateService.findUserByIdx(username);
 
         if (vo.isPresent()) {
             userUpdateService.withDraw(vo.get());
@@ -144,7 +144,7 @@ public class UserController {
             if (vo.isPresent()) {
                 return "중복된 이메일입니다. 다른 이메일을 입력해주세요.";
             } else {
-                Optional<User> changeVo = userUpdateService.findUserByEmail(principal.getName());
+                Optional<User> changeVo = userUpdateService.findUserByIdx(principal.getName());
                 changeVo.get().setUserEmail(content);
                 changeVo.get().setModDate(LocalDateTime.now());
                 userUpdateService.updateMyInfo(changeVo.get());
@@ -155,7 +155,7 @@ public class UserController {
 
         if (kinds.equals("nick")) {
             //nick 변경시에는 vo를 이용했음  , nick 은 중복검사를 하지 않아서
-            vo = userUpdateService.findUserByEmail(principal.getName());
+            vo = userUpdateService.findUserByIdx(principal.getName());
             vo.get().setUserNick(content);
             vo.get().setModDate(LocalDateTime.now());
             userUpdateService.updateMyInfo(vo.get());

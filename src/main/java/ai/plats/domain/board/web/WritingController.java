@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -27,9 +26,6 @@ public class WritingController {
 
     @Autowired
     UserJoinService userJoinService;//user 서비스
-
-    @Autowired
-    HttpSession session;
 
 
 
@@ -59,19 +55,23 @@ public class WritingController {
     public String procWriting(Writing writing, Model model, Principal principal) {
         Writing viewWriting = writingService.getMyWriting(writing.getIdxWriting());
         model.addAttribute("viewWriting", viewWriting);
-        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
-        model.addAttribute("idxUser", user.get().getIdxUser());
+//        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
+        model.addAttribute("idxUser", principal.getName());
         return "/board/viewWriting";
     }
+
+
+
 
     @RequestMapping(value="/goUpdateWriting")
     public String goUpdateWriting(Writing writing, Model m) {
         System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
         System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
+
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
-        m.addAttribute("updateWriting", updateWriting);
-        session.setAttribute("regDate", updateWriting.getRegDate());
+//        session.setAttribute("regDate", updateWriting.getRegDate());
+
         return "board/updateWriting";
     }
 
@@ -82,11 +82,27 @@ public class WritingController {
     @ResponseBody
     public String procUpdateWriting(Writing writing) {
         System.out.println(writing.getIdxWriting());
-        writing.setRegDate((LocalDateTime) session.getAttribute("regDate"));
+//        writing.setRegDate((LocalDateTime) session.getAttribute("regDate"));
         Writing viewWriting = writingService.updateWriting(writing);
         String redirect_url="/goViewWriting?idxWriting="+viewWriting.getIdxWriting();
         return redirect_url;
     }
+
+
+
+
+    @RequestMapping(value="/test", method= RequestMethod.POST)
+    @ResponseBody
+    public String test(Writing writing,String regDateStr) {
+        System.out.println("없데이뚜 ");
+
+        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(regDateStr);
+        writing.setRegDate(parsedLocalDateTime);
+        writingService.updateWriting(writing);
+
+        return "게시물 수정 완료 ! ";
+    }
+
 
 
     @RequestMapping({"/goDelWriting"})

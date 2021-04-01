@@ -14,11 +14,15 @@ public class WritingService {
     private WritingRepository writingRepository;
     public WritingService() {
     }
+
+
     public Writing writing(Writing writing) {
         writing.setDelWriting("N");
         Writing result = this.writingRepository.save(writing);
         return result;
     }
+
+
     public List<Writing> boardList(int cPage, int size) {
         System.out.println(cPage + size);
         Pageable pageable = PageRequest.of(cPage, size, Direction.DESC, "regDate");
@@ -26,14 +30,20 @@ public class WritingService {
         List<Writing> boardList = result.getContent();
         return boardList;
     }
-    public Writing getMyWriting(int cPage) {
-        Writing result = this.writingRepository.findByIdxWriting(cPage);
+
+
+    public Writing getMyWriting(int idx) {
+        Writing result = this.writingRepository.findByIdxWriting(idx);
         return result;
     }
+
+
     public Writing updateWriting(Writing writing) {
         Writing result = this.writingRepository.save(writing);
         return result;
     }
+
+
     public Writing delWriting(Writing writing) {
         System.out.println("삭제 글 번호 =======>?" + writing.getIdxWriting());
         Writing result = writingRepository.findByIdxWriting(writing.getIdxWriting());

@@ -21,6 +21,10 @@ public class UserUpdateService {
         return userRepository.findByUserEmail(email);
     }
 
+    public Optional<User> findUserByIdx(String username) {
+        return userRepository.findByIdxUser(Integer.parseInt(username));
+    }
+
     public Optional<User> findUserByNick(String nick){
         return userRepository.findByUserNick(nick);
     }
@@ -30,7 +34,7 @@ public class UserUpdateService {
     }
 
     public String  changePwdLogic(String name, String ori_pwd, String new_pwd) {
-        Optional<User> vo= userRepository.findByUserEmail(name);
+        Optional<User> vo= userRepository.findByIdxUser(Integer.parseInt(name));
         if(passwordEncoder.matches(ori_pwd,vo.get().getUserPwd())){
             vo.get().setUserPwd(passwordEncoder.encode(new_pwd));
 
@@ -59,5 +63,6 @@ public class UserUpdateService {
 
         }
     }
+
 
 }
