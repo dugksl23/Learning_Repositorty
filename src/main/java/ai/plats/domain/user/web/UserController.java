@@ -119,7 +119,7 @@ public class UserController {
         Optional<User> vo = userJoinService.findClientByEmail(email);
 
         if (vo.isPresent() == false) {
-            User joinVo = userJoinService.joinClient(new User(email, pwd, nick, "N", LocalDateTime.now(), LocalDateTime.now()));
+            User joinVo = userJoinService.joinClient(new User(email, pwd, nick, "N"));
             if (joinVo != null) return "가입 성공";
             else return "가입 실패 ! 오류 발생 !";
         } else {
