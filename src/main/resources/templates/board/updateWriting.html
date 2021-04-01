@@ -156,7 +156,6 @@
 
         var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
         var contentSize = (quill2.getLength() >= 8 && quill2.getLength() <= 5000) ? true : false;
-
         if ($('#title').val() == '' && quill2.getText() == '') {
             alert("제목과 내용을 입력해주세요.");
             return false;
@@ -172,7 +171,7 @@
                 type:"post",
                 data: {
                     idxWriting: '[[${updateWriting.idxWriting}]]',
-                    idxUser: '[[${updateWriting.idxUser}]]',
+                    idxUser: '[[${idxUser}]]',
                     writer: '[[${updateWriting.writer}]]',
                     title: $('#title').val(),
                     content: quill2.getText(),

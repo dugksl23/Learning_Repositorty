@@ -2,13 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:c=""
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
 <head>
     <meta charset="UTF-8">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Twitter -->
     <meta name="twitter:site" content="@themepixels">
     <meta name="twitter:creator" content="@themepixels">
@@ -16,38 +14,27 @@
     <meta name="twitter:title" content="DashForge">
     <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
-
-
     <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
     <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="600">
-
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="ThemePixels">
-
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
-
     <title>PlatS</title>
-
     <!-- vendor css -->
     <link href="../../lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-
     <!-- DashForge CSS -->
     <link rel="stylesheet" href="../../assets/css/dashforge.css">
     <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
-
     <!-- quill CSS -->
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
-
-
 </head>
 <body>
-
 <header class="navbar navbar-header navbar-header-fixed">
     <a href="#" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
     <div class="navbar-brand">
@@ -67,23 +54,18 @@
             <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>MyInfo</span>
         </a>
-
         <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg> <span>Logout</span>
         </a>
-
         <form id="logout-form" th:action="@{/logout}" method="POST">
             <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
         </form>
     </div><!-- navbar-right -->
 </header><!-- navbar -->
-
 <div class="content content-fixed content-auth">
-
     <div class="container" th:each="i : ${viewWriting}">
-
         <div class="row bg-light.bg-gradient">
             <div class="col-md-12 border" style="height:50px; line-height:2.5; font-size:20px;">
                 <strong>Title : [[${i.title}]]</strong>
@@ -111,16 +93,13 @@
             <div class="col-md-1 text-end">
                 <span class="text-end" id="submit"><a th:href="@{/goUpdateWriting(idxWriting=${viewWriting.getIdxWriting()}, idxUser=${idxUser})}">수정</a></span>
                 <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
-
             </div>
         </div>
         <div class="row" style="height:20px;"></div>
     </div>
-
 </div><!-- media -->
 </div><!-- container -->
 </div><!-- content -->
-
 <footer class="footer mg-t-auto">
     <div>
         <span>&copy; 2019 DashForge v1.0.0. </span>
@@ -134,25 +113,15 @@
         </nav>
     </div>
 </footer>
-
-
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-
     function delWriting(){
-
         var result=confirm("삭제하시겠습니까?");
-
         if (result) {
             location.href="/goDelWriting?idxWriting=[[${viewWriting.idxWriting}]]";
         }
     }
-
 </script>
-
 </body>
 </html>

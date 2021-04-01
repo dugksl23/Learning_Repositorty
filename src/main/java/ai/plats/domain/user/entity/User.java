@@ -2,6 +2,7 @@ package ai.plats.domain.user.entity;
 
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class User {
     //
     @CreationTimestamp
     private LocalDateTime regDate;
+    @UpdateTimestamp
     private LocalDateTime modDate;
 
 
@@ -37,13 +39,11 @@ public class User {
 
     }
 
-    public User(String userEmail, String userPwd, String userNick, String withDraw, LocalDateTime regDate, LocalDateTime modDate) {
+    public User(String userEmail, String userPwd, String userNick, String withDraw) {
         this.userEmail = userEmail;
         this.userPwd = userPwd;
         this.userNick = userNick;
         this.withDraw = withDraw;
-        this.regDate = regDate;
-        this.modDate = modDate;
     }
 
     public int getIdxUser() {
