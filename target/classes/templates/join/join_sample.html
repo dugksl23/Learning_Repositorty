@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>join</title>
+</head>
+<body>
+<h1>JOIN</h1>
+
+<form th:action="@{/procJoin}" method="post">
+    <input type="text" placeholder="email" name="email">
+    <input type="text" placeholder="pwd" name="pwd">
+    <input type="text" placeholder="nick" name="nick">
+
+    <input type="submit" value="회원가입">
+</form>
+
+</body>
+</html>

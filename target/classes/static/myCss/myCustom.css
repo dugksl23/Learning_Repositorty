@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+
+html,body{
+    height:100%;
+}
+
+.myLogo{
+    font-size: 32px;
+    letter-spacing: -1px;
+    transition: opacity .3s ease;
+}
+
+.myLogo span:nth-child(1){
+    font-weight: bold;
+    color:#031a61;
+}
+
+.myLogo span:nth-child(2){
+    font-weight: bold;
+    color:#0168fa;
+}
+
+.myLogo:hover{
+    opacity: 0.6;
+}
+
+.content-auth{
+    height: 85%;
+}
+
+.myinfocontent {
+    height:85%;
+
+}
+
+.update_btn{
+    min-height: inherit;
+    padding: 7px 12px;
+    color: #0168fa;
+    border: 2px solid #0168fa;
+    border-radius: 0.25rem;
+    transition : background-color,color 0.4s ease ;
+}
+
+.update_btn:hover{
+    background-color: #0168fa;
+    color: #fff;
+}
+
+.update_input{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.inform_bottom{
+    width:100%;
+    height:60px;
+}
+
+.btn_withdraw{
+    float: right;
+    margin-top:20px;
+    margin-bottom:15px;
+
+}
+
+.error_msg{
+    font-weight: 700;
+    color:red;
+
+}

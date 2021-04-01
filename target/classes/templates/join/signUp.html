@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--test code-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DashForge">
+    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/dashforge">
+    <meta property="og:title" content="DashForge">
+    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
+
+    <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="ThemePixels">
+
+    <!--myCss  vendor 다음에 삽입-->
+    <link rel="stylesheet" href="myCss/myCustom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>DashForge Responsive Bootstrap 4 Dashboard Template</title>
+
+    <!-- vendor css -->
+    <link href="../../lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+  </head>
+  <body>
+
+    <header class="navbar navbar-header navbar-header-fixed">
+      <div class="navbar-brand">
+<!--        <a href="/goHome" class="df-logo">PLAT.<span>S</span></a>-->
+        <div class="myLogo" onclick="location.href='/goHome'" style="cursor:pointer"><span>PLAT.</span><span>S</span></div>
+
+      </div><!-- navbar-brand -->
+      <div id="navbarMenu" class="navbar-menu-wrapper">
+      </div><!-- navbar-menu-wrapper -->
+      <div class="navbar-right">
+        <a href="/goLogin" class="btn btn-buy">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+          <span>Login</span>
+        </a>
+      </div><!-- navbar-right -->
+    </header><!-- navbar -->
+
+    <div class="content content-fixed content-auth">
+      <div class="container">
+        <div class="media align-items-stretch justify-content-center ht-100p">
+          <div class="sign-wrapper mg-lg-r-50 mg-xl-r-60">
+            <div class="pd-t-20 wd-100p">
+              <h4 class="tx-color-01 mg-b-5">새로운 계정을 만드세요!</h4>
+<!--              <p class="tx-color-03 tx-16 mg-b-40">It's free to signup and only takes a minute.</p>-->
+
+
+              <div class="form-group">
+                <label>Email address</label>
+                <input type="email" class="form-control myEmail" name="myEmail" placeholder="Enter your email address">
+              </div>
+              <div class="form-group">
+                <label>NickName ( 5자 이상 10자 이하 )</label>
+                <input type="text" class="form-control myNick" name="myNick"  placeholder="Enter your NickName">
+              </div>
+              <div class="form-group">
+                <div class="d-flex justify-content-between mg-b-5">
+                  <label class="mg-b-0-f">Password ( 8자 이상 15자 이하, 영문대문자/영문소문자/숫자/특수문자 반드시 포함)</label>
+                </div>
+                <input type="password" class="form-control myPwd" name="myPwd" placeholder="Enter your password">
+              </div>
+              <div class="form-group">
+                <div class="d-flex justify-content-between mg-b-5">
+                  <label class="mg-b-0-f">Password Check</label>
+                </div>
+                <input type="password" class="form-control myPwdChk" name="myPwdChk" placeholder="Enter your password Again">
+              </div>
+
+
+              <div class="form-group tx-12">
+                By clicking <strong>Create an account</strong> below, you agree to our terms of service and privacy statement.
+              </div><!-- form-group -->
+
+              <input type="button" class="btn btn-brand-02 btn-block createBtn" value="Create Account">
+
+
+              <div class="tx-13 mg-t-20 tx-center">Already have an account? <a href="/goLogin">Sign In</a></div>
+            </div>
+          </div><!-- sign-wrapper -->
+
+        </div><!-- media -->
+      </div><!-- container -->
+    </div><!-- content -->
+
+    <footer class="footer">
+      <div>
+        <span>&copy; 2019 DashForge v1.0.0. </span>
+        <span>Created by <a href="http://themepixels.me">ThemePixels</a></span>
+      </div>
+      <div>
+        <nav class="nav">
+          <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
+          <a href="../../change-log.html" class="nav-link">Change Log</a>
+          <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>
+        </nav>
+      </div>
+      <div id="result"></div>
+    </footer>
+
+    <script src="../../lib/jquery/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../lib/feather-icons/feather.min.js"></script>
+    <script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="../../assets/js/dashforge.js"></script>
+
+    <!-- append theme customizer -->
+    <script src="../../lib/js-cookie/js.cookie.js"></script>
+    <script src="../../assets/js/dashforge.settings.js"></script>
+    <script>
+      $(function(){
+        'use script'
+
+        window.darkMode = function(){
+          $('.btn-white').addClass('btn-dark').removeClass('btn-white');
+        }
+
+        window.lightMode = function() {
+          $('.btn-dark').addClass('btn-white').removeClass('btn-dark');
+        }
+
+        var hasMode = Cookies.get('df-mode');
+        if(hasMode === 'dark') {
+          darkMode();
+        } else {
+          lightMode();
+        }
+      })
+
+      //------------------------------------------------------
+
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      $(document).ajaxSend(function(e, xhr, options) { xhr.setRequestHeader(header, token); });
+
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      // 이메일 검증에 사용할 정규식 변수 regExp에 저장 if (emailVal.match(regExp) != null) { alert('Good!'); } else { alert('Error'); }
+
+
+      $('.createBtn').on('click', function(){
+        // var data=$(".createBtn").val();
+
+
+        var email = $('.myEmail').val();
+        var nick = $('.myNick').val();
+        var pwd = $('.myPwd').val();
+        var pwdChk = $('.myPwdChk').val();
+
+        console.log(">>"+email);
+        console.log(">>"+nick);
+        console.log(">>"+pwd);
+        console.log(">>"+pwdChk);
+
+        var form = {
+          email: email,
+          nick:nick,
+          pwd:pwd,
+        }
+
+        if(email.length==0||nick.length==0||pwd.length==0||pwdChk.length==0){
+          alert("공백을 입력하지마세요.");
+          return false;
+        }
+
+        if (email.match(regExp) == null) {
+          alert("이메일 형식이 올바르지 않습니다.");
+          return false;
+        }
+
+
+        if((nick.length<5)||(nick.length>10)){
+          alert("nick name은 5자 이상 10자 이하로 입력하십시오");
+          return  false;
+        }
+
+        if((pwd.length<8)||(pwd.length>15)){
+          alert("비밀번호는 8자 이상 15자 이하로 입력하십시오");
+          return  false;
+        }
+        let checkKor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+        // if(checkKor.test(pwd)){
+        if(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(pwd)){
+          alert('비밀번호에 한글은 입력 할 수 없습니다!!');
+          return false;
+
+        }
+        if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/.test(pwd)){
+          alert("비밀번호는 영문 대문자 , 영문 소문자 , 숫자 , 특수문자가 반드시 포함되어야 합니다.");
+          return  false;
+        }
+
+        if(pwd!=pwdChk){
+          alert('비밀번호가 일치하지 않습니다.');
+          return false;
+        }
+
+        $.ajax({
+          url: "/procJoin",
+          contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+          type        :   "post",
+          data        :   form,
+          success: function(data) { // 결과 받기
+            //data = JSON.parse(data); // JSON 형태로 파싱
+            alert(data);
+            console.log(data);
+            if(data=="중복된 이메일 입니다."){
+                return false;
+            }
+            if(data!="중복된 이메일 입니다."){
+              window.location.href = '/goHome';
+            }
+          },
+          error:function(data){
+            alert(data);
+            return false;
+
+          }
+        });
+
+      });
+
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DashForge">
+    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/dashforge">
+    <meta property="og:title" content="DashForge">
+    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
+
+    <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="ThemePixels">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>DashForge Responsive Bootstrap 4 Dashboard Template</title>
+
+    <!-- vendor css -->
+    <link href="../../lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <!--myCss-->
+    <link rel="stylesheet" href="myCss/myCustom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+<!--    <link rel="stylesheet" href="../../assets/css/dashforge.profile.css">-->
+</head>
+<body class="page-profile">
+
+<header class="navbar navbar-header navbar-header-fixed">
+    <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+    <div class="navbar-brand">
+        <div class="myLogo" onclick="location.href='/goHome'" style="cursor:pointer"><span>PLAT.</span><span>S</span></div>
+    </div><!-- navbar-brand -->
+
+    <div class="navbar-right">
+        <!--로그아웃-->
+        <a sec:authorize="isAuthenticated()" href="/goHome" class="btn btn-buy">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg> <span>HOME</span>
+        </a>
+        <a sec:authorize="isAuthenticated()" href="#" class="btn btn-buy" onclick="document.getElementById('logout-form').submit();" >
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>Logout</span>
+        </a>
+        <form id="logout-form" th:action="@{/logout}" method="POST">
+            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+        </form>
+        <!--로그아웃-->
+    </div><!-- navbar-right -->
+    <div class="navbar-search">
+        <div class="navbar-search-header">
+            <input type="search" class="form-control" placeholder="Type and hit enter to search...">
+            <button class="btn"><i data-feather="search"></i></button>
+            <a id="navbarSearchClose" href="" class="link-03 mg-l-5 mg-lg-l-10"><i data-feather="x"></i></a>
+        </div><!-- navbar-search-header -->
+
+    </div><!-- navbar-search -->
+</header><!-- navbar -->
+
+<div class="content content-fixed content-profile myinfocontent">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="media d-block d-lg-flex">
+
+            <div class="media-body mg-t-40 mg-lg-t-0 pd-lg-x-10">
+
+
+                <div class="card mg-b-20 mg-lg-b-25">
+                    <div class="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between">
+                        <h2 class="tx-uppercase tx-semibold mg-b-0">회원 정보</h2>
+
+                    </div><!-- card-header -->
+                    <div class="card-body pd-20 pd-lg-25">
+                        <div class="media align-items-center mg-b-20">
+                            <div class="media-body pd-l-15">
+                                <h3 class="mg-b-3" th:text="|${userInfo.getUserNick()} 님 환영합니다.|">회원닉네임</h3>
+                            </div>
+                            <span class="d-none d-sm-block tx-12 tx-color-03 align-self-start" th:text="|회원가입 날짜 : ${#temporals.format(userInfo.getRegDate(),'YYYY-MM-DD HH:mm:SS')}|">회원가입 날짜</span>
+
+                        </div><!-- media -->
+
+                        <div class="bd bg-gray-50 pd-y-15 pd-x-15 pd-sm-x-20">
+                            <h6 class="tx-15 mg-b-3" th:text="${userInfo.getUserEmail()}">이메일</h6>
+                            <span class="d-none d-sm-block tx-12 tx-color-03 align-self-start" th:text="|회원정보 수정 날짜 : ${#temporals.format(userInfo.getModDate(),'YYYY-MM-DD HH:mm:SS')}|">회원정보 수정 날짜</span>
+
+                            <!--                            <p class="mg-b-0 tx-14">Full-time, $60,000 - $80,000 annual</p>-->
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent pd-y-10 pd-sm-y-15 pd-x-10 pd-sm-x-20">
+
+                        <a href="/goInfoUpdate" class="update_btn">수정하기</a>
+
+                    </div><!-- card-footer -->
+                </div><!-- card -->
+
+            </div><!-- media-body -->
+
+        </div><!-- media -->
+    </div><!-- container -->
+</div><!-- content -->
+
+<footer class="footer">
+    <div>
+        <span>&copy; 2019 DashForge v1.0.0. </span>
+        <span>Created by <a href="http://themepixels.me">ThemePixels</a></span>
+    </div>
+    <div>
+<!--        <nav class="nav">-->
+<!--            <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>-->
+<!--            <a href="../../change-log.html" class="nav-link">Change Log</a>-->
+<!--            <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>-->
+<!--        </nav>-->
+    </div>
+</footer>
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../lib/feather-icons/feather.min.js"></script>
+<script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+<script src="../../assets/js/dashforge.js"></script>
+
+<!-- append theme customizer -->
+<!--<script src="../../lib/js-cookie/js.cookie.js"></script>-->
+<!--<script src="../../assets/js/dashforge.settings.js"></script>-->
+
+<script>
+
+</script>
+</body>
+</html>

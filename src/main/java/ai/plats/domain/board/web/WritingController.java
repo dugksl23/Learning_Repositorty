@@ -70,8 +70,12 @@ public class WritingController {
     @RequestMapping(value="/goUpdateWriting")
     public String goUpdateWriting(Writing writing, Model m) {
         System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
+        System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
+
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
+        m.addAttribute("updateWriting", updateWriting);
+
         session.setAttribute("regDate", updateWriting.getRegDate());
 
         return "board/updateWriting";
