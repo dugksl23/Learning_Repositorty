@@ -74,3 +74,19 @@ html,body{
     color:red;
 
 }
+
+.comm_input{
+
+    margin-top:40px;
+    margin-bottom: 40px;
+
+}
+
+.comm_div{
+    margin-bottom:40px;
+}
+
+.comm_div li{
+    margin-bottom: 10px;
+
+}

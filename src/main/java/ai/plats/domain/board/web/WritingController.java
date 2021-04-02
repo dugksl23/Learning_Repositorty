@@ -4,7 +4,6 @@ package ai.plats.domain.board.web;
 import ai.plats.domain.account.service.UserLoginService;
 import ai.plats.domain.board.entity.Writing;
 import ai.plats.domain.board.service.WritingService;
-import ai.plats.domain.comment.service.CommentsService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,6 @@ public class WritingController {
     UserJoinService userJoinService;//user 서비스
 
 
-    @Autowired
-    CommentsService commentsService;
 
 
     @RequestMapping({"/goWriting"})
@@ -46,26 +43,36 @@ public class WritingController {
     @ResponseBody
     public String procWriting(Writing writing) {
 
-        this.writingService.writing(writing);
-        String success = "success";
-        return success;
+        String res;
+        if(writingService.writing(writing,writing.getIdxUser())!=null){
+            res = "success";
+        }
+        else{
+            res="fail";
+        }
+        return res;
     }
 
     @RequestMapping({"/goViewWriting"})
     public String procWriting(Writing writing, Model model, Principal principal) {
         Writing viewWriting = writingService.getMyWriting(writing.getIdxWriting());
         model.addAttribute("viewWriting", viewWriting);
-        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
-        model.addAttribute("idxUser", user.get().getIdxUser());
+//        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
+        model.addAttribute("idxUser", principal.getName());
         return "/board/viewWriting";
     }
 
+
+
+
     @RequestMapping(value="/goUpdateWriting")
     public String goUpdateWriting(Writing writing, Model m) {
+        System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
+        System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
 
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
-        m.addAttribute("updateWriting", updateWriting);
+//        session.setAttribute("regDate", updateWriting.getRegDate());
 
         return "board/updateWriting";
     }

@@ -1,5 +1,4 @@
 package ai.plats.domain.board.service;
-
 import ai.plats.domain.board.entity.Writing;
 import ai.plats.domain.board.repository.WritingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,27 +7,32 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.List;
 @Service
 public class WritingService {
     @Autowired
     private WritingRepository writingRepository;
     public WritingService() {
     }
+
+
     public Writing writing(Writing writing) {
         writing.setDelWriting("N");
-        Writing result = this.writingRepository.save(writing);
+        Optional<User> userVO = userRepository.findByIdxUser(userIdx);
+        writing.setUser(userVO.get());
+        Writing result = writingRepository.save(writing);
         return result;
     }
 
     public Page<Writing> boardList(Integer cPage, int size) {
 
+
         Pageable pageable = PageRequest.of(cPage, size, Direction.DESC, "regDate");
         Page<Writing> result = writingRepository.findByDelWriting("N", pageable);
 
+
+
+//        List<Writing> boardList = result.getContent();
         return result;
     }
 
@@ -69,12 +73,6 @@ public class WritingService {
         if (startNavi==1) { prev5 = false; }
         if (endNavi==pageTotalCount) { next5 = false; }
 
-        System.out.println("pageTotalCount"+pageTotalCount);
-        System.out.println("cPage>>>"+currentPage);
-
-        System.out.println("startNavi>>>"+startNavi);
-        System.out.println("endNavi>>>"+endNavi);
-
 
         Map<String, Object> navi = new HashMap<>();
         navi.put("startNavi", startNavi);
@@ -90,8 +88,6 @@ public class WritingService {
             navi.put("endPage", pageTotalCount);
         }
 
-        System.out.println(end);
-
         return navi;
 
     }
@@ -102,10 +98,12 @@ public class WritingService {
         return result;
     }
 
+
     public Writing updateWriting(Writing writing) {
         Writing result = this.writingRepository.save(writing);
         return result;
     }
+
 
     public Writing delWriting(Writing writing) {
         System.out.println("삭제 글 번호 =======>?" + writing.getIdxWriting());

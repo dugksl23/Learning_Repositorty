@@ -1,4 +1,5 @@
 package ai.plats.domain.board.entity;
+import ai.plats.domain.user.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,13 +8,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 @Entity
+@Table(name="writing")
 @Check(constraints = "delWriting in ('Y', 'N')")
+//@NamedQuery(name="Writing.testquery",query = "SELECT w FROM Writing w JOIN User u ON w.idxUser = u.idxUser")
 public class Writing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idxWriting;
-    private int idxUser;
-    private  String writer;
+
+
+
     @Column(nullable = false)
     private String title;
     @Column(length = 5000, nullable = false)
@@ -25,36 +29,32 @@ public class Writing {
     @UpdateTimestamp
     private LocalDateTime modiDate;
     private String delWriting;
+
+
+    @ManyToOne
+    @JoinColumn(name="writer_idx")
+    private User user;
+
+
+
+
     public Writing() {
     }
-    public Writing(int idxWriting, int idxUser, String writer, String title, String content, LocalDateTime regDate, LocalDateTime modiDate, String delWriting) {
+    public Writing(int idxWriting,  String title, String content, LocalDateTime regDate, LocalDateTime modiDate, String delWriting,User user) {
         this.idxWriting = idxWriting;
-        this.idxUser = idxUser;
-        this.writer = writer;
         this.title = title;
         this.content = content;
         this.regDate = regDate;
         this.modiDate = modiDate;
         this.delWriting = delWriting;
+        this.user = user;
     }
     public int getIdxWriting() {
         return idxWriting;
     }
-    public void setIdxWriting(int idxWriting) {
-        this.idxWriting = idxWriting;
-    }
-    public int getIdxUser() {
-        return idxUser;
-    }
-    public void setIdxUser(int idxUser) {
-        this.idxUser = idxUser;
-    }
-    public String getWriter() {
-        return writer;
-    }
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
+
+
+
     public String getTitle() {
         return title;
     }
@@ -84,5 +84,13 @@ public class Writing {
     }
     public void setDelWriting(String delWriting) {
         this.delWriting = delWriting;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

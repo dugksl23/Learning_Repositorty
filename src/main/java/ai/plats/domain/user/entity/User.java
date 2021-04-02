@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 
 
 @Entity
+@Table(name="user")
 @Check(constraints = "withDraw in('Y','N')")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idxUser;
+
     @Column(length = 50)
     private String userEmail;
     @Column(length = 255)
