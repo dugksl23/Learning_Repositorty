@@ -55,6 +55,7 @@ public class WritingController {
 
     @RequestMapping({"/goViewWriting"})
     public String procWriting(Writing writing, Model model, Principal principal) {
+        System.out.println(writing.getIdxWriting());
         Writing viewWriting = writingService.getMyWriting(writing.getIdxWriting());
         model.addAttribute("viewWriting", viewWriting);
 //        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));

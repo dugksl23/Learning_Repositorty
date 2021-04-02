@@ -114,12 +114,13 @@
                 <span class="text-end" id="button"><a th:href="@{/goHome}">뒤로 가기</a></span>
             </div>
             <div class="col-md-1 text-end">
-                <span class="text-end" id="submit"><a th:href="@{/goUpdateWriting(idxWriting=${viewWriting.getIdxWriting()}, idxUser=${idxUser})}">수정</a></span>
+                //<span class="text-end" id="submit"><a th:href="@{/goUpdateWriting(idxWriting=${viewWriting.getIdxWriting()}, idxUser=${idxUser})}">수정</a></span>
                 <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
             </div>
         </div>
     </div>
 </div><!-- media -->
+</div><!-- container -->
 </div><!-- container -->
 </div><!-- content -->
 
@@ -130,7 +131,7 @@
     function delWriting(){
         var result=confirm("삭제하시겠습니까?");
         if (result) {
-            location.href="/goDelWriting?idxWriting=[[${viewWriting.getUser().getIdxUser()}]]";
+
         }
     }
 </script>
@@ -148,7 +149,7 @@
         $.ajax({
             url:"/comments_write",
             data:{
-                idxWriting:'[[${viewWriting.idxWriting}]]',  //게시글번호
+
                 commContent:comments
             },
             type:"post",
@@ -161,8 +162,6 @@
             }
 
         })
-
-
     })
 
 
