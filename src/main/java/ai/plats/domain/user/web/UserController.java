@@ -35,6 +35,7 @@ public class UserController {
     @RequestMapping({"/", "/goHome"})
     public String goHome(Model m, Integer cPage, Integer size) {
 
+        //jpa 페이징 분할 처리 분기점
         if (cPage == null|| cPage == 1 || cPage == 0) {
             System.out.println("cpage ====>" + cPage);
             cPage = 0;
@@ -43,18 +44,18 @@ public class UserController {
             cPage=cPage-1;
             size = 10;
         }
-        System.out.println("request된 페이징"+cPage);
+
         Page<Writing> pageOfWriting = writingService.boardList(cPage, size);
         List<Writing> writingList = pageOfWriting.getContent();
-        System.out.println("조회된 최종 게시물 record"+pageOfWriting.getTotalElements());
-
-        Map<String, Object> navi = writingService.getPagination(cPage,  (int) pageOfWriting.getTotalElements());
-
         m.addAttribute("writingList", writingList);
-        m.addAttribute("navi", navi);
+
+        Map<String, Object> pagination = writingService.getPagination(cPage, (int) pageOfWriting.getTotalElements());
+        m.addAttribute("navi", pagination);
 
         return "home/home";
     }
+
+
 
 
     @GetMapping("/goJoin")

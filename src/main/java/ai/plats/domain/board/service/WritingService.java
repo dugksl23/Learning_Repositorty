@@ -17,8 +17,6 @@ public class WritingService {
     @Autowired
     private WritingRepository writingRepository;
 
-    public WritingService() {
-    }
 
     public Writing writing(Writing writing) {
         writing.setDelWriting("N");
@@ -32,19 +30,28 @@ public class WritingService {
         Page<Writing> result = writingRepository.findByDelWriting("N", pageable);
         System.out.println("total elements ===>" + result.getTotalElements());
         System.out.println("total page ===>" + result.getTotalPages());
-        System.out.println("total page===>" + result.getPageable());
 
         return result;
     }
 
-    public Map<String, Object> getPagination(int cPage, int totalRecord) {
+    public Map<String, Object> getPagination(Integer cPage, int totalRecord) {
 
-        int currentPage=cPage+1;
-        int pageTotalCount = totalRecord/5;
+        Integer currentPage=cPage;
+        if (cPage==null||cPage==0) {
+            currentPage=cPage = 1;
+        }else{
+            currentPage=cPage+1;
+        }
+
+        int pageTotalCount = (totalRecord/10);
+
+        if (totalRecord%10>0) {
+            pageTotalCount++;
+        }
 
         if (currentPage < 1) {
             currentPage = 1;
-            System.out.println("들어오나요? 1보다 작거나 같아");
+
         } else if (currentPage>pageTotalCount) {
             currentPage = pageTotalCount;
         }
@@ -56,35 +63,36 @@ public class WritingService {
             endNavi=pageTotalCount;
         }
 
-        boolean prev=true;
-        boolean next=true;
-
-        if (startNavi==currentPage) { prev = false; }
-        if (endNavi==pageTotalCount) { next = false; }
-        if (endNavi<currentPage) { next = false; }
+        boolean prev5=true;
+        boolean next5=true;
+        boolean end=true;
 
 
-        System.out.println(pageTotalCount);
+        if (startNavi==1) { prev5 = false; }
+        if (endNavi==pageTotalCount) { next5 = false; }
+
+        System.out.println("pageTotalCount"+pageTotalCount);
         System.out.println("cPage>>>"+currentPage);
 
         System.out.println("startNavi>>>"+startNavi);
         System.out.println("endNavi>>>"+endNavi);
 
-        System.out.println("prev>>>"+prev);
-        System.out.println("next>>>"+next);
 
-        System.out.println(pageTotalCount);
         Map<String, Object> navi = new HashMap<>();
-        navi.put("prev", prev);
-        navi.put("next", next);
-
-        navi.put("prePage", currentPage-1);
-        navi.put("nextPage", currentPage+1);
-
-
         navi.put("startNavi", startNavi);
         navi.put("endNavi", endNavi);
+        navi.put("prev5", prev5);
+        navi.put("next5", next5);
 
+        if (endNavi!=1&&startNavi!=1) {
+            System.out.println("endPage는 1이 아님");
+            end = false;
+            navi.put("end", end);
+            navi.put("firstPage", 1);
+            navi.put("endPage", pageTotalCount);
+        }
+
+        System.out.println(end);
 
         return navi;
 

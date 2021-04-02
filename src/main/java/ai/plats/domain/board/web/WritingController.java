@@ -34,6 +34,8 @@ public class WritingController {
 
 
 
+
+
     @RequestMapping({"/goWriting"})
     public String writing(Model model, Principal principal) {
         System.out.println(principal.getName());
