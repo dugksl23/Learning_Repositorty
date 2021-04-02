@@ -16,8 +16,8 @@ import java.util.Map;
 public class WritingService {
     @Autowired
     private WritingRepository writingRepository;
-
-
+    public WritingService() {
+    }
     public Writing writing(Writing writing) {
         writing.setDelWriting("N");
         Writing result = this.writingRepository.save(writing);
@@ -28,8 +28,6 @@ public class WritingService {
 
         Pageable pageable = PageRequest.of(cPage, size, Direction.DESC, "regDate");
         Page<Writing> result = writingRepository.findByDelWriting("N", pageable);
-        System.out.println("total elements ===>" + result.getTotalElements());
-        System.out.println("total page ===>" + result.getTotalPages());
 
         return result;
     }

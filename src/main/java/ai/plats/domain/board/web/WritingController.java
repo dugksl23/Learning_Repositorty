@@ -4,6 +4,7 @@ package ai.plats.domain.board.web;
 import ai.plats.domain.account.service.UserLoginService;
 import ai.plats.domain.board.entity.Writing;
 import ai.plats.domain.board.service.WritingService;
+import ai.plats.domain.comment.service.CommentsService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -28,12 +28,9 @@ public class WritingController {
     @Autowired
     UserJoinService userJoinService;//user 서비스
 
+
     @Autowired
-    HttpSession session;
-
-
-
-
+    CommentsService commentsService;
 
 
     @RequestMapping({"/goWriting"})
@@ -69,7 +66,7 @@ public class WritingController {
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
         m.addAttribute("updateWriting", updateWriting);
-        session.setAttribute("regDate", updateWriting.getRegDate());
+
         return "board/updateWriting";
     }
 
@@ -78,10 +75,12 @@ public class WritingController {
 
     @RequestMapping(value="/procUpdateWriting", method= RequestMethod.POST)
     @ResponseBody
-    public String procUpdateWriting(Writing writing) {
+    public String procUpdateWriting(Writing writing, String regDateStr) {
 
-        writing.setRegDate((LocalDateTime) session.getAttribute("regDate"));
+        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(regDateStr);
+        writing.setRegDate(parsedLocalDateTime);
         Writing viewWriting = writingService.updateWriting(writing);
+
         String redirect_url="/goViewWriting?idxWriting="+viewWriting.getIdxWriting();
         return redirect_url;
     }
