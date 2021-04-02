@@ -16,8 +16,6 @@ public class Writing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idxWriting;
 
-
-
     @Column(nullable = false)
     private String title;
     @Column(length = 5000, nullable = false)

@@ -33,6 +33,14 @@
     <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
     <!-- quill CSS -->
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
+
+    <!--myCss-->
+    <link rel="stylesheet" href="myCss/myCustom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--test code-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
 </head>
 <body>
 <header class="navbar navbar-header navbar-header-fixed">
@@ -73,7 +81,6 @@
         </div>
         <div class="row border-left border-right border-bottom bg-light" style="height:30px; font-size:15px; line-height:2;">
             <div class="col-md-6">
-                writer : [[${i.writer}]]
             </div>
             <div class="col-md-6 text-end" style="text-align: right;">
                 [[${#temporals.format(i.regDate, 'yyyy/MM/dd HH:mm:ss')}]]
@@ -85,9 +92,24 @@
                 [[${i.content}]]
             </div>
         </div>
-        <div class="row" style="height:20px;"></div>
+        <div class="input-group comm_input">
+            <input type="text" class="form-control" id="comments_input" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-light" type="button" id="comments_btn">댓글 남기기</button>
+            </div>
+        </div>
 
-        <div th:if="${viewWriting.getIdxUser()}==${idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
+        <div class="comm_div">
+<!--            <ul class="list-group">-->
+<!--                <li class="list-group-item">Cras justo odio</li>-->
+<!--                <li class="list-group-item">Dapibus ac facilisis in</li>-->
+<!--            </ul>-->
+ <!--           <ul class="list-group" th:each="i : ${commetsList}">
+                <li class="list-group-item" th:text="|${i.getCommWriter()} &#45;&#45;&#45;&#45; ${i.getCommContent()}|"></li>
+            </ul>-->
+        </div>
+
+        <div th:if="${viewWriting.getUser().getIdxUser()}==${idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
             <div class="col-md-11 text-start">
                 <span class="text-end" id="button"><a th:href="@{/goHome}">뒤로 가기</a></span>
             </div>
@@ -96,35 +118,55 @@
                 <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
             </div>
         </div>
-        <div class="row" style="height:20px;"></div>
     </div>
 </div><!-- media -->
 </div><!-- container -->
 </div><!-- content -->
 
 
-<footer class="footer mg-t-auto">
-    <div>
-        <span>&copy; 2019 DashForge v1.0.0. </span>
-        <span>Created by <a href="http://themepixels.me">ThemePixels</a></span>
-    </div>
-    <div>
-        <nav class="nav">
-            <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
-            <a href="../../change-log.html" class="nav-link">Change Log</a>
-            <a href="https://discordapp.com/invite/RYqkVuw" class="nav-link">Get Help</a>
-        </nav>
-    </div>
-</footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function delWriting(){
         var result=confirm("삭제하시겠습니까?");
         if (result) {
-            location.href="/goDelWriting?idxWriting=[[${viewWriting.idxWriting}]]";
+            location.href="/goDelWriting?idxWriting=[[${viewWriting.getUser().getIdxUser()}]]";
         }
     }
+</script>
+
+<script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+
+    $('#comments_btn').on('click',function(){
+
+        var comments=$('#comments_input').val();
+        $.ajax({
+            url:"/comments_write",
+            data:{
+                idxWriting:'[[${viewWriting.idxWriting}]]',  //게시글번호
+                commContent:comments
+            },
+            type:"post",
+            success:function (data){
+                alert("댓글 등록 ! ");
+                window.location.href=data;
+            },
+            error:function (data){
+                alert("댓글 등록 실패 ! ");
+            }
+
+        })
+
+
+    })
+
+
+
 </script>
 </body>
 </html>

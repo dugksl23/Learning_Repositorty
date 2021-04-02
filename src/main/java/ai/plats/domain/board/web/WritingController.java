@@ -41,10 +41,10 @@ public class WritingController {
 
     @RequestMapping(value = {"/procWriting"},method = RequestMethod.POST)
     @ResponseBody
-    public String procWriting(Writing writing) {
+    public String procWriting(Writing writing, Integer idxUser) {
 
         String res;
-        if(writingService.writing(writing,writing.getIdxUser())!=null){
+        if(writingService.writing(writing, idxUser)!=null){
             res = "success";
         }
         else{
@@ -66,13 +66,10 @@ public class WritingController {
 
 
     @RequestMapping(value="/goUpdateWriting")
-    public String goUpdateWriting(Writing writing, Model m) {
-        System.out.println("수정 글 번호 =======>?" + writing.getIdxWriting());
-        System.out.println("수정 글의 작성자 idx =======>?" + writing.getIdxUser());
+    public String goUpdateWriting(Writing writing, Model m, Integer idxUser) {
 
         Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
         m.addAttribute("updateWriting", updateWriting);
-//        session.setAttribute("regDate", updateWriting.getRegDate());
 
         return "board/updateWriting";
     }

@@ -1,24 +1,33 @@
 package ai.plats.domain.board.service;
+
 import ai.plats.domain.board.entity.Writing;
 import ai.plats.domain.board.repository.WritingRepository;
+import ai.plats.domain.user.entity.User;
+import ai.plats.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class WritingService {
     @Autowired
     private WritingRepository writingRepository;
-    public WritingService() {
-    }
+
+    @Autowired
+    private UserRepository userRepository;
 
 
-    public Writing writing(Writing writing) {
+
+    public Writing writing(Writing writing, Integer idxUser) {
         writing.setDelWriting("N");
-        Optional<User> userVO = userRepository.findByIdxUser(userIdx);
+        Optional<User> userVO = userRepository.findByIdxUser(idxUser);
         writing.setUser(userVO.get());
         Writing result = writingRepository.save(writing);
         return result;
