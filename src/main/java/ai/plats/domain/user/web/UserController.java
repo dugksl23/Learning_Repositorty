@@ -42,8 +42,13 @@ public class UserController {
         System.out.println("cPage===>" + cPage);
         System.out.println("size====>" + size);
 
+
+//        List<Writing> writingList = writingService.boardList(cPage, size);
+
         List<Writing> writingList = writingService.boardList(cPage, size);
+
         m.addAttribute("writingList", writingList);
+
         return "home/home";
     }
 

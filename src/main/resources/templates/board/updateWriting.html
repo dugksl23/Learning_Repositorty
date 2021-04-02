@@ -141,12 +141,11 @@
         } else {
             console.log('[[${updateWriting.regDate}]]');
             $.ajax({
-                url: "/test",
+                url: "/procUpdateWriting",
                 type:"post",
                 data: {
                     idxWriting: '[[${updateWriting.idxWriting}]]',
                     idxUser: '[[${updateWriting.idxUser}]]',
-                    writer: '[[${updateWriting.writer}]]',
                     title: $('#title').val(),
                     content: quill2.getText(),
                     regDateStr:'[[${updateWriting.regDate}]]',

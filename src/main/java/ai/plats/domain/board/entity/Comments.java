@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Check(constraints = "commDel in('Y','N')")
+@Check(constraints = "del in('Y','N')")
 public class Comments {
 
     @Id
@@ -19,26 +19,27 @@ public class Comments {
     @Column
     private int idxWriting;
     @Column(length = 500)
-    private String commContent;
-    @Column(length = 50)
-    private String commWriter;
-
-    @CreationTimestamp
-    private LocalDateTime cotemmRegDate;
-    @UpdateTimestamp
-    private LocalDateTime commModDate;
+    private String content;
 
     @Column
-    private String commDel;
+    private int idxUser;
+
+    @CreationTimestamp
+    private LocalDateTime RegDate;
+    @UpdateTimestamp
+    private LocalDateTime ModDate;
+
+    @Column
+    private String del;
 
     public Comments() {
     }
 
-    public Comments(int idxWriting, String commContent, String commWriter, String commDel) {
+    public Comments(int idxWriting, String content, int  idxUser, String del) {
         this.idxWriting = idxWriting;
-        this.commContent = commContent;
-        this.commWriter = commWriter;
-        this.commDel = commDel;
+        this.content = content;
+        this.idxUser = idxUser;
+        this.del = del;
     }
 
     public int getIdxComm() {
@@ -57,43 +58,43 @@ public class Comments {
         this.idxWriting = idxWriting;
     }
 
-    public String getCommContent() {
-        return commContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setCommContent(String commContent) {
-        this.commContent = commContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getCommWriter() {
-        return commWriter;
+    public int getIdxUser() {
+        return idxUser;
     }
 
-    public void setCommWriter(String commWriter) {
-        this.commWriter = commWriter;
+    public void setIdxUser(int idxUser) {
+        this.idxUser = idxUser;
     }
 
-    public LocalDateTime getCotemmRegDate() {
-        return cotemmRegDate;
+    public LocalDateTime getRegDate() {
+        return RegDate;
     }
 
-    public void setCotemmRegDate(LocalDateTime cotemmRegDate) {
-        this.cotemmRegDate = cotemmRegDate;
+    public void setRegDate(LocalDateTime regDate) {
+        RegDate = regDate;
     }
 
-    public LocalDateTime getCommModDate() {
-        return commModDate;
+    public LocalDateTime getModDate() {
+        return ModDate;
     }
 
-    public void setCommModDate(LocalDateTime commModDate) {
-        this.commModDate = commModDate;
+    public void setModDate(LocalDateTime modDate) {
+        ModDate = modDate;
     }
 
-    public String getCommDel() {
-        return commDel;
+    public String getDel() {
+        return del;
     }
 
-    public void setCommDel(String commDel) {
-        this.commDel = commDel;
+    public void setDel(String del) {
+        this.del = del;
     }
 }

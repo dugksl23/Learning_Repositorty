@@ -30,7 +30,7 @@ public class CommentsController {
 
 //        System.out.println(">>"+idxWriting);
 //        System.out.println(">>"+comments);
-        Comments inputComments=commentService.saveComments(idxWriting,comments,principal.getName());
+        Comments inputComments=commentService.saveComments(idxWriting,comments,Integer.parseInt(principal.getName()));
         String result="/goViewWriting?idxWriting="+idxWriting;
         return result;
     }

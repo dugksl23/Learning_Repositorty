@@ -161,7 +161,7 @@
       <tr th:each="i : ${writingList}">
         <td>[[${i.idxWriting}]]</td>
         <td><a th:href="@{/goViewWriting(idxWriting=${i.idxWriting})}">[[${i.title}]]</a></td>
-        <td>[[${i.writer}]]</td>
+        <td>[[${i.user.userNick}]]</td>
         <td>[[${#temporals.format(i.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
       </tr>
       </tbody>

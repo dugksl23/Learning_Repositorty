@@ -16,8 +16,8 @@ public class CommentsService {
     CommentsRepository commentsRepository;
 
 
-    public Comments saveComments(String idxWriting, String comments, String commWriter) {
-        return commentsRepository.save(new Comments(Integer.parseInt(idxWriting),comments,commWriter,"N"));
+    public Comments saveComments(String idxWriting, String comments, int  idxUser) {
+        return commentsRepository.save(new Comments(Integer.parseInt(idxWriting),comments,idxUser,"N"));
     }
 
     public List<Comments> findByIdxWriting(int idxWriting) {
