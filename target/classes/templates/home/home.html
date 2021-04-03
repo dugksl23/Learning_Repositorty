@@ -166,45 +166,41 @@
       </tr>
       </tbody>
       <tfoot>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-end">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
 
 
-            <li class="page-item" th:if="${navi.get('end')==false}">
-              <a class="page-link" th:href="@{/goHome(cPage=${navi.get('firstPage')})}">처음로</a>
-            </li>
+          <li class="page-item" th:if="${navi.get('end')==false}">
+            <a class="page-link" th:href="@{/goHome(cPage=${navi.get('firstPage')})}">처음로</a>
+          </li>
 
-            <li class="page-item" th:if="${navi.get('prev5')==true}">
-              <a class="page-link" th:href="@{/goHome(cPage=${navi.get('startNavi')-1})}" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item page-boy" id="page-body"></li>
-            <script>
-              var startNavi = ([[${navi.startNavi}]]);
-              var endNavi = ([[${navi.endNavi}]]);
+          <li class="page-item" th:if="${navi.get('prev5')==true}">
+            <a class="page-link" th:href="@{/goHome(cPage=${navi.get('startNavi')-1})}" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item page-boy" id="page-body"></li>
+          <script>
+            var startNavi = ([[${navi.startNavi}]]);
+            var endNavi = ([[${navi.endNavi}]]);
 
-              $(document).ready(function(){
-                for (let i=startNavi; i<=endNavi; i++) {
-                  var aTag=`<a href='/goHome?cPage=${i}' class='page-link' style='height:40px; float: left;'>${i}</a>`;
-                   $('#page-body').append(aTag);
-                }
-              })
-            </script>
+            $(document).ready(function(){
+              for (let i=startNavi; i<=endNavi; i++) {
+                var aTag=`<a href='/goHome?cPage=${i}' class='page-link' style='height:40px; float: left;'>${i}</a>`;
+                $('#page-body').append(aTag);
+              }
+            })
+          </script>
 
-      <!--      <li class="page-item" th:each="i : ${#numbers.sequence(${#numbers.formatInteger(${navi.get('startNavi')},0,'DEFAULT')}, ${#numbers.formatInteger(${navi.get('endNavi')},0,'DEFAULT')})}">
-             <a class="page-link" th:href="@{/goHome(cPage=${i})}" th:text="${i}"></a>
-            </li>-->
+          <li class="page-item" th:if="${navi.get('next5')==true}">
+            <a class="page-link" th:href="@{/goHome(cPage=${navi.get('endNavi')+1})}">Next</a>
+          </li>
 
-            <li class="page-item" th:if="${navi.get('next5')==true}">
-              <a class="page-link" th:href="@{/goHome(cPage=${navi.get('endNavi')+1})}">Next</a>
-           </li>
-
-            <li class="page-item" th:if="${navi.get('end')==false}">
-              <a class="page-link" th:href="@{/goHome(cPage=${navi.get('endPage')})}">마지막으로</a>
-            </li>
+          <li class="page-item" th:if="${navi.get('end')==false}">
+            <a class="page-link" th:href="@{/goHome(cPage=${navi.get('endPage')})}">마지막으로</a>
+          </li>
 
 
-          </ul>
-        </nav>
+        </ul>
+      </nav>
       </tfoot>
     </table>
   </div>

@@ -17,6 +17,7 @@
     <!--test code-->
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
     <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image">
     <meta content="http://themepixels.me/dashforge/img/dashforge-social.png" property="og:image:secure_url">
     <meta content="image/png" property="og:image:type">
@@ -55,6 +56,12 @@
         </ul>
     </div><!-- navbar-menu-wrapper -->
     <div class="navbar-right">
+        <a class="btn btn-buy" href="/goHome" sec:authorize="isAuthenticated()">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" x2="21" y2="6" yF1="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>Home</span>
+        </a>
         <a class="btn btn-buy" href="/goMyInfo" sec:authorize="isAuthenticated()">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" x2="21" y2="6" yF1="6"></line>
@@ -131,7 +138,7 @@
     });
     $('#submit').on('click', function () {
         var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
-        var contentSize = (quill2.getLength() >= 4 && quill2.getLength() <= 5000) ? true : false;
+        var contentSize = (quill2.getLength() >= 8 && quill2.getLength() <= 5000) ? true : false;
         if ($('#title').val() == '' && quill2.getText() == '') {
             alert("제목과 내용을 입력해주세요.");
             return false;

@@ -1,7 +1,8 @@
 package ai.plats.domain.board.service;
-
 import ai.plats.domain.board.entity.Writing;
 import ai.plats.domain.board.repository.WritingRepository;
+import ai.plats.domain.comments.entity.Comments;
+import ai.plats.domain.comments.repository.CommentsRepository;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class WritingService {
@@ -23,6 +22,8 @@ public class WritingService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CommentsRepository commentsRepository;
 
 
     public Writing writing(Writing writing, Integer idxUser) {
@@ -102,8 +103,8 @@ public class WritingService {
     }
 
 
-    public Writing getMyWriting(int cPage) {
-        Writing result = this.writingRepository.findByIdxWriting(cPage);
+    public Writing getMyWriting(int idx) {
+        Writing result = this.writingRepository.findByIdxWriting(idx);
         return result;
     }
 
@@ -115,11 +116,18 @@ public class WritingService {
 
 
     public Writing delWriting(Writing writing) {
-        System.out.println("삭제 글 번호 =======>?" + writing.getIdxWriting());
         Writing result = writingRepository.findByIdxWriting(writing.getIdxWriting());
-        System.out.println("삭제될 게시글의 번호 ====>" + result.getIdxWriting());
         result.setDelWriting("Y");
         result = writingRepository.save(result);
+
+
+        //게시물 삭제시 , 해당 댓글 모두 삭제처리
+        List<Comments> comments_list=commentsRepository.findByIdxWriting(writing.getIdxWriting());
+        for(Comments i : comments_list){
+            i.setDel("Y");
+            commentsRepository.save(i);
+        }
+
         return result;
     }
 }

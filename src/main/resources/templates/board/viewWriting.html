@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:c=""
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
@@ -57,6 +56,12 @@
         </ul>
     </div><!-- navbar-menu-wrapper -->
     <div class="navbar-right">
+        <a class="btn btn-buy" href="/goHome" sec:authorize="isAuthenticated()">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" x2="21" y2="6" yF1="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>Home</span>
+        </a>
         <a sec:authorize="isAuthenticated()" href="/goMyInfo" class="btn btn-buy">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" yF1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -81,9 +86,11 @@
         </div>
         <div class="row border-left border-right border-bottom bg-light" style="height:30px; font-size:15px; line-height:2;">
             <div class="col-md-6">
+                <div>게시물 수정 날짜 : [[${#temporals.format(i.modiDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
             </div>
             <div class="col-md-6 text-end" style="text-align: right;">
-                [[${#temporals.format(i.regDate, 'yyyy/MM/dd HH:mm:ss')}]]
+                <div>게시물 등록 날짜 : [[${#temporals.format(i.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
+
             </div>
         </div>
         <div class="row" style="height:20px;"></div>
@@ -92,35 +99,53 @@
                 [[${i.content}]]
             </div>
         </div>
-        <div class="input-group comm_input">
+
+        <div th:if="${viewWriting.getUser().getIdxUser()}==${idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
+            <div class="col-md-10 text-start">
+                <span class="text-end" id="button"><a th:href="@{/goHome}">뒤로 가기</a></span>
+            </div>
+            <div class="col-md-2 text-end">
+                <span class="text-end" id="submit"><a th:href="@{/goUpdateWriting(idxWriting=${viewWriting.getIdxWriting()})}">수정</a></span>
+                <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
+            </div>
+        </div>
+
+        <div class="row" style="height:20px;"></div>
+        <div class="input-group com_input">
             <input type="text" class="form-control" id="comments_input" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-light" type="button" id="comments_btn">댓글 남기기</button>
             </div>
         </div>
 
-        <div class="comm_div">
-<!--            <ul class="list-group">-->
-<!--                <li class="list-group-item">Cras justo odio</li>-->
-<!--                <li class="list-group-item">Dapibus ac facilisis in</li>-->
-<!--            </ul>-->
- <!--           <ul class="list-group" th:each="i : ${commetsList}">
-                <li class="list-group-item" th:text="|${i.getCommWriter()} &#45;&#45;&#45;&#45; ${i.getCommContent()}|"></li>
-            </ul>-->
-        </div>
+        <div class="row" style="height:20px;"></div>
 
-        <div th:if="${viewWriting.getUser().getIdxUser()}==${idxUser}" class="row bold border text-end" style="height:35px; line-height:2.5;"><!---->
-            <div class="col-md-11 text-start">
-                <span class="text-end" id="button"><a th:href="@{/goHome}">뒤로 가기</a></span>
-            </div>
-            <div class="col-md-1 text-end">
-                //<span class="text-end" id="submit"><a th:href="@{/goUpdateWriting(idxWriting=${viewWriting.getIdxWriting()}, idxUser=${idxUser})}">수정</a></span>
-                <span class="text-end"><a href="javascript:delWriting();">삭제</a></span>
+        <!-- 댓끝 부분글 코드 --->
+        <div class="row comments-div" th:each="i : ${commentsList}" th:id="${i.idxComments}">
+            <div class="col-md-12 comments-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="input-group mg-b-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" th:text="|${i.user.userNick}|"></span>
+                            </div>
+                            <input aria-describedby="basic-addon1" class="form-control form-content" readonly
+                                   th:value="|${i.content}|" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-light updateComment-btn" type="button">댓글 수정</button>
+                        <button class="btn btn-outline-light delComment-btn" type="button">댓글 삭제</button>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- 댓글부분 코드 끝 -->
+
+
+
     </div>
 </div><!-- media -->
-</div><!-- container -->
 </div><!-- container -->
 </div><!-- content -->
 
@@ -131,7 +156,7 @@
     function delWriting(){
         var result=confirm("삭제하시겠습니까?");
         if (result) {
-
+            location.href="/goDelWriting?idxWriting=[[${viewWriting.idxWriting}]]";
         }
     }
 </script>
@@ -149,8 +174,8 @@
         $.ajax({
             url:"/comments_write",
             data:{
-
-                commContent:comments
+                idxWriting:'[[${viewWriting.idxWriting}]]',
+                content:comments
             },
             type:"post",
             success:function (data){
@@ -162,8 +187,84 @@
             }
 
         })
+
+
+    })
+</script>
+
+<script>
+    $(document).on('click', '.delComment-btn', function(){
+
+        let commentsBox = $(this).closest('div.comments-div')
+        let idxComments = commentsBox.attr('id');
+
+        let result = confirm("삭제하시겠습니까?");
+        if(result){
+            $.ajax({
+                url:"/delComments",
+                data:{
+                    idxComments:idxComments
+                }
+            }).done(function(res){
+                //alert(res);
+                commentsBox.remove();
+            })
+        }
     })
 
+
+</script>
+
+<script>
+    let cooentsBox_chirldren;
+    $(document).on('click', '.updateComment-btn', function(){
+
+        let commentsBox = $(this).closest('div.comments-div');
+        let idxComments = commentsBox.attr('id');
+        let text = commentsBox.find('.form-content').val();
+
+        let updateCommentBox =`
+        <div class="row input-group com_input updateComments-body">
+            <input type="text" class="form-control comments_input" placeholder="${text}"
+                   aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-light confirm_btn" type="button">확인</button>
+                    <button class="btn btn-outline-light cancel_btn" type="button">취소</butto>
+                </div>
+        </div>`;
+        cooentsBox_chirldren=commentsBox.childList;
+        commentsBox.find('.comments-body').hide();
+        commentsBox.append(updateCommentBox);
+    })
+</script>
+
+<script>
+
+    $(document).on('click','.confirm_btn',function(){
+
+        let commentsBox = $(this).closest('div.comments-div');
+        let idxComments = commentsBox.attr('id');
+        let comments_input = commentsBox.find('.comments_input').val();
+
+        $.ajax({
+            url:"/updateComments",
+            data:{
+                idxComments:idxComments,
+                content:comments_input
+            },
+            type:"post",
+        }).done(function(res){
+            location.href=res;
+        })
+
+    })
+
+    $(document).on('click','.cancel_btn',function(){
+        let commentsBox = $(this).closest('div.comments-div');
+        commentsBox.find('.comments-body').show();
+        commentsBox.find('.updateComments-body').remove();
+
+    })
 
 
 </script>

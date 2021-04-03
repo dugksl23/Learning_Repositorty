@@ -1,19 +1,23 @@
 package ai.plats.domain.board.web;
 
 
-import ai.plats.domain.account.service.UserLoginService;
 import ai.plats.domain.board.entity.Writing;
 import ai.plats.domain.board.service.WritingService;
+import ai.plats.domain.comments.entity.Comments;
+import ai.plats.domain.comments.service.CommentsService;
 import ai.plats.domain.user.entity.User;
 import ai.plats.domain.user.service.UserJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Controller
@@ -22,17 +26,15 @@ public class WritingController {
     WritingService writingService;
 
     @Autowired
-    UserLoginService accountService;//로그인 서비스
-
-    @Autowired
     UserJoinService userJoinService;//user 서비스
 
 
+    @Autowired
+    CommentsService commentsService;
 
 
     @RequestMapping({"/goWriting"})
     public String writing(Model model, Principal principal) {
-        System.out.println(principal.getName());
         Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
         model.addAttribute("nick", ((User)user.get()).getUserNick());
         model.addAttribute("idxUser", ((User)user.get()).getIdxUser());
@@ -41,10 +43,9 @@ public class WritingController {
 
     @RequestMapping(value = {"/procWriting"},method = RequestMethod.POST)
     @ResponseBody
-    public String procWriting(Writing writing, Integer idxUser) {
-
+    public String procWriting(Writing writing,HttpServletRequest req) {
         String res;
-        if(writingService.writing(writing, idxUser)!=null){
+        if(writingService.writing(writing,Integer.parseInt(req.getParameter("idxUser")))!=null){
             res = "success";
         }
         else{
@@ -53,23 +54,26 @@ public class WritingController {
         return res;
     }
 
-    @RequestMapping({"/goViewWriting"})
-    public String procWriting(Writing writing, Model model, Principal principal) {
-        System.out.println(writing.getIdxWriting());
-        Writing viewWriting = writingService.getMyWriting(writing.getIdxWriting());
+    @RequestMapping(value={"/goViewWriting"},method = RequestMethod.GET)
+    public String procWriting(Model model, Principal principal, @RequestParam("idxWriting") int idxWriting) {
+
+        Writing viewWriting = writingService.getMyWriting(idxWriting);
         model.addAttribute("viewWriting", viewWriting);
-//        Optional<User> user = userJoinService.findUserByIdxUser(Integer.parseInt(principal.getName()));
+
+        List<Comments> list=commentsService.findByIdxWriting(viewWriting.getIdxWriting());
+        //System.out.println(list.get(0).getIdxComments());
+        model.addAttribute("commentsList",list);
         model.addAttribute("idxUser", principal.getName());
-        return "/board/viewWriting";
+        return "board/viewWriting";
     }
 
 
 
 
     @RequestMapping(value="/goUpdateWriting")
-    public String goUpdateWriting(Writing writing, Model m, Integer idxUser) {
+    public String goUpdateWriting(@RequestParam("idxWriting") int idxWriting, Model m) {
 
-        Writing updateWriting = writingService.getMyWriting(writing.getIdxWriting());
+        Writing updateWriting = writingService.getMyWriting(idxWriting);
         m.addAttribute("updateWriting", updateWriting);
 
         return "board/updateWriting";
@@ -78,22 +82,27 @@ public class WritingController {
 
 
 
+
     @RequestMapping(value="/procUpdateWriting", method= RequestMethod.POST)
     @ResponseBody
-    public String procUpdateWriting(Writing writing, String regDateStr) {
+    public String procUpdateWriting(Writing writing,String modDateStr) {
 
-        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(regDateStr);
-        writing.setRegDate(parsedLocalDateTime);
-        Writing viewWriting = writingService.updateWriting(writing);
 
-        String redirect_url="/goViewWriting?idxWriting="+viewWriting.getIdxWriting();
-        return redirect_url;
+        Writing vo =writingService.getMyWriting(writing.getIdxWriting());
+
+        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(modDateStr);
+        vo.setTitle(writing.getTitle());
+        vo.setContent(writing.getContent());
+        vo.setModiDate(parsedLocalDateTime);
+        writingService.updateWriting(vo);
+
+        return "게시물 수정 완료 ! ";
     }
+
 
 
     @RequestMapping({"/goDelWriting"})
     public String delWriting(Writing writing) {
-
         Writing result = writingService.delWriting(writing);
 
         return "redirect:/";

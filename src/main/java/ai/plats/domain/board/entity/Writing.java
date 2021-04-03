@@ -47,11 +47,14 @@ public class Writing {
         this.delWriting = delWriting;
         this.user = user;
     }
+
     public int getIdxWriting() {
         return idxWriting;
     }
 
-
+    public void setIdxWriting(int idxWriting) {
+        this.idxWriting = idxWriting;
+    }
 
     public String getTitle() {
         return title;

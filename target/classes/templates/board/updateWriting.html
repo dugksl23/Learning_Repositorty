@@ -52,6 +52,12 @@
         </ul>
     </div><!-- navbar-menu-wrapper -->
     <div class="navbar-right">
+        <a class="btn btn-buy" href="/goHome" sec:authorize="isAuthenticated()">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" x2="21" y2="6" yF1="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg> <span>Home</span>
+        </a>
         <a class="btn btn-buy" href="/goMyInfo" sec:authorize="isAuthenticated()">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" x2="21" y2="6" yF1="6"></line>
@@ -122,7 +128,6 @@
     });
 </script>
 <script>
-
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function (e, xhr, options) {
@@ -130,7 +135,7 @@
     });
     $('#submit').on('click', function () {
         var titleSize = ($('#title').val().length >= 4 && $('#title').val().length <= 50) ? true : false;
-        var contentSize = (quill2.getLength() >= 4 && quill2.getLength() <= 5000) ? true : false;
+        var contentSize = (quill2.getLength() >= 8 && quill2.getLength() <= 5000) ? true : false;
         console.log(">>>>>>>"+$('#title').val());
         if ($('#title').val() == '' && quill2.getText() == '') {
             alert("제목과 내용을 입력해주세요.");
@@ -146,20 +151,18 @@
                 type:"post",
                 data: {
                     idxWriting: '[[${updateWriting.idxWriting}]]',
-                    idxUser: '[[${updateWriting.idxUser}]]',
                     title: $('#title').val(),
                     content: quill2.getText(),
-                    regDateStr:'[[${updateWriting.regDate}]]',
-                    delWriting:'[[${updateWriting.delWriting}]]'
+                    modDateStr:'[[${updateWriting.modiDate}]]'
+                },
+                success:function(){
+                    alert('게시물 수정 완료 ! ');
+                    window.location.href="/goViewWriting?idxWriting="+"[[${updateWriting.idxWriting}]]"
                 }
-            }).done(function (res) {
-                alert(res);
-                window.location.href = "/goViewWriting?idxWriting="+'[[${updateWriting.idxWriting}]]';
+
             })
         }
     })
-</script>
-
 </script>
 </body>
 </html>

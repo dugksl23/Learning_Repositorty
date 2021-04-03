@@ -32,6 +32,7 @@ public class UserController {
     @Autowired
     WritingService writingService;
 
+
     @RequestMapping({"/", "/goHome"})
     public String goHome(Model m, Integer cPage, Integer size) {
         System.out.println(">>goHome");
