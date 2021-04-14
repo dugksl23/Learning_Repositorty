@@ -12,6 +12,23 @@ BOT_NAME = 'imagesSpider'
 SPIDER_MODULES = ['imagesSpider.spiders']
 NEWSPIDER_MODULE = 'imagesSpider.spiders'
 
+# Splash set up
+
+SPLASH_URL = 'http://localhost:8050'
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+
+SPIDER_MIDDLEWARES = {
+    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+}
+
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'imagesSpider (+http://www.yourdomain.com)'
 
@@ -59,7 +76,7 @@ DOWNLOAD_DELAY = 2
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 # }
 
-IMAGES_STORE = "../downloads'"
+IMAGES_STORE = '../downloads'
 FILES_STORE = '../downloads'
 
 DEFAULT_FILES_URLS_FIELD = 'file_urls'
@@ -73,6 +90,19 @@ ITEM_PIPELINES = {
     # 'imagesSpider.pipelines.CustomImagePipeline': 1,
     'scrapy.pipelines.files.FilesPipeline': 1,
 }
+
+# PROXY = ""
+# CHROME_DRIVER_PATH = '/snap/bin/chromium.chromedriver'
+# PDF_SAVE_PATH = "./pdfs"
+# PDF_SAVE_AS_PDF = False
+# PDF_DOWNLOAD_TIMEOUT = 60
+# PDF_PRINT_OPTIONS = {
+#     'landscape': False,
+#     'displayHeaderFooter': False,
+#     'printBackground': True,
+#     'preferCSSPageSize': True,
+# }
+# WEBDRIVER_HUB_URL = 'http://127.0.0.1:4444/wd/hub'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
