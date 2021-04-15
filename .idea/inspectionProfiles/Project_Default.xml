@@ -8,6 +8,7 @@
           <option value="imagesSpider.imagesSpider.spiders.imageTextSpider.SplashRequest" />
           <option value="items.Files" />
           <option value="imagesSpider.imagesSpider.spiders.dynamicSpider.SplashSpider" />
+          <option value="scrapy.selector.*" />
         </list>
       </option>
     </inspection_tool>

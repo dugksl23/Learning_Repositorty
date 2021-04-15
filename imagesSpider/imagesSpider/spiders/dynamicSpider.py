@@ -109,6 +109,6 @@ class SplashSpider(scrapy.Spider):
         nextPage = int(nextPage)
         nextPageUrl = f'http://quotes.toscrape.com{nextPageUrl}'
         print("nextPageUrl", nextPageUrl)
-        if nextPage < 11:
+        if nextPage < 10000:
             nextPage += 1
             yield SplashRequest(nextPageUrl, callback=self.parse)
