@@ -8,7 +8,7 @@ class textSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'http://www.hyundai-electric.com/elec/ko/news/newsList.jsp'
+            'https://www.hyundai-robotics.com/product/product1.html?p=1'
         ]
 
         for url in urls:

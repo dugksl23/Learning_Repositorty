@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+import pymysql
 import scrapy
 from scrapy import FormRequest
 from scrapy.utils.response import open_in_browser
@@ -30,6 +30,8 @@ end
 
 
 class LoginSpider(scrapy.Spider):
+    # 로그인 =============================================================================================================
+
     name = 'login'
     allowed_domains = ['https://quotes.toscrape.com/']
     start_urls = ['https://quotes.toscrape.com/login']
@@ -45,17 +47,40 @@ class LoginSpider(scrapy.Spider):
             'password': 'test'
         }, callback=self.after_login)
 
+    # 데이터 수집 =========================================================================================================
     def after_login(self, response):
         print("logged in!")
-        # open_in_browser(response)
+        open_in_browser(response)
+        quote = {}
 
         q = response.css(".container .quote")
-        quote = {}
-        quote["author"] = q.css(".author::text").getall()
-        quote["quote"] = q.css(".text::text").getall()
+
+        for i in q:
+            quote["author"] = i.css(".author::text").get()
+            quote["quote"] = i.css(".author::text").get()
+
+            # db 데이터 적재===================================================================================================
+            # 전역변수 선언부
+            conn = None
+
+            # 메인코드
+            conn = pymysql.connect(host="localhost", port=3306, user="root", password="1234",
+                                   charset="utf8", db="scrapy_db")  # 접속정보a
+            try:
+                with conn.cursor() as cursor:  # cursor 생성
+
+                    sql = '''INSERT INTO user (id, contents) VALUES (%s, %s)'''  # 실행할 sql문
+                    cursor.execute(sql, (i.css(".author::text").get(), i.css(".author::text").get()))  # sql문 실행
+
+                    conn.commit()
+
+            finally:
+
+                conn.close()
 
         yield quote
 
+        # pageReuqest ==================================================================================================
         splash_args = {
             'html': 1,
             'png': 1,
@@ -76,9 +101,12 @@ class LoginSpider(scrapy.Spider):
             nextPageUrl = f'http://quotes.toscrape.com{nextPageUrl}'
             print("nextPageUrl", nextPageUrl)
 
-            if nextPage < 10000:
+            if nextPage < 100000:
                 nextPage += 1
                 yield SplashRequest(nextPageUrl, dont_filter=True, callback=self.after_login, args=splash_args,
                                     endpoint='render.html')
+
+        # marinaDB 적재
+
         else:
             print('page가 없습니다.')

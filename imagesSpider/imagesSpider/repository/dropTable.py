@@ -12,11 +12,10 @@ conn = pymysql.connect(host="localhost", port=3306, user="root", password="1234"
 try:
     with conn.cursor() as cursor:  # cursor 생성
 
-        sql = '''CREATE TABLE IF NOT EXISTS user (
-                    id varchar(1000) not null, 
-                    contents varchar(1000) not null 
-            )''' # 실행할 sql문
+        sql = '''DROP TABLE user'''  # 실행할 sql문
         cursor.execute(sql)  # sql문 실행
+        result = cursor.rowcount
+        print("updated row", result)
 
     conn.commit()
 
