@@ -68,11 +68,17 @@ class LoginSpider(scrapy.Spider):
         # follow pagination link
         nextPageUrl = response.css('li.next > a::attr(href)').extract_first()
         print("next_page:", nextPageUrl)
-        nextPage = nextPageUrl[6:-1]
-        nextPage = int(nextPage)
-        nextPageUrl = f'http://quotes.toscrape.com{nextPageUrl}'
-        print("nextPageUrl", nextPageUrl)
-        if nextPage < 10000:
-            nextPage += 1
-            yield SplashRequest(nextPageUrl, dont_filter=True, callback=self.after_login, args=splash_args,
-                                endpoint='render.html')
+        if nextPageUrl is not None:
+
+            nextPage = nextPageUrl[6:-1]
+
+            nextPage = int(nextPage)
+            nextPageUrl = f'http://quotes.toscrape.com{nextPageUrl}'
+            print("nextPageUrl", nextPageUrl)
+
+            if nextPage < 10000:
+                nextPage += 1
+                yield SplashRequest(nextPageUrl, dont_filter=True, callback=self.after_login, args=splash_args,
+                                    endpoint='render.html')
+        else:
+            print('page가 없습니다.')
