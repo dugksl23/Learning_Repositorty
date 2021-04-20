@@ -50,7 +50,7 @@ class LoginSpider(scrapy.Spider):
     # 데이터 수집 =========================================================================================================
     def after_login(self, response):
         print("logged in!")
-        open_in_browser(response)
+        # open_in_browser(response)
         quote = {}
 
         q = response.css(".container .quote")
