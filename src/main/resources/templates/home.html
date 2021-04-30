@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+home입니다.
+
+<button sec:authorize="isAnonymous()" type="button" id="signup">
+    회원가입
+</button>
+<button sec:authorize="!isAuthenticated()" type="button" id="login">
+    로그인
+</button>
+<button type="button" id="board">
+    게시판
+</button>
+<button sec:authorize="hasRole('ROLE_USER')" type="button" id="logout">
+    로그아웃
+</button>
+
+
+<div sec:authorize="isAuthenticated()">
+    <h1>인</h1>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <h1>노인증</h1>
+</div>
+<!--"sec:authorize="isAnonymous()" : 로그인이 안 된 상태에서만 true를 반환-->
+<!--sec:authorize="isAuthenticated" : 로그인이 안 된 상태에서만 true를 반환-->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+
+<script>
+    $("#signup").on('click', function () {
+        location.href = "/member/signup";
+    })
+    $("#login").on('click', function () {
+        alert("오나요?");
+        location.href = "/member/login";
+    })
+    $("#board").on('click', function () {
+        location.href = "/member/board";
+    })
+    $("#logout").on('click', function () {
+        location.href = "/member/logout";
+    })
+
+
+</script>
+</body>
+</html>
