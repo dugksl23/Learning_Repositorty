@@ -1,8 +1,8 @@
 package com.example.springvue_demo.account;
 
 
-import com.example.springvue_demo.account.dto.SignUpDto;
-import com.example.springvue_demo.account.entity.SignUpEntity;
+import com.example.springvue_demo.account.dto.MemberDto;
+import com.example.springvue_demo.account.entity.MemberEntity;
 import com.example.springvue_demo.account.web.SignUpApiController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(SignUpApiController.class) //@Controller등을 사용할 수 있다
 @RunWith(SpringJUnit4ClassRunner.class)
-@WithUserDetails// 권한이 인증된 회원임을 나타내는 Annotaion
+//@WithUserDetails// 권한이 인증된 회원임을 나타내는 Annotaion
 public class SignUpApiControllerTest {
 
     //@Required~~
@@ -50,41 +49,43 @@ public class SignUpApiControllerTest {
     public void signUpTest() {
 
         //given...
-        SignUpDto dto = new SignUpDto();
+        MemberDto dto = new MemberDto();
         dto.setUserName("회원1");
         dto.setPassword("회원1");
-        //dto.setEmail("회원1");
+        dto.setEmail("회원1");
 
         //when...
-        Optional<SignUpEntity> entity = Optional.ofNullable(dto.toEntity());
-        SignUpEntity signUpEntity = entity.orElseGet(SignUpEntity::new);
+        Optional<MemberEntity> entity = Optional.ofNullable(dto.toEntity());
+        MemberEntity signUpEntity = entity.orElseGet(MemberEntity::new);
 
         //then
         Assert.assertThat(signUpEntity.getEmail(), CoreMatchers.notNullValue());
         Assert.assertThat(signUpEntity.getUserName(), CoreMatchers.notNullValue());
         Assert.assertThat(signUpEntity.getPassword(), CoreMatchers.notNullValue());
+        System.out.println(signUpEntity.getPassword());
     }
 
 
     @Test
     @DisplayName("회원가입 valid Test for http Request")//postman과 비슷한 역할을 하는 mockmvc
-    @WithMockUser(roles= "ADMIN")
+    @WithMockUser(roles = "ADMIN")
     public void signUpTestForHttpRequest() throws Exception {
 
         //given...
-        SignUpDto dto = new SignUpDto();
+        MemberDto dto = new MemberDto();
         dto.setUserName("회원1");
         dto.setPassword("회원1");
         dto.setEmail("test@test.com");
 
         //when...
         mvc.perform(
-                MockMvcRequestBuilders.post("/api/signUp")
+                MockMvcRequestBuilders.post("/api/signUps")
                         .contentType(MediaType.APPLICATION_JSON)//json 형식으로 데이터를 보냄.
                         .content(objectMapper.writeValueAsString(dto))
                         .with(csrf()) // 이 부분
                         .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
+
     }
 
     //403 에러 -> .with(csrf()) // 이 부분

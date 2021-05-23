@@ -1,0 +1,57 @@
+spring:
+  devtools:
+    livereload:
+      enable: true
+
+server:
+  servlet:
+    session:
+      timeout: 30000s
+  port: 8080
+  tomcat:
+    max-http-form-post-size: 10485760
+
+---
+#  DB 정보 & hibernate
+spring:
+  datasource:
+    url: jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+    username: user
+    password: 1234
+    driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        dialect: org.hibernate.dialect.H2Dialect
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      id:
+        new_generator_mappings: false
+        format_sql: false
+        ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+  session:
+    store-type: none
+
+application-dev:
+  yml:
+# Log
+logging:
+  level: INFO
+  level.org.hibernate.SQL: INFO
+  level.org.hibernate.type.descriptor.sql.BasicBinder: INFO
+  level.org.hibernate.type.descriptor.sql: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  file:
+    name: logs/logback-prod.log
+
+---
+
+error:
+  system:
+    process:
+      file: logs/logback-prod.log

@@ -1,0 +1,24 @@
+.parsley-error {
+  border: red 1px solid !important;
+  background-color: #ffe6e6 !important;
+}
+
+.parsley-errors-list {
+  padding-left: 15px !important;
+  color:red;
+  list-style: none;
+}
+
+.select2-hidden-accessible.parsley-error ~ .select2-container--default .select2-selection--multiple {
+  border: red 1px solid !important;
+  background-color: #ffe6e6 !important;
+}
+
+.m-b-15{
+  margin-bottom: 15px;
+}
+
+.contents-wrap .row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
