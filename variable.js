@@ -159,4 +159,4 @@ console.log(`text value : ${text}, type : ${typeof text}`);
 // 다만 TS는 브라우저서 바로 컴파일이 되지 않고
 // 브라우저가 이해할 수 있는 JAVASCRIPT로
 // TRANSfer Comfile을 해주어야 한다.
-// babe;
+// babel;``
