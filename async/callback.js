@@ -39,3 +39,59 @@ function printWithDelay(print, timeout) {
 printWithDelay(() => console.log('콜백 함수를 먼저 인자로 보냈고, 보낸후의 결과값을 다시금 인자로 보냅니다, console.log()와 milliSecond'), 1000);
 // callback 함수를 전달하고, 콜백함수 실행 후의 결과값을
 // 인자로 다시 printWithDelay 함수에 전달한다.
+
+
+//=========================================================
+
+class UserStorage {
+
+    loginUser(id, password, onSuccess, onError) {
+        setTimeout(() => {
+            if (
+                (id === 'ellie' && password === 'dream') ||
+                (id === 'coder' && password === 'academy')
+            ) {
+                onSuccess(id);
+
+            } else {
+                onError(new Error('not found'))
+            }
+        }, 2000);
+    }
+
+    getRoles(user, onSuccess, onError) {
+        setTimeout(() => {
+            if (user === 'ellie') {
+                onSuccess({
+                    name: 'ellie',
+                    role: 'admin'
+                })
+            } else {
+                onError(new Error('no athroized'));
+            }
+        }, 1000);
+    }
+}
+
+
+const userStorage = new UserStorage();
+
+userStorage.loginUser(
+    'ellie',
+    'dream',
+    user => {
+        userStorage.getRoles(
+            user,
+            userRoles => {
+                alert(user);
+                alert(`hi ${userRoles.name} and you hava a ${userRoles.role} of role`);
+            },
+            error => {
+                console.log(error);
+            });
+    },
+    error => {
+        console.log(error);
+    }
+);
+
