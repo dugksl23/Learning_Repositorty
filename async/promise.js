@@ -107,7 +107,7 @@ getChiken('chiken')
     .catch(error => {//만약 첫번째에서 error가 날경우, 다음 처리를 위한 catch를 하고, 다음 promise chain으로 연결시킨다.
         return '빵';
     })
-    .then(getCook) // 해당 함수에 then으로부터 전달받은 인자를 그대로 넘길 때는 함수명만 작성해줘도 된다.
+    .then(getCook) // 해당 함수에 then으로부터 전달받은 인자를 그대로 넘길 때는 함 수명만 작성해줘도 된다.
     .then(console.log)
     .catch(console.log);
 
