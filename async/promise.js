@@ -1,36 +1,36 @@
-'use strict';
+﻿'use strict';
 
 // 1. promise
 
 // promise is a Javascript Object for a asynchronous operation
-// - ���ι̽��� �ڹٽ�ũ��Ʈ�� ������Ʈ�̸�, �񵿱����� �۾��� �����ϱ� ���ؼ� ���δ�.
-// promise�� js�� object �̱⿡ new Ű���带 �̿��ؼ� ������Ʈ�� �����Ѵ�.
-// Promise�� executor ��� �ݹ��Լ��� ��������� �ϸ�, execute �ݹ��Լ���
-// resolve�� reject��� �ݹ��Լ��� �޴´�.
+// - 프로미스는 자바스크립트의 오브젝트이며, 비동기적인 작업을 수행하기 위해서 쓰인다.
+// promise는 js의 object 이기에 new 키워드를 이용해서 오브젝트를 생성한다.
+// Promise는 executor 라는 콜백함수를 전달해줘야 하며, execute 콜백함수는
+// resolve와 reject라는 콜백함수를 받는다.
 
-// resolve �Լ� : ����� ���������� �����ؼ�, �������� ���� data�� �����Ѵ�.
-// rejecte �Լ� : ����� �����ϴٰ�, ������ ���ܼ� ȣ���ϰ� �ȴ�.
+// resolve 함수 : 기능을 정상적으로 수행해서, 마지막에 최종 data를 전달한다.
+// rejecte 함수 : 기능을 수행하다가, 문제가 생겨서 호출하게 된다.
 
 // 1-1. index
-// state - �۾��� ���� ���� ������� ��Ÿ��
-//         pending (ó����)-> fulfiled (�Ϸ�) or rejected(���� ����� ���� �ʰų� data�� ���� ���̴�.)
-// producer - promise�� object�̸�, �޾ƿ� data�� ������� ����� ��.
-// consumer - �ش� data�� �Һ��ϴ� ��.
+// state - 작업이 수행 중인 결과물을 나타냄
+//         pending (처리중)-> fulfiled (완료) or rejected(서버 통신이 되지 않거나 data가 없을 때이다.)
+// producer - promise의 object이며, 받아온 data를 결과물로 만드는 것.
+// consumer - 해당 data를 소비하는 것.
 
 
 
 // 1-2. Producer
 //    when new Promise is created, the Executor runs automatocally
 
-//    promise object�� �����ϴ� ����, execute�� ����ȴٴ� ���̴�.
-//    �� promise�� ��������� �� ����, �� �ȿ� network ����� �ڵ尡 �ִٸ� �ﰢ ����ȴ�.
+//    promise object를 생성하는 순간, execute가 실행된다는 것이다.
+//    즉 promise를 만들어지는 그 순간, 그 안에 network 통신을 코드가 있다면 즉각 실행된다.
 
 const promise = new Promise((resolve, reject) => {
     // doing some heavy work (network, read files);
-    // ��Ʈ��ũ���� �����͸� �޾ƿ��ų�, file���� ���� ū data�� �о���� ������
-    // �ð��� �ɸ��� �����̴�.
-    // => �̰��� ����� �����ϰ� �Ǹ�, �ش� line�� ó���ϴ���
-    // ���� line�� �������� ���ϱ⿡, �񵿱�� ó���ϴ� ���� �Ǵ�.
+    // 네트워크에서 데이터를 받아오거나, file에서 무언가 큰 data를 읽어오는 과정은
+    // 시간이 걸리기 때문이다.
+    // => 이것을 동기로 수행하게 되면, 해당 line을 처리하느라
+    // 다음 line을 실행하지 못하기에, 비동기로 처리하는 것이 옳다.
     console.log('doing something....');
     setTimeout(() => {
         //resolve('ellie') --> then();
@@ -39,13 +39,14 @@ const promise = new Promise((resolve, reject) => {
 });
 
 // 2. Consumer : then, catch, finally;
-// producer���� �������� �����Ͽ�, resolve �ݹ��Լ��� ������ ����,
-//  consumer���� then() �Լ��� ���ڷ� �̾�����.
+// producer에서 정상으로 동작하여, resolve 콜백함수에 전달한 값은,
+//  consumer에서 then() 함수의 인자로 이어진다.
 
 //    2-1. then
 promise.then(value => {
-    // then�� ���� promise�� return�Ѵ�.
-    // �� return �� promise�� catch�� ȣ���� �� �ְ� �ȴ�.
+        // then은 같은 promise를 return한다. 
+        // 또는 다음 then(value)에 value를 전달하기도 한다.
+        // 그 return 된 promise에 catch를 호출할 수 있게 된다.
         console.log(value);
     })
     // 2-2 catch
@@ -53,14 +54,61 @@ promise.then(value => {
         console.log(value);
     })
     // 2-3 finally
-    // promise�� ���������� ����Ǵ� api�̴�.
+    // promise의 최종적으로 실행되는 api이다.
     .finally(() => {
         console.log('finally');
     });
 
 
 
-    // 3. promise chainning 
-    //    then api�� ��쿡�� return�� pormise�� �Ѵ�.
-    //    ���� promise�� then() or catch()�� ȣ���� �� �ְ� �ȴ�.
-    //    �̷��� ����ؼ� promise chain�� �����ȴ�.
+// 3. promise chainning 
+//    then api의 경우에는 return을 pormise로 한다.
+//    따라서 promise의 then() or catch()를 호출할 수 있게 된다.
+//    이렇게 계속해서 promise chain이 형성된다.
+const fetchNumber = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(1);
+    }, 2000);
+})
+
+fetchNumber
+    .then(num => num + 1)
+    .then(num => num * 3)
+    .then(num => {
+        return new Promise((resolve, reject) => {
+            resolve(num / 2);
+        })
+    }).then(num => console.log(num));
+
+
+// 4. Error handling
+
+const getChiken = chiken =>
+    new Promise((resolve, reject) => {
+        setTimeout(() => resolve(`${chiken}`), 1000)
+    });
+
+
+const getEgg = hen =>
+    new Promise((resolve, reject) => {
+        setTimeout(() =>
+            //resolve(`${hen} => egg`)
+            reject('실패'), 1000);
+    });
+
+
+const getCook = cook =>
+    new Promise((resolve, reject) => {
+        resolve(`${cook}=> pride`);
+    });
+
+getChiken('chiken')
+    .then(hen => getEgg(hen))
+    .catch(error => {//만약 첫번째에서 error가 날경우, 다음 처리를 위한 catch를 하고, 다음 promise chain으로 연결시킨다.
+        return '빵';
+    })
+    .then(getCook) // 해당 함수에 then으로부터 전달받은 인자를 그대로 넘길 때는 함수명만 작성해줘도 된다.
+    .then(console.log)
+    .catch(console.log);
+
+// new Promise를 return 하면 된다.
