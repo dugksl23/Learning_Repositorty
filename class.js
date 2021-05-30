@@ -33,11 +33,6 @@ class Person {
 
     }
 
-
-    // getter and setter
-
-
-
     // 3. 멤버 메소드
     speak() {
         console.log(`this name is ${this.name}`);
