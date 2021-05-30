@@ -1,32 +1,35 @@
 'use strict';
 
 
-// 1. class »ı¼º
+// 1. class ìƒì„±
 class Person {
 
-    // 2. constructor
-    //  object¸¦ ¸¸µé ¶§ »ı¼ºÀÚ¸¦ ÅëÇØ¼­ data¸¦ Àü´ŞÇÑ´Ù.
+    // 2. constructor ìƒì„±
+    //  objectë¥¼ ë§Œë“¤ ë•Œ ìƒì„±ìë¥¼ í†µí•´ì„œ dataë¥¼ ì „ë‹¬í•œë‹¤.
     constructor(name, age) {
-        //3. ¸â¹ö fiels
+        //3. ë©¤ë²„ fiels
         this.name = name;
         this.age = age;
     }
-    
+
+    // 4. getter and setter ìƒì„±
     get age() {
         return this._age;
-        // this.age¸¦ È£ÃâÇÏ´Â ¼ø°£, ¸Ş¸ğ¸®¿¡ ¿Ã¶ó°¡ ÀÖ´Â data¸¦ ÀĞ¾î¿À´Â °ÍÀÌ ¾Æ´Ï´Ù.
-        // ¹Ù·Î getter¸¦ ÀĞ¾î¿À´Â °ÍÀÌ´Ù. Áï this.age¶ó°í ÇÏ¸é, getterÀÇ ÇÔ¼ö È£ÃâÀ» ÀÇ¹ÌÇÑ´Ù.
-        // º»ÀÎ ÀÚ½ÅÀ» °¡¸®Å°´Â thisÀÌ±â¿¡ º»ÀÎÀ» È£ÃâÇÏ°Ô µÇ´Â Àç±Í ÇÔ¼öÀÇ ¿ªÇÒÀ» ÇÑ´Ù.
+        // this.ageë¥¼ í˜¸ì¶œí•˜ëŠ” ìˆœê°„, ë©”ëª¨ë¦¬ì— ì˜¬ë¼ê°€ ìˆëŠ” dataë¥¼ ì½ì–´ì˜¤ëŠ” ê²ƒì´ ì•„ë‹ˆë‹¤.
+        // ë°”ë¡œ ë³¸ì¸ ë³€ìˆ˜ëª…ì˜ getterë¥¼ ì½ì–´ì˜¤ëŠ” ê²ƒì´ë‹¤. 
+        // ì¦‰ this.ageë¼ê³  í•˜ë©´, getterì˜ í•¨ìˆ˜ í˜¸ì¶œì„ ì˜ë¯¸í•œë‹¤.
+        // ë³¸ì¸ ìì‹ ì„ ê°€ë¦¬í‚¤ëŠ” thisì´ê¸°ì— ë³¸ì¸ì„ í˜¸ì¶œí•˜ê²Œ ë˜ëŠ” ì¬ê·€ í•¨ìˆ˜ì˜ ì—­í• ì„ í•œë‹¤.
     }
 
     set age(age) {
-        this.age = _age;
-        // ¸¶Âù°¡Áö·Î setter ¶ÇÇÑ, ÀÎÀÚ·Î ¹ŞÀº °ªÀ» 
-        // age = age; ¶ó°í ÇÒ´çÇÏ´Â ¼ø°£, ¹Ù·Î ¸Ş¸ğ¸®ÀÇ °ªÀ» ÇÒ´çÇÏ´Â °ÍÀÌ ¾Æ´Ï´Ù.
-        // age¶ó´À º¯¼ö´Â setter È£ÃâÀ» ÀÇ¹ÌÇÏ°Ô µÈ´Ù.
-        // Áï º»ÀÎ ÇÔ¼ö¸¦ È£ÃâÇØ¼­, ÇØ´ç ÇÔ¼ö¿¡ È£ÃâÇÏ´Â Àç±ÍÀÌ´Ù.
-        // °áÄÚ stack ¸Ş¸ğ¸®¿¡ ¿Ã¶ó°£ ¸â¹öº¯¼öÀÇ value¸¦ update ÇÏ´Â °ÍÀÌ ¾Æ´Ï´Ù.
-        //==> getter¿Í setterÀÇ º¯¼ö¸íÀ» ´Ş¸® ÇØÁØ´Ù
+        this._age = age;
+        // ë§ˆì°¬ê°€ì§€ë¡œ setter ë˜í•œ, ì¸ìë¡œ ë°›ì€ ê°’ì„ age = age; ë¼ê³  í• ë‹¹í•˜ëŠ” ìˆœê°„, 
+        // ë°”ë¡œ ë©”ëª¨ë¦¬ì˜ ê°’ì„ í• ë‹¹í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë‹¤.
+        // ageë¼ëŠ” ë³€ìˆ˜ëŠ” setter ìì‹ ì„ í˜¸ì¶œì„ ì˜ë¯¸í•˜ê²Œ ëœë‹¤.
+        // ì¦‰ ë³¸ì¸ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•´ì„œ, í•´ë‹¹ í•¨ìˆ˜ì— í˜¸ì¶œí•˜ëŠ” ì¬ê·€ì´ë‹¤.
+        // ê²°ì½” stack ë©”ëª¨ë¦¬ì— ì˜¬ë¼ê°„ ë©¤ë²„ë³€ìˆ˜ì˜ valueë¥¼ update í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë‹¤.
+        //==> getterì™€ setterì—ì„œ this.ë³€ìˆ˜ëª…ì„ ë‹¬ë¦¬ í•´ì¤€ë‹¤.
+        //ex) this._age
 
     }
 
@@ -35,14 +38,191 @@ class Person {
 
 
 
-    // 3. ¸â¹ö ¸Ş¼Òµå
+    // 3. ë©¤ë²„ ë©”ì†Œë“œ
     speak() {
         console.log(`this name is ${this.name}`);
-    } 
+    }
 }
 
-// object »ı¼º (°´Ã¼ »ı¼º)
+// object ìƒì„± (ê°ì²´ ìƒì„±)
 const ellie = new Person('ellie', 20);
 console.log(ellie.name);
 console.log(ellie.age);
-ellie.speak;
+ellie.speak();
+
+
+class User {
+    constructor(firstName, lastName, age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    get age() {
+        return this._age;
+    }
+
+    set age(age) {
+        console.log(age);
+        this._age = age > 0 ? age : new Error('0ì‚´ ì´ìƒ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+    }
+
+    get firstName() {
+        return this._firstName;
+    }
+
+    set firstName(firstName) {
+        this._firstName = firstName;
+    }
+
+    get lastName() {
+        return this._lastName;
+    }
+
+    set lastName(lastName) {
+        this._lastName = this.lastName;
+    }
+
+}
+
+const user1 = new User('steve', 'Job', -1);
+console.log(user1.age);
+
+// ===> ìƒì„±ì + getter ë° setter
+//=============================
+
+// 2. ì ‘ê·¼ ì œí•œì
+// public privateì€ javaì™€ ë˜‘ê°™ì´ ì‚¬ìš© ê°€ëŠ¥, ë‹¤ë§Œ typeScriptë¬¸ë²•ìœ¼ë¡œë§Œ ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
+
+class Experiment {
+
+    privateName; // ë³€ìˆ˜ ì„ ì–¸ì‹œ, defaultëŠ” publicì´ì§€ë§Œ,
+    privateAge; // #ë¥¼ ë¶™ì´ë©´ privateì´ ëœë‹¤.
+
+    constructor(name, age) {
+        this.privateAge = age;
+        this.privateName = name;
+    }
+
+    get privateAge() {
+        return this.privateAge;
+    }
+
+    set privateAge(age) {
+        this.privateAge = age;
+    }
+}
+
+const experiment = new Experiment('yohan', 1);
+//console.log(experiment.privateAge);
+
+
+// 3. static
+//    ê³µí†µì ìœ¼ë¡œ ìì£¼ ì“°ì´ëŠ” í•¨ìˆ˜ì˜ ê²½ìš°ì—ëŠ” staticì„ ì‚¬ìš©í•œë‹¤.
+//    staticì€ objectë§ˆë‹¤ ê°’ì´ í• ë‹¹ë˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼,
+//    ì´ë¯¸, class ìì²´ì— staticì´ ë¶™ì–´ìˆê¸° ë•Œë¬¸ì´ë‹¤.
+//    ê°’ì´ í• ë‹¹ë˜ì§€ë„ ì•Šê³ , ì¦‰ì‹œì‹¤í–‰ì„ ì˜ë¯¸í•œë‹¤.
+//    ë”°ë¼ì„œ classì˜ ì´ë¦„ì„ í†µí•´ í•´ë‹¹ ë³€ìˆ˜ì— ì ‘ê·¼ ë° ì¶œë ¥ ê°€ëŠ¥í•˜ë‹¤.
+// ===> objectì— ìƒê´€ì—†ì´ ë“¤ì–´ì˜¤ëŠ” dataì™€ ìƒê´€ì—†ì´
+//      ê³µí†µì ìœ¼ë¡œ ìì£¼ í´ë˜ìŠ¤ë¼ë©´, static ë³€ìˆ˜ì™€ í•¨ìˆ˜ë¥¼ ì‘ì„±í•˜ë©´ ëœë‹¤.
+
+class Article {
+
+    static publisher = 'Dream Coding';
+
+    constructor(articleNumber) {
+        this.articleNumber = arguments;
+    }
+
+    static printPublisher() {
+        console.log(this.publisher);
+    }
+}
+
+
+const publisher = new Article(0);
+console.log(publisher.publisher);
+Article.printPublisher();
+
+
+// 4. ë‹¤í˜•ì„±ê³¼ ìƒì†
+
+class shape {
+
+    constructor(width, height, color) {
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
+
+    draw() {
+        console.log(`drawing ${this.color} color!`);
+    }
+
+    getArea() {
+        return this.width & this.height;
+    }
+
+}
+
+class Rectangle extends shape {};
+class Triangle extends shape {
+    // 4-1 ë‹¤í˜•ì„±ì˜ overriding(ì¬ì •ì˜)
+    getArea() {
+        return (this.height * this.width) / 2;
+    }
+
+    draw() {
+        // 4-2 ovveridng í•œ ë¶€ëª¨ ë©”ì†Œë“œë¥¼ í˜¸ì¶œ   
+        console.log('ì„¸ëª¨');
+        super.draw(); //ë¶€ëª¨ì˜ drawë¥¼ í˜¸ì¶œ
+    }
+};
+
+const rectangle = new Rectangle(100, 50, 'red');
+console.log(rectangle.getArea());
+
+const tryangle = new Triangle(100, 50, 'BLUE');
+console.log(tryangle.getArea());
+console.log(tryangle.draw());
+
+
+// 5. Class checking : instanceof
+//    ì„ ì–¸ëœ ê°ì²´(instance)ê°€ í•´ë‹¹ classì˜ objectì¸ì§€ ë³¸ë‹¤.
+//    returnì€ trueì™€ falseë¥¼ returní•œë‹¤.
+
+console.log(`${rectangle instanceof Rectangle}`); // true
+console.log(`${rectangle instanceof shape}`); // true
+console.log(`${rectangle instanceof Triangle}`); // true
+console.log(`${rectangle instanceof Object}`); // true
+// * ëª¨ë“  classëŠ” objectë¥¼ ìƒì†ë°›ì•„ì„œ êµ¬í˜„ë˜ì—ˆê¸°ì—, ìµœìƒìœ„ ë¶€ëª¨ í´ë˜ìŠ¤ë¼ê³  í•˜ê³  ìˆë‹¤.
+
+
+// ì°¸ì¡°ì‚¬ì´íŠ¸ - javascript reference
+//  object ë° ìë£Œêµ¬ì¡°ì™€ ì•Œê³ ë¦¬ì¦˜ì„ í™•ì¸í•  ìˆ˜ ìˆë‹¤.
+
+
+
+
+class calculator {
+
+    constructor(command, a, b) {
+        this.command = command;
+        this.a = a;
+        this.b = b;
+    }
+
+    calculator() {
+        switch (this.command) {
+            case 'add':
+                return this.a + this.b;
+            case 'multifly':
+                return this.a * this.b;
+            default:
+                throw Error('ì—°ì‚°ì´ ì•„ë‹™ë‹ˆë‹¤.');
+        }
+    }
+}
+
+const calculator1 = new calculator('--', 1, 2);
+console.log(calculator1.calculator());
