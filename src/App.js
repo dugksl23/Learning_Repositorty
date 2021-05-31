@@ -11,7 +11,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Subject: { title: "안녕하세요", sub: "world Wid Web!" },
+      subject: { title: "안녕하세요", sub: "world Wid Web!" },
+      content: [
+        {
+          idx: 1,
+          title: "나는 content 입니다. 1번",
+          desc: "desc라... HTML is HyperText MarkUp",
+        },
+        {
+          idx: 2,
+          title: "나는 content 입니다. 2번",
+          desc: "desc라... HTML is HyperText MarkUp",
+        },
+        {
+          idx: 3,
+          title: "나는 content 입니다. 3번",
+          desc: "desc라... HTML is HyperText MarkUp",
+        },
+      ],
     };
   }
 
@@ -20,12 +37,15 @@ class App extends Component {
       // div className>태그 안에 태그를 생성한다. => SPA
       <div className="App">
         <Subject
-          title={this.state.Subject.title}
-          sub={this.state.Subject.sub}
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}
         ></Subject>
         <Subject title="React" sub="hellow react"></Subject>
-        <TOC></TOC>
-        <Content title="HTML" desc="HTML is HyperText MarkUp"></Content>
+        <TOC data={this.state.content}></TOC>
+        <Content
+          title={this.state.content.title}
+          desc={this.state.content.desc}
+        ></Content>
       </div>
     );
   }
