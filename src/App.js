@@ -54,25 +54,24 @@ class App extends Component {
           href="/"
           onClick={function (e) {
             console.log(e);
+            e.preventDefault();
             this.setState({
               mode: "read",
             });
-
-            e.preventDefault();
           }.bind(this)}
         >
-          read
+          this test
         </a>
 
         <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
-          onChangePage={function () {
+          onChangePage={function (e) {
             //e.preventDefault();
             this.setState({
               mode: "read",
             });
-          }.bind(this)}
+          }}
         ></Subject>
 
         <Subject title="React" sub="hellow react"></Subject>
