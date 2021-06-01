@@ -11,14 +11,16 @@ class Subject extends Component {
         <h1>
           <a
             href="/"
-            onClick={(e) => {
+            onClick={function (e) {
               console.log(e);
               e.preventDefault();
+              this.props.onChangePage();
               //debugger;
               // 이벤트가 주입이 되고, e 변수에 할당된 이벤트를 핸들링할 수 있도록 주입된 정보이다.
               // e.preventDefault(); // 이벤트가 할당된 태그의 원래 기능을 하지 못하도록 하는 함수이다.
-            }}
+            }.bind(this)}
           >
+            {" "}
             {this.props.title}
           </a>
         </h1>

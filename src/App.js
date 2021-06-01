@@ -50,10 +50,31 @@ class App extends Component {
     return (
       // div className>태그 안에 태그를 생성한다. => SPA
       <div className="App">
+        <a
+          href="/"
+          onClick={function (e) {
+            console.log(e);
+            this.setState({
+              mode: "read",
+            });
+
+            e.preventDefault();
+          }.bind(this)}
+        >
+          read
+        </a>
+
         <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
+          onChangePage={function () {
+            //e.preventDefault();
+            this.setState({
+              mode: "read",
+            });
+          }.bind(this)}
         ></Subject>
+
         <Subject title="React" sub="hellow react"></Subject>
         <TOC data={this.state.content}></TOC>
         <Content title={_title} desc={_desc}></Content>
