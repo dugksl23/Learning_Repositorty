@@ -4,12 +4,13 @@ import React, { Component } from "react";
 class TOC extends Component {
   render() {
     var lists = [];
-    var data = this.props.data; //app.js(class)의 생성자를 통해, 자식 component의 props에 값을 주입했다.
+    var data = this.props.data;
+    //app.js(class)의 생성자를 통해, 자식 component의 props에 값을 주입했다.
     // 다만 배열로 이루어진 값들은 자식 component 내부에서 처리해줘야 한다.
     for (let i = 0; i < data.length; i++) {
       lists.push(
-        <li>
-          <a href={"/content/" + data[i].id} />
+        <li key={data[i].idx}>
+          <a href={"/content/" + data[i].idx} />
           {data[i].title}
         </li>
       );
