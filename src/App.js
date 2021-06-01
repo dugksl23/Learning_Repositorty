@@ -10,12 +10,14 @@ class App extends Component {
   //    입력값/멤버변수(props)에 대해서 초기화가 이루어진다.
   constructor(props) {
     super(props);
+
     this.state = {
+      mode: "welcome",
       subject: { title: "안녕하세요", sub: "world Wid Web!" },
       content: [
         {
           idx: 1,
-          title: "나는 content 입니다. 1번",
+          title: "나는 content 입니다. 3번",
           desc: "desc라... HTML is HyperText MarkUp",
         },
         {
@@ -25,7 +27,7 @@ class App extends Component {
         },
         {
           idx: 3,
-          title: "나는 content 입니다. 3번",
+          title: "나는 content 입니다. 4번",
           desc: "desc라... HTML is HyperText MarkUp",
         },
       ],
@@ -33,6 +35,18 @@ class App extends Component {
   }
 
   render() {
+    console.log("APP Render");
+
+    let _title, _desc;
+
+    if (this.state.mode === "welcome") {
+      _title = this.state.content[0].title;
+      _desc = this.state.content[0].desc;
+    } else if (this.state.mode === "read") {
+      _title = this.state.content[0].title;
+      _desc = this.state.content[0].desc;
+    }
+
     return (
       // div className>태그 안에 태그를 생성한다. => SPA
       <div className="App">
@@ -42,10 +56,7 @@ class App extends Component {
         ></Subject>
         <Subject title="React" sub="hellow react"></Subject>
         <TOC data={this.state.content}></TOC>
-        <Content
-          title={this.state.content.title}
-          desc={this.state.content.desc}
-        ></Content>
+        <Content title={_title} desc={_desc}></Content>
       </div>
     );
   }
