@@ -12,7 +12,6 @@ class Subject extends Component {
           <a
             href="/"
             onClick={function (e) {
-              console.log(e);
               e.preventDefault();
               this.props.onChangePage();
               //debugger;
@@ -20,7 +19,6 @@ class Subject extends Component {
               // e.preventDefault(); // 이벤트가 할당된 태그의 원래 기능을 하지 못하도록 하는 함수이다.
             }.bind(this)}
           >
-            {" "}
             {this.props.title}
           </a>
         </h1>

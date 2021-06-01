@@ -7,13 +7,26 @@ class TOC extends Component {
     var data = this.props.data;
     //app.js(class)의 생성자를 통해, 자식 component의 props에 값을 주입했다.
     // 다만 배열로 이루어진 값들은 자식 component 내부에서 처리해줘야 한다.
-    for (let i = 0; i < data.length; i++) {
+    let i = 0;
+    while (i < data.length) {
       lists.push(
         <li key={data[i].idx}>
-          <a href={"/content/" + data[i].idx} />
-          {data[i].title}
+          <a
+            data-id={data[i].idx}
+            href={"/content/" + data[i].idx}
+            onClick={function (num1, num2, e) {
+              alert(num1);
+
+              alert(num2);
+              this.props.onChangePage(e.target.dataset.id);
+              e.preventDefault();
+            }.bind(this, "1", "2")}
+          >
+            {data[i].title}
+          </a>
         </li>
       );
+      i++;
     }
 
     return (

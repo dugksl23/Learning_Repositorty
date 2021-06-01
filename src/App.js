@@ -12,23 +12,24 @@ class App extends Component {
     super(props);
 
     this.state = {
+      selected_contents_id: 1,
       mode: "welcome",
-      subject: { title: "안녕하세요", sub: "world Wid Web!" },
+      subject: { title: "안녕하세요", sub: "world Wide Web!" },
       content: [
         {
           idx: 1,
-          title: "나는 content 입니다. 3번",
-          desc: "desc라... HTML is HyperText MarkUp",
+          title: "나는 HTML 입니다. 1번",
+          desc: "HTML is HyperText MarkUp",
         },
         {
           idx: 2,
-          title: "나는 content 입니다. 2번",
-          desc: "desc라... HTML is HyperText MarkUp",
+          title: "나는 CSS 입니다. 2번",
+          desc: "desc라... csss is HyperText MarkUp",
         },
         {
           idx: 3,
-          title: "나는 content 입니다. 4번",
-          desc: "desc라... HTML is HyperText MarkUp",
+          title: "나는 JavaScript 입니다. 3번",
+          desc: "desc라... javascript is HyperText MarkUp",
         },
       ],
     };
@@ -40,11 +41,19 @@ class App extends Component {
     let _title, _desc;
 
     if (this.state.mode === "welcome") {
-      _title = this.state.content[0].title;
-      _desc = this.state.content[0].desc;
+      _title = "welcome";
+      _desc = "welcome desc";
     } else if (this.state.mode === "read") {
-      _title = this.state.content[0].title;
-      _desc = this.state.content[0].desc;
+      let i = 0;
+      while (i < this.state.content.length) {
+        let data = this.state.content[i];
+        if (data.idx === this.state.selected_contents_id) {
+          _title = data.title;
+          _desc = data.desc;
+          break;
+        }
+        i++;
+      }
     }
 
     return (
@@ -52,13 +61,13 @@ class App extends Component {
       <div className="App">
         <a
           href="/"
-          onClick={function (e) {
+          onClick={(e) => {
             console.log(e);
             e.preventDefault();
             this.setState({
               mode: "read",
             });
-          }.bind(this)}
+          }}
         >
           this test
         </a>
@@ -66,16 +75,31 @@ class App extends Component {
         <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
-          onChangePage={function (e) {
-            //e.preventDefault();
+          onChangePage={(e) => {
             this.setState({
               mode: "read",
             });
           }}
         ></Subject>
 
-        <Subject title="React" sub="hellow react"></Subject>
-        <TOC data={this.state.content}></TOC>
+        <Subject
+          onChangePage={(e) => {
+            alert("hi");
+          }}
+          title="React"
+          sub="hellow react"
+        ></Subject>
+
+        <TOC
+          onChangePage={(id) => {
+            this.setState({
+              mode: "read",
+              selected_contents_id: Number(id),
+            });
+          }}
+          data={this.state.content}
+        ></TOC>
+
         <Content title={_title} desc={_desc}></Content>
       </div>
     );
