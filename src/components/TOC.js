@@ -15,9 +15,6 @@ class TOC extends Component {
             data-id={data[i].idx}
             href={"/content/" + data[i].idx}
             onClick={function (num1, num2, e) {
-              alert(num1);
-
-              alert(num2);
               this.props.onChangePage(e.target.dataset.id);
               e.preventDefault();
             }.bind(this, "1", "2")}

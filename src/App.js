@@ -1,8 +1,10 @@
 import "./App.css";
 import React, { Component } from "react";
 import TOC from "./components/TOC";
-import Content from "./components/content";
+import ReadContent from "./components/ReadContent";
 import Subject from "./components/Subject";
+import Controller from "./components/Controller";
+import CreateContent from "./components/CreateContent";
 
 class App extends Component {
   // 1. class의 생성자를 통해, state로 값을 받아서 props에 전달하기
@@ -14,21 +16,24 @@ class App extends Component {
     this.state = {
       selected_contents_id: 1,
       mode: "welcome",
+      functionTest: function () {
+        alert("안뇽");
+      },
       subject: { title: "안녕하세요", sub: "world Wide Web!" },
       content: [
         {
           idx: 1,
-          title: "나는 HTML 입니다. 1번",
+          title: "HTML 1번",
           desc: "HTML is HyperText MarkUp",
         },
         {
           idx: 2,
-          title: "나는 CSS 입니다. 2번",
+          title: "CSS 2번",
           desc: "desc라... csss is HyperText MarkUp",
         },
         {
           idx: 3,
-          title: "나는 JavaScript 입니다. 3번",
+          title: "JavaScript 3번",
           desc: "desc라... javascript is HyperText MarkUp",
         },
       ],
@@ -38,11 +43,12 @@ class App extends Component {
   render() {
     console.log("APP Render");
 
-    let _title, _desc;
+    let _title, _desc, _article;
 
     if (this.state.mode === "welcome") {
       _title = "welcome";
       _desc = "welcome desc";
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
     } else if (this.state.mode === "read") {
       let i = 0;
       while (i < this.state.content.length) {
@@ -50,10 +56,14 @@ class App extends Component {
         if (data.idx === this.state.selected_contents_id) {
           _title = data.title;
           _desc = data.desc;
+
           break;
         }
         i++;
       }
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>; // mode가 read 일 때에도 나와야 하기에, default로 welcome과 관련된 title과 desc를 주입시킨다.
+    } else if (this.state.mode === "create") {
+      _article = <CreateContent title={_title} desc={_desc}></CreateContent>;
     }
 
     return (
@@ -100,7 +110,15 @@ class App extends Component {
           data={this.state.content}
         ></TOC>
 
-        <Content title={_title} desc={_desc}></Content>
+        <Controller
+          onChangeMode={(mode_FromControllerComp) => {
+            this.setState({
+              mode: mode_FromControllerComp,
+            });
+          }}
+        ></Controller>
+
+        {_article}
       </div>
     );
   }
