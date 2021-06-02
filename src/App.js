@@ -1,10 +1,10 @@
 import "./App.css";
 import React, { Component } from "react";
 import TOC from "./components/TOC";
-import ReadContent from "./components/ReadContent";
 import Subject from "./components/Subject";
 import Controller from "./components/Controller";
 import CreateContent from "./components/CreateContent";
+import ReadContent from "./components/ReadContent";
 
 class App extends Component {
   // 1. class의 생성자를 통해, state로 값을 받아서 props에 전달하기
@@ -61,9 +61,22 @@ class App extends Component {
         }
         i++;
       }
-      _article = <ReadContent title={_title} desc={_desc}></ReadContent>; // mode가 read 일 때에도 나와야 하기에, default로 welcome과 관련된 title과 desc를 주입시킨다.
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
+      // mode가 read 일 때에도 나와야 하기에, default로 welcome과 관련된 title과 desc를 주입시킨다.
     } else if (this.state.mode === "create") {
-      _article = <CreateContent title={_title} desc={_desc}></CreateContent>;
+      _article = (
+        <CreateContent
+          title={_title}
+          desc={_desc}
+          onSubmit={(_title, _desc) => {
+            alert(_title, _desc);
+            // add content to this.state.contents
+          }}
+        ></CreateContent>
+      );
+      // 현재 default 값은readContent이지만, 해당 article이 사용자가 click했을 때
+      // 가변적으로 변할 수 있도록, 해당 component를 보여주기 위해서,
+      // if문 분기점을 나누며, article에 값을 대 입한다.
     }
 
     return (
