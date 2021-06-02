@@ -67,25 +67,38 @@ class App extends Component {
           title={_title}
           desc={_desc}
           onSubmit={(_title, _desc) => {
+            // 1.  원본에 직접 접근하여 값 자체를 수정하는 것.
             // this.state.content.push({
-            //   id: this.content_max_idx,
+            //   idx: this.content_max_idx,
             //   title: _title,
             //   desc: _desc,
+            // });
+
+            // this.setState({
+            //   content: this.state.content,
             // });
             // ==> 상기의 방식은 react가 setState라는 setter를 통해 주입이 된 것이 아니기에
             //     react는 값이 추가된 사실을 알지 못한다. 또한 상기와 같은 방식은 유지보수에 매우 힘들다.
             //     퍼포먼스 측면에서도 좋지 않다.
 
-            // add content to this.state.contents
+            // 2. 웝본 data를 복제한 값에 update하는 것, add content to this.state.contents
             this.content_max_idx = this.content_max_idx + 1;
-            let _content = this.state.content.concat({
-              idx: Number(this.content_max_idx),
-              title: _title,
-              desc: _desc,
+            // let _content = this.state.content.concat({
+            //   idx: Number(this.content_max_idx),
+            //   title: _title,
+            //   desc: _desc,
+            // });
+
+            // 3. push+Array.from()+setState();
+            let newContent = Array.from(this.state.content);
+            newContent.push({
+              idx: this.content_max_idx,
+              title: "newContent" + this.content_max_idx,
+              desc: "~~~~~~~~~" + this.content_max_idx,
             });
 
             this.setState({
-              content: _content,
+              content: newContent,
             });
           }}
         ></CreateContent>
