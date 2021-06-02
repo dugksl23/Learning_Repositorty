@@ -93,8 +93,8 @@ class App extends Component {
             let newContent = Array.from(this.state.content);
             newContent.push({
               idx: this.content_max_idx,
-              title: "newContent" + this.content_max_idx,
-              desc: "~~~~~~~~~" + this.content_max_idx,
+              title: _title + this.content_max_idx,
+              desc: _desc + this.content_max_idx,
             });
 
             this.setState({
@@ -108,15 +108,23 @@ class App extends Component {
       // if문 분기점을 나누며, article에 값을 대 입한다.
     } else if (this.state.mode === "update") {
       let index = this.state.selected_contents_id - 1;
+      let newContent = Array.from(this.state.content);
       _article = (
         <UdateContent
           data={this.state.content[index]}
           onSubmit={(_idx, _title, _desc) => {
-            alert(_idx);
-            this.state.content.map((idx) => {
-              if (idx.idx === this.state.selected_contents_id) {
-                this.setState({});
+            newContent.map((idx, index) => {
+              if (idx.idx === _idx) {
+                newContent[index] = {
+                  idx: Number(_idx),
+                  title: _title,
+                  desc: _desc,
+                };
               }
+            });
+
+            this.setState({
+              content: newContent,
             });
           }}
         ></UdateContent>

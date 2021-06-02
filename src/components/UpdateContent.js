@@ -18,7 +18,6 @@ class UpdateContent extends Component {
 
   render() {
     console.log("updateComponent render");
-    console.log(this.props.data.title);
     return (
       <article>
         <h2>Create</h2>
@@ -34,6 +33,7 @@ class UpdateContent extends Component {
             );
           }}
         >
+          <input type="hidden" name="idx" value={this.state.idx}></input>
           <p>
             <input
               type="text"
