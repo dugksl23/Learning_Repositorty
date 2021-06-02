@@ -12,13 +12,10 @@ class App extends Component {
   //    입력값/멤버변수(props)에 대해서 초기화가 이루어진다.
   constructor(props) {
     super(props);
-
+    let content_max_idx;
     this.state = {
       selected_contents_id: 1,
       mode: "welcome",
-      functionTest: function () {
-        alert("안뇽");
-      },
       subject: { title: "안녕하세요", sub: "world Wide Web!" },
       content: [
         {
@@ -44,7 +41,8 @@ class App extends Component {
     console.log("APP Render");
 
     let _title, _desc, _article;
-
+    this.content_max_idx = this.state.content.length; // idx의 최대값을 렌더링을 할 때마다 추가해준다.
+    console.log(this.content_max_idx);
     if (this.state.mode === "welcome") {
       _title = "welcome";
       _desc = "welcome desc";
@@ -69,8 +67,26 @@ class App extends Component {
           title={_title}
           desc={_desc}
           onSubmit={(_title, _desc) => {
-            alert(_title, _desc);
+            // this.state.content.push({
+            //   id: this.content_max_idx,
+            //   title: _title,
+            //   desc: _desc,
+            // });
+            // ==> 상기의 방식은 react가 setState라는 setter를 통해 주입이 된 것이 아니기에
+            //     react는 값이 추가된 사실을 알지 못한다. 또한 상기와 같은 방식은 유지보수에 매우 힘들다.
+            //     퍼포먼스 측면에서도 좋지 않다.
+
             // add content to this.state.contents
+            this.content_max_idx = this.content_max_idx + 1;
+            let _content = this.state.content.concat({
+              idx: Number(this.content_max_idx),
+              title: _title,
+              desc: _desc,
+            });
+
+            this.setState({
+              content: _content,
+            });
           }}
         ></CreateContent>
       );
