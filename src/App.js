@@ -5,6 +5,7 @@ import Subject from "./components/Subject";
 import Controller from "./components/Controller";
 import CreateContent from "./components/CreateContent";
 import ReadContent from "./components/ReadContent";
+import UdateContent from "./components/UpdateContent";
 
 class App extends Component {
   // 1. class의 생성자를 통해, state로 값을 받아서 props에 전달하기
@@ -42,7 +43,7 @@ class App extends Component {
 
     let _title, _desc, _article;
     this.content_max_idx = this.state.content.length; // idx의 최대값을 렌더링을 할 때마다 추가해준다.
-    console.log(this.content_max_idx);
+
     if (this.state.mode === "welcome") {
       _title = "welcome";
       _desc = "welcome desc";
@@ -54,7 +55,6 @@ class App extends Component {
         if (data.idx === this.state.selected_contents_id) {
           _title = data.title;
           _desc = data.desc;
-
           break;
         }
         i++;
@@ -106,6 +106,20 @@ class App extends Component {
       // 현재 default 값은readContent이지만, 해당 article이 사용자가 click했을 때
       // 가변적으로 변할 수 있도록, 해당 component를 보여주기 위해서,
       // if문 분기점을 나누며, article에 값을 대 입한다.
+    } else if (this.state.mode === "update") {
+      let index = this.state.selected_contents_id - 1;
+      _article = (
+        <UdateContent
+          data={this.state.content[index]}
+          onSubmit={(_idx, _title, _desc) => {
+            this.state.content.map((idx) => {
+              if (idx === _idx) {
+                alert("와요?");
+              }
+            });
+          }}
+        ></UdateContent>
+      );
     }
 
     return (
