@@ -112,9 +112,10 @@ class App extends Component {
         <UdateContent
           data={this.state.content[index]}
           onSubmit={(_idx, _title, _desc) => {
+            alert(_idx);
             this.state.content.map((idx) => {
-              if (idx === _idx) {
-                alert("와요?");
+              if (idx.idx === this.state.selected_contents_id) {
+                this.setState({});
               }
             });
           }}

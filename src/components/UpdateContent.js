@@ -1,6 +1,21 @@
 import React, { Component } from "react";
 
 class UpdateContent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      idx: this.props.data.idx,
+      title: this.props.data.title,
+      desc: this.props.data.desc,
+    };
+  }
+
+  inputFormHandler(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
   render() {
     console.log("updateComponent render");
     console.log(this.props.data.title);
@@ -13,7 +28,7 @@ class UpdateContent extends Component {
           onSubmit={(e) => {
             e.preventDefault();
             this.props.onSubmit(
-              this.props.idx,
+              this.props.data.idx,
               e.target.title.value,
               e.target.desc.value
             );
@@ -23,14 +38,17 @@ class UpdateContent extends Component {
             <input
               type="text"
               name="title"
-              placeholder={this.props.data.title}
+              //placeholder={this.props.data.title}
+              value={this.state.title}
+              onChange={(e) => this.inputFormHandler(e)}
             ></input>
           </p>
           <p>
             <textarea
               id="desc"
               name="desc"
-              placeholder={this.props.data.desc}
+              value={this.state.desc}
+              onChange={(e) => this.inputFormHandler(e)}
             ></textarea>
           </p>
           <p>
