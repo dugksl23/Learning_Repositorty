@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import List from "./components/ListHook";
 
-function App() {
+const App = () => {
+  const [personInfo, setPersonInfo] = useState({ name: "요한", age: 20 });
+  const [learning, setLearning] = useState(["node.js"]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <h1> toDo Application 향상</h1>
+      <form action="/">
+        <input type="text" name="text" placeholder="text"></input>
+        <button type="submit">할일 추가</button>
+      </form>
 
+      <List personInfo={personInfo} learning={learning}></List>
+    </>
+  );
+};
 export default App;
