@@ -188,9 +188,26 @@ class App extends Component {
 
         <Controller
           onChangeMode={(mode_FromControllerComp) => {
-            this.setState({
-              mode: mode_FromControllerComp,
-            });
+            if (mode_FromControllerComp === "delete") {
+              if (window.confirm("정말 삭제하시겠어요?")) {
+                let deleteContent = Array.from(this.state.content);
+                deleteContent.map((idx, index) => {
+                  if (idx.idx === this.state.selected_contents_id) {
+                    deleteContent.splice(index, 1); //몇 번 index부터 몇 번 index까지 지울 것인지를 인자로 보낸다.
+                  }
+                });
+
+                this.setState({
+                  mode: "welcome",
+                  content: deleteContent,
+                });
+              }
+            } else {
+              this.setState({
+                mode: mode_FromControllerComp,
+              });
+              alert("deleted");
+            }
           }}
         ></Controller>
 
