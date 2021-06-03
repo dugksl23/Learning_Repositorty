@@ -3,13 +3,22 @@ import React, { Component } from "react";
 
 class TOC extends Component {
   shouldComponentUpdate(newProps, newState) {
+    // if (
+    //   newProps.data.title !== this.props.data.title ||
+    //   newProps.data.desc !== this.props.data.desc
+    // ) {
+    //   return true;
+    // }
+    // ==> 상기의 코드와 같은 예시로 fetch를 통해서 db로부터 data를 조회하여
+    //     update 사실에 대한 것을 확인해야 한다.
+
     console.log("newPropsdata : ", newProps.data);
     console.log(`thisState data :`, this.props.data);
     if (newProps.data.length !== this.props.data.length) {
       return true;
     }
 
-    return false;
+    return true; // 기본값은 false로...
   }
 
   render() {

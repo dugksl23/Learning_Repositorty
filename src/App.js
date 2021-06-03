@@ -83,22 +83,23 @@ class App extends Component {
 
             // 2. 웝본 data를 복제한 값에 update하는 것, add content to this.state.contents
             this.content_max_idx = this.content_max_idx + 1;
-            // let _content = this.state.content.concat({
-            //   idx: Number(this.content_max_idx),
-            //   title: _title,
-            //   desc: _desc,
-            // });
-
-            // 3. push+Array.from()+setState();
-            let newContent = Array.from(this.state.content);
-            newContent.push({
-              idx: this.content_max_idx,
-              title: _title + this.content_max_idx,
-              desc: _desc + this.content_max_idx,
+            let _content = this.state.content.concat({
+              idx: Number(this.content_max_idx),
+              title: _title,
+              desc: _desc,
             });
 
+            // 3. push+Array.from()+setState();
+            // let newContent = Array.from(this.state.content);
+            // newContent.push({
+            //   idx: this.content_max_idx,
+            //   title: _title + this.content_max_idx,
+            //   desc: _desc + this.content_max_idx,
+            // });
+
             this.setState({
-              content: newContent,
+              content: _content,
+              mode: "read",
             });
           }}
         ></CreateContent>
@@ -109,6 +110,7 @@ class App extends Component {
     } else if (this.state.mode === "update") {
       let index = this.state.selected_contents_id - 1;
       let newContent = Array.from(this.state.content);
+
       _article = (
         <UdateContent
           data={this.state.content[index]}
@@ -122,9 +124,18 @@ class App extends Component {
                 };
               }
             });
+            let i = 0;
+            // while (i < newContent.length) {
+            //   if (newContent[i].idx === _idx) {
+            //     newContent[i] = { idx: _idx, title: _title, desc: _desc };
+            //     break;
+            //   }
+            //   i = 1 + i;
+            // }
 
             this.setState({
               content: newContent,
+              mode: "read",
             });
           }}
         ></UdateContent>

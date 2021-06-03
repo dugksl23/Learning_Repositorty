@@ -20,11 +20,12 @@ class UpdateContent extends Component {
     console.log("updateComponent render");
     return (
       <article>
-        <h2>Create</h2>
+        <h2>update</h2>
         <form
           action="/updateProc"
           method="post"
           onSubmit={(e) => {
+            alert("오나요?");
             e.preventDefault();
             this.props.onSubmit(
               this.props.data.idx,
