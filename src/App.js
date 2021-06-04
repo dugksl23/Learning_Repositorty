@@ -1,13 +1,30 @@
 import React, { useEffect, useState } from "react";
 import List from "./components/ListHook";
 
+const useFetch = (callFn) => {
+  const [loading, setLoading] = useState(false); // useState도 초기값을 주어야 한다.
+  const fetchingData = async () => {
+    setLoading(true);
+    setTimeout(() => {
+      callFn(["우왕"]);
+    }, 1000);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchingData();
+  }, []);
+  // use???로 사용하면 use로 시작했기에 useEffect가 자동으로 후처리 작업을 해준다.
+  console.log(loading);
+  return loading;
+};
+
 const App = () => {
   const [personInfo, setPersonInfo] = useState({ name: "요한", age: 20 });
   const [learning, setLearning] = useState(["node.js"]);
 
   const [inputData, setInputData] = useState([]); // useState도 초기값을 주어야 한다.
-  const [fetchData, setFetchData] = useState([]); // useState도 초기값을 주어야 한다.
-  const [loading, setLoading] = useState(false); // useState도 초기값을 주어야 한다.
+  const loading = useFetch(setInputData); //url이 두번쨰 인자라고 가정.
 
   const changeInputData = (e) => {
     e.preventDefault();
@@ -19,18 +36,7 @@ const App = () => {
     console.log("새로운 내용이 렌더링 됐어요." + inputData);
   }, []);
 
-  const fetchingData = async () => {
-    setLoading(true);
-    setTimeout(() => {
-      setInputData(["우왕"]);
-      setLoading(false);
-    }, 2000);
-    console.log(loading);
-  };
-
-  useEffect(() => {
-    fetchingData();
-  }, []); //rendering이 되면, useEffect가 불리고, useEffect 내의 함수인 setState 함수 때문에
+  //rendering이 되면, useEffect가 불리고, useEffect 내의 함수인 setState 함수 때문에
   // 다시 rendering이 걸리나는 무한루프이다. 따라서 검사할 항목이 없음을 나타낼 [](null)을 지정해줘야한다.
 
   return (
@@ -45,7 +51,6 @@ const App = () => {
         personInfo={personInfo}
         learning={learning}
         inputData={inputData}
-        fetchData={fetchData}
         lodaing={loading}
       ></List>
     </>

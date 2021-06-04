@@ -10,22 +10,22 @@ const List = (props) => {
   const toLearning = learning.map((toDo) => {
     return <li key={toDo.id}>{toDo}</li>;
   });
-
-  let load = <div>loading...</div>;
-
-  if (loading !== false) {
-    load = inputData.map((datas) => {
-      return <li key={datas.id}>{datas}</li>;
-    });
+  let load = "loading...";
+  let abc;
+  if (!loading) {
+    abc = inputData.map((datas) => <li key={datas.id}>{datas}</li>);
   }
 
+  const data1 = inputData.map((data) => {
+    <li key={data.id}>{data}</li>;
+  });
   return (
     <ul>
-      {load}
       {personsInfo}
       {toLearning}
-
-      {/* {fetchData} */}
+      {load}
+      {abc}
+      {data1}
     </ul>
   );
 };
