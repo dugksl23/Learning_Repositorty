@@ -17,10 +17,6 @@ const List = (props) => {
     return <li>{datas}</li>;
   });
 
-  useEffect(() => {
-    console.log("useEffect");
-  });
-
   return (
     <ul>
       {personsInfo}
