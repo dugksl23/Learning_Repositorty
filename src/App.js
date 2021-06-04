@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import List from "./components/ListHook";
+import Headers from "./components/Headers";
 
 const useFetch = (callFn) => {
   const [loading, setLoading] = useState(false); // useState도 초기값을 주어야 한다.
@@ -41,6 +42,8 @@ const App = () => {
 
   return (
     <>
+      <Headers></Headers>
+
       <h1> toDo Application 향상</h1>
       <form onSubmit={changeInputData} action="/">
         <input type="text" name="text" placeholder="text"></input>
