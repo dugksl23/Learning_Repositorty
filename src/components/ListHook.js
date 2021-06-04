@@ -1,27 +1,31 @@
-import { useEffect } from "react";
-
 const List = (props) => {
   let { personInfo } = props; // 구조 분해 할당
   let { learning } = props; // 구조 분해 할당
   let { inputData } = props;
+  let { loading } = props;
 
   const personsInfo = Object.entries(personInfo).map((info) => {
-    return <li>{info}</li>;
+    return <li key={info.id}>{info}</li>;
   });
   const toLearning = learning.map((toDo) => {
-    return <li>{toDo}</li>;
+    return <li key={toDo.id}>{toDo}</li>;
   });
 
-  const input = inputData.map((datas) => {
-    console.log(datas);
-    return <li>{datas}</li>;
-  });
+  let load = <div>loading...</div>;
+
+  if (loading !== false) {
+    load = inputData.map((datas) => {
+      return <li key={datas.id}>{datas}</li>;
+    });
+  }
 
   return (
     <ul>
+      {load}
       {personsInfo}
       {toLearning}
-      {input}
+
+      {/* {fetchData} */}
     </ul>
   );
 };
