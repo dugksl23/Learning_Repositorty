@@ -12,7 +12,7 @@
 
 // 1. Array
 // *Declaration
-const arr1 = new Array(); //object로 만들기
+const arr1 = new Array(); //object로 만들기`
 const arr2 = [1, 2, 3];   // 대괄호를 열고 값을 넣는 방식.
 
 
