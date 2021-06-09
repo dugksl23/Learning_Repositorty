@@ -1,13 +1,15 @@
 import { IsString, IsNumber } from 'class-validator';
+import bcrypt from 'bcrypt';
+
 class MemberDto {
   @IsString()
-  id: string;
+  memberName: string;
 
   @IsString()
   password: string;
 
   @IsNumber()
-  role: Array<number>;
+  roles: Array<number>;
 }
 
 export default MemberDto;

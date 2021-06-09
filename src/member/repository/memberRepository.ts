@@ -1,26 +1,39 @@
 import { EntityRepository, Repository } from 'typeorm';
-import MemberEntity from '../entities/memberEntity';
+import { MemberEntity } from '../entities/memberEntity';
 import MemberDto from '../dto/memberDto';
 
 var dummyMember = {
-  id: 'root',
+  id: '001',
+  memberName: 'root',
   password: 'root',
-  role: 1,
+  roles: 1,
+  createdDate: new Date(),
+  updatedDate: new Date(),
+  lastLoginDate: new Date(),
 };
 
 @EntityRepository()
 export class MemberRepository extends Repository<MemberEntity> {
-  findMember(memberDto: MemberDto) {
-    const id = memberDto.id;
-    const password = memberDto.password;
+  signIn(memberDto: MemberDto) {
+    const { memberName, password } = memberDto;
 
-    return dummyMember.id === id && dummyMember.password === password
+    return dummyMember.memberName === memberName &&
+      dummyMember.password === password
       ? dummyMember
-      : '아이디 비번 다시 확인';
+      : dummyMember;
 
     // this.createQueryBuilder('member')
     //   .where('id = (id)', { id })
     //   .andWhere('password = (password)', { password })
     //   .getOne();
+  }
+
+  findMember(memberDto: MemberDto) {
+    const { memberName, password } = memberDto;
+
+    return dummyMember.memberName === memberName &&
+      dummyMember.password === password
+      ? dummyMember
+      : null;
   }
 }
