@@ -10,8 +10,8 @@ import { AddressesModule } from './addresses/addresses.module';
 import { BridgingsModule } from './bridgings/bridgings.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MemberRepository } from './member/repository/memberRepository';
-import MemberEntity from './member/entities/memberEntity';
-
+import { Connection, getConnectionOptions } from 'typeorm';
+import { MemberModule } from './member/member.module';
 @Module({
   imports: [
     WinstonModule.forRoot({
@@ -20,11 +20,22 @@ import MemberEntity from './member/entities/memberEntity';
     StakingsModule,
     MiningsModule,
     AddressesModule,
+    //MemberModule,
     BridgingsModule,
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      synchronize: true,
+      autoLoadEntities: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: async () =>
+        Object.assign(await getConnectionOptions(), {
+          autoLoadEntities: true,
+        }),
+    }),
   ],
-
   controllers: [AppController, MemberController],
-  providers: [AppService, MemberService, MemberRepository],
+  providers: [AppService, MemberRepository, MemberService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}

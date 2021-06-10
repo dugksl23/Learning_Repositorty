@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-@Entity()
+@Entity('role')
 class RoleEntity {
   @PrimaryGeneratedColumn() //auto-increment
   @Column({ nullable: true })

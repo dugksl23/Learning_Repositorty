@@ -6,7 +6,12 @@
   "password": "root",
   "database": "testDB",
   "loggin": true,
-  "ebtities": ["/**/*.entity{.ts,.js}"],
+  "entities": [
+    "**/*Entity{*.ts}",
+    "**/*.Entity{*.ts}",
+    "**/*entity{*.ts}",
+    "dist/**/*.entity{.ts,.js}"
+  ],
   "synchronize": true,
   "autoLoadEntities": true
 }

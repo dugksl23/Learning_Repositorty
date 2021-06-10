@@ -13,6 +13,7 @@ import { Length, IsDate, Min, Max } from 'class-validator';
 import Role from './roleEntity';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import RoleEntity from './roleEntity';
 
 @Entity('member')
 export class MemberEntity {
@@ -42,17 +43,16 @@ export class MemberEntity {
 
   @OneToMany((type) => Role, (roles) => roles)
   @JoinColumn({ name: 'roleId' })
-  roles: Number;
-
+  roles: number;
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);
   }
 
-  constructor(memberName: string, password: string, role: number) {
+  constructor(memberName: string, password: string, roles: number) {
     this.memberName = memberName;
     this.password = password;
-    this.roles = role;
+    this.roles = roles;
   }
 
   toResponseObject(showToken: boolean = true) {
