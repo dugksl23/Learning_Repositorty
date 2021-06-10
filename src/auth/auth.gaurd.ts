@@ -12,7 +12,6 @@ import * as jwt from 'jsonwebtoken';
 export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    // 클라이언트에서 보낸 request의 정보를 가져옵니다.
     if (request.headers.athorization === null) {
       return false;
     }
