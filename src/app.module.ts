@@ -10,7 +10,6 @@ import { AddressesModule } from './addresses/addresses.module';
 import { BridgingsModule } from './bridgings/bridgings.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MemberRepository } from './member/repository/memberRepository';
-import MemberEntity from './member/entities/memberEntity';
 
 @Module({
   imports: [

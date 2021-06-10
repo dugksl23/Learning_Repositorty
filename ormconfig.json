@@ -6,7 +6,9 @@
   "password": "root",
   "database": "testDB",
   "loggin": true,
-  "ebtities": ["/**/*.entity{.ts,.js}"],
-  "synchronize": true,
-  "autoLoadEntities": true
+  "entities": ["/**/*.entity{.ts,.js}", "./dist/**/*.entity{.ts,.js}"],
+  "synchronise": true,
+  "autoLoadEntities": true,
+  "migrations": ["migrations/*.ts"],
+  "migrationsRun": true
 }
