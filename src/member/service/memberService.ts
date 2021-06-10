@@ -3,17 +3,6 @@ import MemberDto from '../dto/memberDto';
 import MemberEntity from '../entities/memberEntity';
 import { MemberRepository } from '../repository/memberRepository';
 import * as bcrypt from 'bcrypt';
-import { Token } from '../decorator/member.decorator';
-
-// var dummyMember = {
-//   id: '001',
-//   memberName: 'root',
-//   password: 'root',
-//   roles: 1,
-//   createdDate: new Date(),
-//   updatedDate: new Date(),
-//   lastLoginDate: new Date(),
-// };
 
 const dummyMember = new MemberEntity('root', 'root', 1);
 

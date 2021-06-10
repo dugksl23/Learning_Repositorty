@@ -4,6 +4,7 @@ import {
   ExecutionContext,
   HttpException,
   HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 
@@ -15,9 +16,8 @@ export class AuthGuard implements CanActivate {
     if (request.headers.athorization === null) {
       return false;
     }
-
     request.user = await this.validationToken(request.headers.authorization);
-    console.log(request.user);
+
     return true;
   }
 
@@ -30,11 +30,13 @@ export class AuthGuard implements CanActivate {
     }
 
     const token = auth.split(' ')[1];
+
     try {
+      console.log(token);
       return jwt.verify(token, process.env.SECRET);
     } catch (err) {
       const errMsg = 'Token error : ' + (err.message || err.name);
-      throw new HttpException(errMsg, HttpStatus.FORBIDDEN);
+      throw new UnauthorizedException('Invalid Token used');
     }
   }
 }

@@ -29,11 +29,7 @@ export class MemberController {
 
   @Post('/signIn')
   @ApiTags('관리자 로그인')
-  async signIn(
-    @Body() memberDto: MemberDto,
-    @Res() response: Response,
-    // @Token(new ValidationPipe({ validateCustomDecorators: true })) token, //new ValidationPipe({ validateCustomDecorators: true })
-  ) {
+  async signIn(@Body() memberDto: MemberDto, @Res() response: Response) {
     const existMember = this.memberService.signIn(memberDto);
     return response
       .status(HttpStatus.OK)
@@ -53,6 +49,7 @@ export class MemberController {
   // useGuards 데코레이터를 이용하여 토큰 요청이 필요한 API임을 알립니다.
   // UseGuards 안에는 2번 제목에서 선언했던 AuthGuard 클래스를 넣어줍니다.
   findAll(
+    @Res() response: Response,
     @Token(new ValidationPipe({ validateCustomDecorators: true })) token,
   ) {
     return response.status(HttpStatus.OK).json(token);
