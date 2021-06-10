@@ -20,58 +20,56 @@ export class MemberEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
   @Column({ nullable: true })
   @Length(6, 20)
-  private id: string;
+  id: string;
 
   @Column()
-  private memberName: string;
+  memberName: string;
 
   @Column({ type: 'date', default: () => new Date() })
   @CreateDateColumn()
-  private createdDate: Date;
+  createdDate: Date;
 
   @UpdateDateColumn()
-  private updatedDate: Date;
+  updatedDate: Date;
 
   @Column()
   @Min(1)
   @Max(12)
-  private password: string;
+  password: string;
 
   @Column()
   @IsDate()
-  private lastLoginDate: Date;
+  lastLoginDate: Date;
 
   @OneToMany((type) => Role, (roles) => roles)
   @JoinColumn({ name: 'roleId' })
-  roles: Array<Role>;
+  roles: Number;
 
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);
   }
 
-  toResponseObject(showToken: boolean = true) {
-    // module로 사용해주기 위해서 appModule에 등록.
+  constructor(memberName: string, password: string, role: number) {
+    this.memberName = memberName;
+    this.password = password;
+    this.roles = role;
+  }
 
-    const { id, memberName, roles, createdDate, lastLoginDate, token } = this;
+  toResponseObject(showToken: boolean = true) {
+    const { id, memberName, createdDate, lastLoginDate } = this;
     const responseObj = {
       id,
       memberName,
-      roles,
       createdDate,
       lastLoginDate,
-      token,
     };
 
     if (showToken) {
-      responseObj;
+      responseObj['token'] = this.token;
     }
 
     return responseObj;
-  }
-
-  async comparePassword(oriPw: string) {
-    return await bcrypt.compare(oriPw, this.password);
   }
 
   private get token() {

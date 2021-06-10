@@ -9,7 +9,7 @@ class MemberDto {
   password: string;
 
   @IsNumber()
-  roles: Array<number>;
+  roles: number;
 }
 
 export default MemberDto;

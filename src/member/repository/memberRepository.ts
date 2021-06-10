@@ -28,12 +28,11 @@ export class MemberRepository extends Repository<MemberEntity> {
     //   .getOne();
   }
 
-  findMember(memberDto: MemberDto) {
-    const { memberName, password } = memberDto;
+  findByMemberName(memberDto: MemberDto): string {
+    const { memberName } = memberDto;
 
-    return dummyMember.memberName === memberName &&
-      dummyMember.password === password
-      ? dummyMember
+    return dummyMember.memberName === memberName
+      ? dummyMember.memberName
       : null;
   }
 }

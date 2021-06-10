@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import Permission from './permissionEntity';
 
 @Entity()
 class RoleEntity {
@@ -15,10 +14,6 @@ class RoleEntity {
 
   @Column()
   private roleName: number;
-
-  @Column()
-  @OneToMany((type) => Permission, (permissions) => permissions)
-  private permissions: Array<Permission>;
 }
 
 export default RoleEntity;
