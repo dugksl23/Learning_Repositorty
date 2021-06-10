@@ -46,12 +46,16 @@ export class MemberController {
   @Get('/findAll')
   @ApiTags('모든 유저의 정보 조회')
   @UseGuards(new AuthGuard())
-  // useGuards 데코레이터를 이용하여 토큰 요청이 필요한 API임을 알립니다.
-  // UseGuards 안에는 2번 제목에서 선언했던 AuthGuard 클래스를 넣어줍니다.
   findAll(
     @Res() response: Response,
     @Token(new ValidationPipe({ validateCustomDecorators: true })) token,
   ) {
     return response.status(HttpStatus.OK).json(token);
+  }
+
+  @Get('/createMember')
+  @ApiTags('최고 관리자 생성')
+  createMember(@Query() memberDto: MemberDto) {
+    this.memberService.createMember(memberDto);
   }
 }

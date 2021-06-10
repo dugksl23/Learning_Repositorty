@@ -36,4 +36,8 @@ export class MemberService {
 
     return true;
   }
+
+  createMember(memberDto: MemberDto) {
+    this.memberRepository.createMember(memberDto);
+  }
 }

@@ -12,20 +12,19 @@ var dummyMember = {
   lastLoginDate: new Date(),
 };
 
-@EntityRepository()
+@EntityRepository(MemberEntity)
 export class MemberRepository extends Repository<MemberEntity> {
   signIn(memberDto: MemberDto) {
     const { memberName, password } = memberDto;
 
-    return dummyMember.memberName === memberName &&
-      dummyMember.password === password
+    dummyMember.memberName === memberName && dummyMember.password === password
       ? dummyMember
       : dummyMember;
 
-    // this.createQueryBuilder('member')
-    //   .where('id = (id)', { id })
-    //   .andWhere('password = (password)', { password })
-    //   .getOne();
+    return this.createQueryBuilder('member')
+      .where('id = (id)', {})
+      .andWhere('password = (password)', { password })
+      .getOne();
   }
 
   findByMemberName(memberDto: MemberDto): string {
@@ -34,5 +33,10 @@ export class MemberRepository extends Repository<MemberEntity> {
     return dummyMember.memberName === memberName
       ? dummyMember.memberName
       : null;
+  }
+
+  async createMember(memberDto: MemberDto) {
+    const member: MemberEntity = this.create(memberDto);
+    return await this.save(member);
   }
 }

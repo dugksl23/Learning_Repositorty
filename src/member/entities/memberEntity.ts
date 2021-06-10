@@ -13,9 +13,8 @@ import { Length, IsDate, Min, Max } from 'class-validator';
 import Role from './roleEntity';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { response } from 'express';
 
-@Entity()
+@Entity('member')
 export class MemberEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
   @Column({ nullable: true })
