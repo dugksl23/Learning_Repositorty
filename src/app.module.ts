@@ -12,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MemberRepository } from './member/repository/memberRepository';
 import { Connection, getConnectionOptions } from 'typeorm';
 import { MemberModule } from './member/member.module';
+import MemberEntity from './member/entities/memberEntity';
 @Module({
   imports: [
     WinstonModule.forRoot({
@@ -20,11 +21,18 @@ import { MemberModule } from './member/member.module';
     StakingsModule,
     MiningsModule,
     AddressesModule,
-    //MemberModule,
+    MemberModule,
     BridgingsModule,
     TypeOrmModule.forRoot({
       synchronize: true,
       autoLoadEntities: true,
+      type: 'mariadb',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'testDB',
+      entities: [],
     }),
     TypeOrmModule.forRootAsync({
       useFactory: async () =>
@@ -33,8 +41,8 @@ import { MemberModule } from './member/member.module';
         }),
     }),
   ],
-  controllers: [AppController, MemberController],
-  providers: [AppService, MemberRepository, MemberService],
+  controllers: [AppController],
+  providers: [AppService, MemberRepository],
 })
 export class AppModule {
   constructor(private connection: Connection) {}

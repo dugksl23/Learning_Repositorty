@@ -3,12 +3,18 @@ import MemberDto from '../dto/memberDto';
 import MemberEntity from '../entities/memberEntity';
 import { MemberRepository } from '../repository/memberRepository';
 import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm/repository/Repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
-const dummyMember = new MemberEntity('root', 'root', 1);
+const dummyMember = new MemberEntity('root', 'root');
 
 @Injectable()
 export class MemberService {
-  constructor(private readonly memberRepository: MemberRepository) {}
+  constructor(
+    //private readonly memberRepository1: Repository<MemberRepository>,
+    @InjectRepository(MemberRepository)
+    private readonly memberRepository: MemberRepository,
+  ) {}
 
   async signIn(memberDto: MemberDto) {
     //const member = this.memberRepository.findOne(memberDto.memberName);
@@ -37,7 +43,8 @@ export class MemberService {
     return true;
   }
 
-  createMember(memberDto: MemberDto) {
-    this.memberRepository.createMember(memberDto);
+  async createMember(memberDto: MemberDto) {
+    //console.log(this.memberRepository);
+    const member = await this.memberRepository.createMember(memberDto);
   }
 }

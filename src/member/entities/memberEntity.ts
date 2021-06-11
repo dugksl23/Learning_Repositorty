@@ -8,6 +8,7 @@ import {
   OneToMany,
   JoinTable,
   BeforeInsert,
+  BaseEntity,
 } from 'typeorm';
 import { Length, IsDate, Min, Max } from 'class-validator';
 import Role from './roleEntity';
@@ -16,9 +17,8 @@ import * as jwt from 'jsonwebtoken';
 import RoleEntity from './roleEntity';
 
 @Entity('member')
-export class MemberEntity {
+export class MemberEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
-  @Column({ nullable: true })
   @Length(6, 20)
   id: string;
 
@@ -41,18 +41,19 @@ export class MemberEntity {
   @IsDate()
   lastLoginDate: Date;
 
-  @OneToMany((type) => Role, (roles) => roles)
-  @JoinColumn({ name: 'roleId' })
-  roles: number;
+  // @OneToMany((type) => Role, (roles) => roles)
+  // @JoinColumn({ name: 'roleId' })
+  // roles: number;
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);
   }
 
-  constructor(memberName: string, password: string, roles: number) {
+  constructor(memberName: string, password: string) {
+    super();
     this.memberName = memberName;
     this.password = password;
-    this.roles = roles;
   }
 
   toResponseObject(showToken: boolean = true) {
@@ -80,3 +81,6 @@ export class MemberEntity {
 }
 
 export default MemberEntity;
+function PrimaryColumn(arg0: { nullable: boolean }) {
+  throw new Error('Function not implemented.');
+}
