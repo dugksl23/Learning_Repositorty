@@ -6,9 +6,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinTable,
   BeforeInsert,
   BaseEntity,
+  Transaction,
 } from 'typeorm';
 import { Length, IsDate, Min, Max } from 'class-validator';
 import * as bcrypt from 'bcrypt';
@@ -19,7 +19,7 @@ import RoleEntity from './roleEntity';
 export class MemberEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
   @Length(6, 20)
-  id: number;
+  id: string;
 
   @Column()
   memberName: string;
@@ -41,10 +41,9 @@ export class MemberEntity extends BaseEntity {
   @CreateDateColumn()
   lastLoginDate: Date;
 
-  //@OneToMany(() => RoleEntity (roles) => roles.member)
-  //@JoinColumn({ name: 'roleId' })
-  @Column({ type: 'int' })
-  roles: number;
+  @OneToMany((type) => RoleEntity, (role) => role.member)
+  @JoinColumn() //{ name: 'roleId' }
+  roles: RoleEntity[];
 
   @BeforeInsert()
   async hashPassword() {
@@ -82,6 +81,3 @@ export class MemberEntity extends BaseEntity {
 }
 
 export default MemberEntity;
-function PrimaryColumn(arg0: { nullable: boolean }) {
-  throw new Error('Function not implemented.');
-}

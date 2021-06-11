@@ -1,5 +1,6 @@
 import { IsString, IsNumber } from 'class-validator';
 import bcrypt from 'bcrypt';
+import RoleEntity from '../entities/roleEntity';
 
 class MemberDto {
   @IsString()
@@ -9,7 +10,7 @@ class MemberDto {
   password: string;
 
   @IsNumber()
-  roles: number;
+  roles: RoleEntity;
 }
 
 export default MemberDto;

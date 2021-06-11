@@ -6,7 +6,6 @@ var dummyMember = {
   id: '001',
   memberName: 'root',
   password: 'root',
-  roles: 1,
   createdDate: new Date(),
   updatedDate: new Date(),
   lastLoginDate: new Date(),
@@ -36,9 +35,12 @@ export class MemberRepository extends Repository<MemberEntity> {
   }
 
   async createMember(memberDto: MemberDto) {
-    const member: MemberEntity = this.create(memberDto);
-    member.roles = 1;
-    console.log(member);
-    return await this.save(member);
+    //const member: MemberEntity = this.create(memberDto);
+    //console.log(member);
+    //return await this.save(member);
+  }
+
+  findAll() {
+    return this.findAll();
   }
 }

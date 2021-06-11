@@ -50,13 +50,14 @@ export class MemberController {
     @Res() response: Response,
     @Token(new ValidationPipe({ validateCustomDecorators: true })) token,
   ) {
-    return response.status(HttpStatus.OK).json(token);
+    //const members = this.memberService.findAll();
+    return response.status(HttpStatus.OK).json('기능 완성 중');
   }
 
   @Get('/createMember')
   @ApiTags('최고 관리자 생성')
   createMember(@Query() memberDto: MemberDto, @Res() response: Response) {
     this.memberService.createMember(memberDto);
-    return response.status(HttpStatus.OK).json('ok');
+    return response.status(HttpStatus.OK).json('생성 완료');
   }
 }

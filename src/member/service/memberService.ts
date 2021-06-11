@@ -41,9 +41,11 @@ export class MemberService {
   }
 
   async createMember(memberDto: MemberDto) {
-    //console.log(this.memberRepository);
-    //const member = await this.memberRepository.createMember(memberDto);
-    const member1 = new MemberEntity('root', 'root');
     const member = await this.repository.createMember(memberDto);
+  }
+
+  findAll() {
+    const members = this.repository.findAll();
+    return members;
   }
 }
