@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { MemberEntity } from '../entities/memberEntity';
+import MemberEntity from '../entities/memberEntity';
 import MemberDto from '../dto/memberDto';
 
 var dummyMember = {
@@ -34,10 +34,10 @@ export class MemberRepository extends Repository<MemberEntity> {
       : null;
   }
 
-  async createMember(memberDto: MemberDto) {
-    //const member: MemberEntity = this.create(memberDto);
-    //console.log(member);
-    //return await this.save(member);
+  async createMember(memberEntity: MemberEntity) {
+    const member = this.create(memberEntity);
+    console.log(member);
+    return await this.save(member);
   }
 
   findAll() {

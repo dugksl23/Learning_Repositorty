@@ -12,11 +12,10 @@ import {
   HttpStatus,
   Logger,
   UseGuards,
-  UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Request, response, Response } from 'express';
-import { ApiNoContentResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 import { MemberService } from '../service/memberService';
 import MemberDto from '../dto/memberDto';
 import { AuthGuard } from 'src/auth/auth.gaurd';
@@ -54,9 +53,9 @@ export class MemberController {
     return response.status(HttpStatus.OK).json('기능 완성 중');
   }
 
-  @Get('/createMember')
+  @Get('/createManager')
   @ApiTags('최고 관리자 생성')
-  createMember(@Query() memberDto: MemberDto, @Res() response: Response) {
+  createManager(@Query() memberDto: MemberDto, @Res() response: Response) {
     this.memberService.createMember(memberDto);
     return response.status(HttpStatus.OK).json('생성 완료');
   }

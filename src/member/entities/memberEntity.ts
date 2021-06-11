@@ -16,7 +16,7 @@ import * as jwt from 'jsonwebtoken';
 import RoleEntity from './roleEntity';
 
 @Entity('member')
-export class MemberEntity extends BaseEntity {
+class MemberEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
   @Length(6, 20)
   id: string;
@@ -42,7 +42,7 @@ export class MemberEntity extends BaseEntity {
   lastLoginDate: Date;
 
   @OneToMany((type) => RoleEntity, (role) => role.member)
-  @JoinColumn() //{ name: 'roleId' }
+  @JoinColumn({ name: 'roleId' })
   roles: RoleEntity[];
 
   @BeforeInsert()

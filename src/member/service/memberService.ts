@@ -4,7 +4,8 @@ import MemberEntity from '../entities/memberEntity';
 import { MemberRepository } from '../repository/memberRepository';
 import * as bcrypt from 'bcrypt';
 import { Connection } from 'typeorm';
-const dummyMember = new MemberEntity('root', 'root');
+import { Builder } from 'builder-pattern';
+import { promises } from 'fs';
 
 @Injectable()
 export class MemberService {
@@ -14,12 +15,12 @@ export class MemberService {
   }
 
   async signIn(memberDto: MemberDto) {
-    //const member = this.memberRepository.findOne(memberDto.memberName);
-    const existMember: MemberEntity = dummyMember;
-    existMember.password = await bcrypt.hash(existMember.password, 10);
+    const existMember: Promise<MemberEntity> = this.repository.findOne(
+      memberDto.memberName,
+    );
     if (
       !existMember ||
-      !bcrypt.compare(memberDto.password, existMember.password)
+      !bcrypt.compare(memberDto.password, (await existMember).password)
     ) {
       throw new HttpException(
         'Invalid memberName/password',
@@ -41,7 +42,15 @@ export class MemberService {
   }
 
   async createMember(memberDto: MemberDto) {
-    const member = await this.repository.createMember(memberDto);
+    memberDto.memberName = 'root';
+    memberDto.password = 'root';
+    const member = Builder<MemberEntity>()
+      .memberName(memberDto.memberName)
+      .password(memberDto.password)
+      .roles(memberDto.roles)
+      .build();
+
+    return await this.repository.createMember(member);
   }
 
   findAll() {

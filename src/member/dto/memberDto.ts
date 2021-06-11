@@ -1,6 +1,7 @@
 import { IsString, IsNumber } from 'class-validator';
-import bcrypt from 'bcrypt';
 import RoleEntity from '../entities/roleEntity';
+import MemberEntity from '../entities/memberEntity';
+import { Entity } from 'typeorm';
 
 class MemberDto {
   @IsString()
@@ -10,7 +11,22 @@ class MemberDto {
   password: string;
 
   @IsNumber()
-  roles: RoleEntity;
+  roles: RoleEntity[];
+
+  setMemberName(memberName: string) {
+    this.memberName = memberName;
+    return this;
+  }
+
+  setPassword(password: string) {
+    this.password = password;
+    return this;
+  }
+
+  setRole(roles: RoleEntity[]) {
+    this.roles = roles;
+    return this;
+  }
 }
 
 export default MemberDto;
