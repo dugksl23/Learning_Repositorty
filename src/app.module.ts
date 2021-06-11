@@ -24,7 +24,7 @@ import { MemberRepository } from './member/repository/memberRepository';
     MiningsModule,
     AddressesModule,
     MemberModule,
-    //RoleModule,
+    RoleModule,
     BridgingsModule,
     TypeOrmModule.forRoot({
       synchronize: false,
@@ -35,10 +35,7 @@ import { MemberRepository } from './member/repository/memberRepository';
       username: 'root',
       password: 'root',
       database: 'testDB',
-      entities: [
-        '${rootDir}/entities/**/*.ts',
-        '${rootDir}/repository/**/*.ts',
-      ],
+      entities: ['${rootDir}/entities/**/*.ts'],
       migrations: ['${rootDir}/database/migrations/**/*.{js,ts}'],
       subscribers: ['${rootDir}/database/subscribers/**/*.{js,ts}'],
       //'${rootDir}/entities/**/*.ts'
@@ -51,7 +48,7 @@ import { MemberRepository } from './member/repository/memberRepository';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, MemberRepository],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}

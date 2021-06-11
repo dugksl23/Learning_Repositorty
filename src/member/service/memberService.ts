@@ -3,22 +3,14 @@ import MemberDto from '../dto/memberDto';
 import MemberEntity from '../entities/memberEntity';
 import { MemberRepository } from '../repository/memberRepository';
 import * as bcrypt from 'bcrypt';
-import { Repository } from 'typeorm/repository/Repository';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 const dummyMember = new MemberEntity('root', 'root');
 
 @Injectable()
 export class MemberService {
-  private testRepository: MemberRepository;
-  constructor(
-    private readonly connection: Connection,
-    @InjectRepository(MemberRepository)
-    private readonly memberRepository1: Repository<MemberRepository>,
-    @InjectRepository(MemberRepository)
-    private readonly memberRepository: MemberRepository,
-  ) {
-    this.testRepository = this.connection.getCustomRepository(MemberRepository);
+  private repository: MemberRepository;
+  constructor(private readonly connection: Connection) {
+    this.repository = this.connection.getCustomRepository(MemberRepository);
   }
 
   async signIn(memberDto: MemberDto) {
@@ -39,7 +31,7 @@ export class MemberService {
   }
 
   async validateMember(memberDto: MemberDto) {
-    const memberName = await this.memberRepository.findByMemberName(memberDto);
+    const memberName = await this.repository.findByMemberName(memberDto);
 
     if (memberName === null) {
       throw new HttpException('invalid MemberName', HttpStatus.NOT_FOUND);
@@ -52,6 +44,6 @@ export class MemberService {
     //console.log(this.memberRepository);
     //const member = await this.memberRepository.createMember(memberDto);
     const member1 = new MemberEntity('root', 'root');
-    const member = await this.testRepository.createMember(memberDto);
+    const member = await this.repository.createMember(memberDto);
   }
 }

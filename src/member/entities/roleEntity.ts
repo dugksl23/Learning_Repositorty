@@ -11,8 +11,7 @@ import { BaseEntity } from 'typeorm/repository/BaseEntity';
 @Entity('role')
 class RoleEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
-  @Column({ nullable: true })
-  roleId: number;
+  roleId: string;
 
   @Column()
   roleName: string;
