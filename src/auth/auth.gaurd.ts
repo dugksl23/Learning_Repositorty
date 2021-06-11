@@ -16,9 +16,9 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    request.user = await this.validationToken(request.headers.authorization);
-
-    return true;
+    const token = await this.validationToken(request.headers.authorization);
+    request.token = token;
+    return request.token;
   }
 
   async validationToken(auth: string) {
@@ -30,9 +30,10 @@ export class AuthGuard implements CanActivate {
     }
 
     const token = auth.split(' ')[1];
-
+    console.log(token);
     try {
-      return jwt.verify(token, process.env.SECRET);
+      console.log(token);
+      return await jwt.verify(token, process.env.SECRET);
     } catch (err) {
       const errMsg = 'Token error : ' + (err.message || err.name);
       throw new UnauthorizedException('Invalid Token used');

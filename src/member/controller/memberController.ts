@@ -15,11 +15,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiDefaultResponse, ApiTags } from '@nestjs/swagger';
 import { MemberService } from '../service/memberService';
 import MemberDto from '../dto/memberDto';
 import { AuthGuard } from 'src/auth/auth.gaurd';
-import { Token } from '../decorator/member.decorator';
 
 @Controller('/api/member')
 export class MemberController {
@@ -35,28 +34,27 @@ export class MemberController {
       .json((await existMember).toResponseObject(true));
   }
 
-  @Get('/validateMember')
-  @ApiTags('관리자 아이디 확인')
-  validateMember(@Req() memberDto: MemberDto, @Res() response: Response) {
-    const memberStatus = this.memberService.validateMember(memberDto);
-    return response.status(HttpStatus.OK).json(memberStatus);
-  }
-
-  @Get('/findAll')
-  @ApiTags('모든 유저의 정보 조회')
-  @UseGuards(new AuthGuard())
-  findAll(
-    @Res() response: Response,
-    @Token(new ValidationPipe({ validateCustomDecorators: true })) token,
-  ) {
-    //const members = this.memberService.findAll();
-    return response.status(HttpStatus.OK).json('기능 완성 중');
-  }
-
   @Get('/createManager')
   @ApiTags('최고 관리자 생성')
   createManager(@Query() memberDto: MemberDto, @Res() response: Response) {
-    this.memberService.createMember(memberDto);
-    return response.status(HttpStatus.OK).json('생성 완료');
+    const msg = this.memberService.createManager(memberDto);
+    return response.status(HttpStatus.OK).json(msg);
+  }
+
+  @Get('/validateMember')
+  @ApiTags('관리자 아이디 확인')
+  @UseGuards(new AuthGuard())
+  async validateMember(@Req() memberDto: MemberDto, @Res() response: Response) {
+    const member = await this.memberService.validateMember(memberDto);
+    return response.status(HttpStatus.OK).json(member.toResponseObject());
+  }
+  // === 단위 테스트 중
+  @Get('/findAll')
+  @ApiTags('모든 유저의 정보 조회')
+  @UseGuards(new AuthGuard())
+  async findAll(@Res() response: Response) {
+    const members = await this.memberService.findAll();
+    console.log(members);
+    return response.status(HttpStatus.OK).json(members);
   }
 }

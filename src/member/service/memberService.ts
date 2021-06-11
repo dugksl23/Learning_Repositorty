@@ -15,12 +15,10 @@ export class MemberService {
   }
 
   async signIn(memberDto: MemberDto) {
-    const existMember: Promise<MemberEntity> = this.repository.findOne(
-      memberDto.memberName,
-    );
+    const existMember = await this.repository.findByMemberName(memberDto);
     if (
       !existMember ||
-      !bcrypt.compare(memberDto.password, (await existMember).password)
+      !bcrypt.compare(memberDto.password, existMember.password)
     ) {
       throw new HttpException(
         'Invalid memberName/password',
@@ -32,29 +30,42 @@ export class MemberService {
   }
 
   async validateMember(memberDto: MemberDto) {
-    const memberName = await this.repository.findByMemberName(memberDto);
-
-    if (memberName === null) {
+    const member = await this.repository.findByMemberName(memberDto);
+    if (member === null) {
       throw new HttpException('invalid MemberName', HttpStatus.NOT_FOUND);
     }
-
-    return true;
+    return member;
   }
 
-  async createMember(memberDto: MemberDto) {
+  async createManager(memberDto: MemberDto) {
     memberDto.memberName = 'root';
     memberDto.password = 'root';
+    const existOrNot = await this.existManager(memberDto.memberName);
+    console.log(existOrNot);
+    if (existOrNot) {
+      return false;
+    }
+
     const member = Builder<MemberEntity>()
       .memberName(memberDto.memberName)
       .password(memberDto.password)
       .roles(memberDto.roles)
       .build();
-
-    return await this.repository.createMember(member);
+    const result = await this.repository.createMember(member);
+    return true;
   }
 
-  findAll() {
-    const members = this.repository.findAll();
+  async existManager(name: string) {
+    const result = await this.repository.existManager(name);
+    console.log(JSON.stringify(result));
+    if (typeof result !== 'undefined' || JSON.stringify(result) === null) {
+      return true;
+    }
+    return false;
+  }
+
+  async findAll() {
+    const members = await this.repository.findAll();
     return members;
   }
 }
