@@ -11,7 +11,8 @@ const dummyMember = new MemberEntity('root', 'root');
 @Injectable()
 export class MemberService {
   constructor(
-    //private readonly memberRepository1: Repository<MemberRepository>,
+    @InjectRepository(MemberRepository)
+    private readonly memberRepository1: Repository<MemberRepository>,
     @InjectRepository(MemberRepository)
     private readonly memberRepository: MemberRepository,
   ) {}
@@ -45,6 +46,8 @@ export class MemberService {
 
   async createMember(memberDto: MemberDto) {
     //console.log(this.memberRepository);
-    const member = await this.memberRepository.createMember(memberDto);
+    //const member = await this.memberRepository.createMember(memberDto);
+    const member1 = new MemberEntity('root', 'root');
+    const member = await this.memberRepository1.create(member1);
   }
 }

@@ -11,7 +11,6 @@ import {
   BaseEntity,
 } from 'typeorm';
 import { Length, IsDate, Min, Max } from 'class-validator';
-import Role from './roleEntity';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import RoleEntity from './roleEntity';
@@ -20,7 +19,7 @@ import RoleEntity from './roleEntity';
 export class MemberEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
   @Length(6, 20)
-  id: string;
+  id: number;
 
   @Column()
   memberName: string;
@@ -41,9 +40,10 @@ export class MemberEntity extends BaseEntity {
   @IsDate()
   lastLoginDate: Date;
 
-  // @OneToMany((type) => Role, (roles) => roles)
-  // @JoinColumn({ name: 'roleId' })
-  // roles: number;
+  //@OneToMany(() => RoleEntity (roles) => roles.member)
+  //@JoinColumn({ name: 'roleId' })
+  @Column()
+  roles: number;
 
   @BeforeInsert()
   async hashPassword() {

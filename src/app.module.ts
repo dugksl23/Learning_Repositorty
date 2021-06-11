@@ -9,10 +9,11 @@ import { MiningsModule } from './minings/minings.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { BridgingsModule } from './bridgings/bridgings.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MemberRepository } from './member/repository/memberRepository';
 import { Connection, getConnectionOptions } from 'typeorm';
 import { MemberModule } from './member/member.module';
 import MemberEntity from './member/entities/memberEntity';
+
+import { RoleModule } from './member/role.module';
 @Module({
   imports: [
     WinstonModule.forRoot({
@@ -22,17 +23,19 @@ import MemberEntity from './member/entities/memberEntity';
     MiningsModule,
     AddressesModule,
     MemberModule,
+    //RoleModule,
     BridgingsModule,
     TypeOrmModule.forRoot({
-      synchronize: true,
+      synchronize: false,
       autoLoadEntities: true,
-      type: 'mariadb',
+      type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'root',
       password: 'root',
       database: 'testDB',
-      entities: [],
+      entities: ['${rootDir}/entities/**/*.ts'],
+      //'${rootDir}/entities/**/*.ts'
     }),
     TypeOrmModule.forRootAsync({
       useFactory: async () =>
@@ -42,7 +45,7 @@ import MemberEntity from './member/entities/memberEntity';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, MemberRepository],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
