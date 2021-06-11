@@ -6,19 +6,18 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinTable,
   BeforeInsert,
+  BaseEntity,
+  Transaction,
 } from 'typeorm';
 import { Length, IsDate, Min, Max } from 'class-validator';
-import Role from './roleEntity';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { response } from 'express';
+import RoleEntity from './roleEntity';
 
-@Entity()
-export class MemberEntity {
+@Entity('member')
+export class MemberEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid') //auto-increment
-  @Column({ nullable: true })
   @Length(6, 20)
   id: string;
 
@@ -37,23 +36,24 @@ export class MemberEntity {
   @Max(12)
   password: string;
 
-  @Column()
+  @Column({ type: 'date', default: () => new Date() })
   @IsDate()
+  @CreateDateColumn()
   lastLoginDate: Date;
 
-  @OneToMany((type) => Role, (roles) => roles)
-  @JoinColumn({ name: 'roleId' })
-  roles: Number;
+  @OneToMany((type) => RoleEntity, (role) => role.member)
+  @JoinColumn() //{ name: 'roleId' }
+  roles: RoleEntity[];
 
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);
   }
 
-  constructor(memberName: string, password: string, role: number) {
+  constructor(memberName: string, password: string) {
+    super();
     this.memberName = memberName;
     this.password = password;
-    this.roles = role;
   }
 
   toResponseObject(showToken: boolean = true) {

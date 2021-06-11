@@ -3,17 +3,22 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
+  ManyToOne,
 } from 'typeorm';
+import { BaseEntity } from 'typeorm/repository/BaseEntity';
+import { MemberEntity } from './memberEntity';
 
-@Entity()
-class RoleEntity {
-  @PrimaryGeneratedColumn() //auto-increment
-  @Column({ nullable: true })
-  private roleId: string;
+@Entity('role')
+class RoleEntity extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid') //auto-increment
+  roleId: string;
 
   @Column()
-  private roleName: number;
+  roleName: string;
+
+  @ManyToOne(() => MemberEntity, (member) => member.roles)
+  @JoinColumn() //{ name: 'id' }
+  member: MemberEntity;
 }
 
 export default RoleEntity;

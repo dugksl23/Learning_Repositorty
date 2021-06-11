@@ -3,12 +3,15 @@ import MemberDto from '../dto/memberDto';
 import MemberEntity from '../entities/memberEntity';
 import { MemberRepository } from '../repository/memberRepository';
 import * as bcrypt from 'bcrypt';
-
-const dummyMember = new MemberEntity('root', 'root', 1);
+import { Connection } from 'typeorm';
+const dummyMember = new MemberEntity('root', 'root');
 
 @Injectable()
 export class MemberService {
-  constructor(private readonly memberRepository: MemberRepository) {}
+  private repository: MemberRepository;
+  constructor(private readonly connection: Connection) {
+    this.repository = this.connection.getCustomRepository(MemberRepository);
+  }
 
   async signIn(memberDto: MemberDto) {
     //const member = this.memberRepository.findOne(memberDto.memberName);
@@ -28,12 +31,21 @@ export class MemberService {
   }
 
   async validateMember(memberDto: MemberDto) {
-    const memberName = await this.memberRepository.findByMemberName(memberDto);
+    const memberName = await this.repository.findByMemberName(memberDto);
 
     if (memberName === null) {
       throw new HttpException('invalid MemberName', HttpStatus.NOT_FOUND);
     }
 
     return true;
+  }
+
+  async createMember(memberDto: MemberDto) {
+    const member = await this.repository.createMember(memberDto);
+  }
+
+  findAll() {
+    const members = this.repository.findAll();
+    return members;
   }
 }
