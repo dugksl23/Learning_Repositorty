@@ -37,6 +37,8 @@ export class MemberRepository extends Repository<MemberEntity> {
 
   async createMember(memberDto: MemberDto) {
     const member: MemberEntity = this.create(memberDto);
+    member.roles = 1;
+    console.log(member);
     return await this.save(member);
   }
 }

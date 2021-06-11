@@ -36,13 +36,14 @@ export class MemberEntity extends BaseEntity {
   @Max(12)
   password: string;
 
-  @Column()
+  @Column({ type: 'date', default: () => new Date() })
   @IsDate()
+  @CreateDateColumn()
   lastLoginDate: Date;
 
   //@OneToMany(() => RoleEntity (roles) => roles.member)
   //@JoinColumn({ name: 'roleId' })
-  @Column()
+  @Column({ type: 'int' })
   roles: number;
 
   @BeforeInsert()

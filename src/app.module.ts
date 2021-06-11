@@ -14,6 +14,7 @@ import { MemberModule } from './member/member.module';
 import MemberEntity from './member/entities/memberEntity';
 
 import { RoleModule } from './member/role.module';
+import { MemberRepository } from './member/repository/memberRepository';
 @Module({
   imports: [
     WinstonModule.forRoot({
@@ -34,7 +35,12 @@ import { RoleModule } from './member/role.module';
       username: 'root',
       password: 'root',
       database: 'testDB',
-      entities: ['${rootDir}/entities/**/*.ts'],
+      entities: [
+        '${rootDir}/entities/**/*.ts',
+        '${rootDir}/repository/**/*.ts',
+      ],
+      migrations: ['${rootDir}/database/migrations/**/*.{js,ts}'],
+      subscribers: ['${rootDir}/database/subscribers/**/*.{js,ts}'],
       //'${rootDir}/entities/**/*.ts'
     }),
     TypeOrmModule.forRootAsync({
@@ -45,7 +51,7 @@ import { RoleModule } from './member/role.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MemberRepository],
 })
 export class AppModule {
   constructor(private connection: Connection) {}

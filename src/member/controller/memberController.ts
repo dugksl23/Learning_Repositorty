@@ -55,7 +55,8 @@ export class MemberController {
 
   @Get('/createMember')
   @ApiTags('최고 관리자 생성')
-  createMember(@Query() memberDto: MemberDto) {
+  createMember(@Query() memberDto: MemberDto, @Res() response: Response) {
     this.memberService.createMember(memberDto);
+    return response.status(HttpStatus.OK).json('ok');
   }
 }
