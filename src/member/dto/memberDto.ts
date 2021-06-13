@@ -11,7 +11,7 @@ class MemberDto {
   password: string;
 
   @IsNumber()
-  roles: RoleEntity[];
+  roles: RoleEntity;
 
   setMemberName(memberName: string) {
     this.memberName = memberName;
@@ -23,7 +23,7 @@ class MemberDto {
     return this;
   }
 
-  setRole(roles: RoleEntity[]) {
+  setRole(roles: RoleEntity) {
     this.roles = roles;
     return this;
   }

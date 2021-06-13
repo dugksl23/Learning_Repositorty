@@ -5,10 +5,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
   BeforeInsert,
   BaseEntity,
-  Transaction,
+  ManyToOne,
 } from 'typeorm';
 import { Length, IsDate, Min, Max } from 'class-validator';
 import * as bcrypt from 'bcrypt';
@@ -41,9 +40,9 @@ class MemberEntity extends BaseEntity {
   @CreateDateColumn()
   lastLoginDate: Date;
 
-  @OneToMany((type) => RoleEntity, (role) => role.member)
-  @JoinColumn({ name: 'roleId' })
-  roles: RoleEntity[];
+  @ManyToOne((type) => RoleEntity, (role) => role.roleNo)
+  @JoinColumn({ name: 'roleNo' })
+  roles: RoleEntity;
 
   @BeforeInsert()
   async hashPassword() {
@@ -57,9 +56,8 @@ class MemberEntity extends BaseEntity {
   }
 
   toResponseObject(showToken: boolean = true) {
-    const { id, memberName, createdDate, lastLoginDate } = this;
+    const { memberName, createdDate, lastLoginDate } = this;
     const responseObj = {
-      id,
       memberName,
       createdDate,
       lastLoginDate,

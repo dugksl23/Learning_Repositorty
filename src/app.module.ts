@@ -19,9 +19,7 @@ import { MemberRepository } from './member/repository/memberRepository';
 import RoleEntity from './member/entities/roleEntity';
 @Module({
   imports: [
-    WinstonModule.forRoot({
-      // options
-    }),
+    WinstonModule.forRoot({}),
     StakingsModule,
     MiningsModule,
     AddressesModule,

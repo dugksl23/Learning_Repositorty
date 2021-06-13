@@ -5,20 +5,27 @@ import { MemberRepository } from '../repository/memberRepository';
 import * as bcrypt from 'bcrypt';
 import { Connection } from 'typeorm';
 import { Builder } from 'builder-pattern';
-import { promises } from 'fs';
+import { RoleRepository } from '../repository/roleRepository';
+import RoleEntity from '../entities/roleEntity';
 
 @Injectable()
 export class MemberService {
-  private repository: MemberRepository;
+  private memberRepository: MemberRepository;
+  private roleRepository: RoleRepository;
+
   constructor(private readonly connection: Connection) {
-    this.repository = this.connection.getCustomRepository(MemberRepository);
+    this.memberRepository =
+      this.connection.getCustomRepository(MemberRepository);
+    this.roleRepository = this.connection.getCustomRepository(RoleRepository);
   }
 
   async signIn(memberDto: MemberDto) {
-    const existMember = await this.repository.findByMemberName(memberDto);
+    const existMember: MemberEntity =
+      await this.memberRepository.findByMemberName(memberDto);
+
     if (
-      !existMember ||
-      !bcrypt.compare(memberDto.password, existMember.password)
+      typeof existMember === 'undefined' ||
+      !(await bcrypt.compare(memberDto.password, existMember.password))
     ) {
       throw new HttpException(
         'Invalid memberName/password',
@@ -30,42 +37,42 @@ export class MemberService {
   }
 
   async validateMember(memberDto: MemberDto) {
-    const member = await this.repository.findByMemberName(memberDto);
-    if (member === null) {
-      throw new HttpException('invalid MemberName', HttpStatus.NOT_FOUND);
+    const member = await this.memberRepository.findByMemberName(memberDto);
+    if (typeof member !== 'undefined') {
+      throw new HttpException('invalid Member', HttpStatus.NOT_FOUND);
     }
     return member;
   }
 
-  async createManager(memberDto: MemberDto) {
-    memberDto.memberName = 'root';
-    memberDto.password = 'root';
-    const existOrNot = await this.existManager(memberDto.memberName);
-    console.log(existOrNot);
+  async createManager(managerName: string) {
+    const existOrNot = await this.existManager(managerName);
+
     if (existOrNot) {
       return false;
     }
 
+    await this.roleRepository.createRole();
+    const role = await this.roleRepository.findRole(
+      Number(process.env.managerRoleNo),
+    );
     const member = Builder<MemberEntity>()
-      .memberName(memberDto.memberName)
-      .password(memberDto.password)
-      .roles(memberDto.roles)
+      .memberName(process.env.managerName)
+      .password(process.env.managerPassword)
+      .roles(role)
       .build();
-    const result = await this.repository.createMember(member);
-    return true;
+    return await this.memberRepository.createMember(member);
   }
 
-  async existManager(name: string) {
-    const result = await this.repository.existManager(name);
-    console.log(JSON.stringify(result));
-    if (typeof result !== 'undefined' || JSON.stringify(result) === null) {
+  async existManager(managerName: string) {
+    const existOrNot = await this.memberRepository.existManager(managerName);
+    if (typeof existOrNot !== 'undefined') {
       return true;
     }
     return false;
   }
 
   async findAll() {
-    const members = await this.repository.findAll();
+    const members = await this.memberRepository.findAll();
     return members;
   }
 }
