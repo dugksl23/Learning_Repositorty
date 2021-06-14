@@ -38,6 +38,7 @@ export class MemberService {
 
   async validateMember(memberDto: MemberDto) {
     const member = await this.memberRepository.findByMemberName(memberDto);
+    console.log(member);
     if (typeof member !== 'undefined') {
       throw new HttpException('invalid Member', HttpStatus.NOT_FOUND);
     }
@@ -53,7 +54,7 @@ export class MemberService {
 
     await this.roleRepository.createRole();
     const role = await this.roleRepository.findRole(process.env.managerRoleNo);
-    console.log(role + '오나ㅣ요?');
+
     const member = Builder<MemberEntity>()
       .memberName(process.env.managerName)
       .password(process.env.managerPassword)
@@ -73,5 +74,9 @@ export class MemberService {
   async findAll() {
     const members = await this.memberRepository.findAll();
     return members;
+  }
+
+  async validateManagerRole(memberName: string) {
+    return await this.memberRepository.validateManagerRole(memberName);
   }
 }
