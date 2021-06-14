@@ -11,7 +11,7 @@ import MemberEntity from './memberEntity';
 
 @Entity('role')
 class RoleEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid') //auto-increment
+  @PrimaryGeneratedColumn({ type: 'int' }) //auto-increment
   roleNo: number;
 
   @Column()

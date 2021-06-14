@@ -13,9 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection, getConnectionOptions } from 'typeorm';
 import { MemberModule } from './member/member.module';
 import MemberEntity from './member/entities/memberEntity';
-
 import { RoleModule } from './member/role.module';
-import { MemberRepository } from './member/repository/memberRepository';
 import RoleEntity from './member/entities/roleEntity';
 @Module({
   imports: [

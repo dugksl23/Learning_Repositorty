@@ -52,9 +52,8 @@ export class MemberService {
     }
 
     await this.roleRepository.createRole();
-    const role = await this.roleRepository.findRole(
-      Number(process.env.managerRoleNo),
-    );
+    const role = await this.roleRepository.findRole(process.env.managerRoleNo);
+    console.log(role + '오나ㅣ요?');
     const member = Builder<MemberEntity>()
       .memberName(process.env.managerName)
       .password(process.env.managerPassword)
