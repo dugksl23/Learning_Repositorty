@@ -19,6 +19,7 @@ import { MemberService } from '../service/memberService';
 import MemberDto from '../dto/memberDto';
 import { AuthGuard } from 'src/auth/auth.gaurd';
 import { Token } from '../decorator/member.decorator';
+import MemberEntity from '../entities/memberEntity';
 @Controller('/api/member')
 export class MemberController {
   private readonly logger = new Logger();
@@ -55,12 +56,11 @@ export class MemberController {
     return response.status(HttpStatus.OK).json(token);
   }
 
-  // === 단위 테스트 중
   @Get('/findAll')
-  @ApiTags('모든 유저의 정보 조회')
+  @ApiTags('모든 관리자의 정보 조회')
   @UseGuards(new AuthGuard())
   async findAll(@Res() response: Response) {
-    const members = await this.memberService.findAll();
+    const members: MemberEntity[] = await this.memberService.findAll();
     return response.status(HttpStatus.OK).json(members);
   }
 }

@@ -15,8 +15,8 @@ export class RoleRepository extends Repository<RoleEntity> {
       .into(RoleEntity)
       .values([
         {
-          roleNo: 101,
-          roleName: '최고 관리자',
+          roleNo: Number(process.env.roleNo),
+          roleName: process.env.roleName,
         },
       ])
       .execute();

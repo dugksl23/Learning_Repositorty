@@ -44,6 +44,12 @@ export class MemberService {
     return member;
   }
 
+  async validateMemberRole(memberEntity: MemberEntity) {
+    const memberRole = await this.memberRepository.findByMemberRole(
+      memberEntity,
+    );
+  }
+
   async createManager(managerName: string) {
     const existOrNot = await this.existManager(managerName);
 
@@ -72,7 +78,10 @@ export class MemberService {
   }
 
   async findAll() {
-    const members = await this.memberRepository.findAll();
+    const members: MemberEntity[] = await this.memberRepository.findAll();
     return members;
   }
+}
+function Autowired() {
+  throw new Error('Function not implemented.');
 }
