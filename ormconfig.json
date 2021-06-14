@@ -19,5 +19,7 @@
     "dist/**/*.entity{.ts,.js}"
   ],
   "synchronize": true,
-  "autoLoadEntities": true
+  "autoLoadEntities": true,
+  "migrations": ["${rootDir}/database/migrations/**/*.{js,ts}"],
+  "subscribers": ["${rootDir}/database/subscribers/**/*.{js,ts}"]
 }

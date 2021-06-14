@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import MemberEntity from '../entities/memberEntity';
 import MemberDto from '../dto/memberDto';
-import { MemberService } from '../service/memberService';
 
 @EntityRepository(MemberEntity)
 export class MemberRepository extends Repository<MemberEntity> {
@@ -17,7 +16,6 @@ export class MemberRepository extends Repository<MemberEntity> {
   async findByMemberName(memberDto: MemberDto) {
     const { memberName } = memberDto;
     return await this.createQueryBuilder()
-      //.innerJoinAndSelect('member.roleNo', 'role')
       .where('member.memberName = :memberName', { memberName: memberName })
       .getOne();
   }
@@ -37,6 +35,20 @@ export class MemberRepository extends Repository<MemberEntity> {
   async existManager(memberName: string) {
     return await this.createQueryBuilder('member')
       .where('member.memberName = :memberName', { memberName: memberName })
+      .getOne();
+  }
+
+  async validateManagerRole(memberName: string) {
+    return await this.createQueryBuilder('m')
+      .select([
+        'm.memberName',
+        'm.id',
+        'm.createdDate',
+        'm.lastLoginDate',
+        'm.roles',
+      ])
+      .innerJoinAndSelect('m.roles', 'role')
+      .where('m.memberName = :memberName', { memberName: memberName })
       .getOne();
   }
 }

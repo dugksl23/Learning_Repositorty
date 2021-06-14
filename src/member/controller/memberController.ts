@@ -45,15 +45,17 @@ export class MemberController {
   }
 
   @Get('/validateManagerRole')
-  @ApiTags('token 유효성 검사 및 관리자의 role을 확인')
+  @ApiTags('token 유효성 검사 및 관리자의 role 확인')
   @UseGuards(new AuthGuard())
   async validateManaerRole(
     @Query() memberDto: MemberDto,
     @Res() response: Response,
     @Token() token,
   ) {
-    const validatedManager = await this.memberService.validateMember(memberDto);
-    return response.status(HttpStatus.OK).json(token);
+    const managerRole = await this.memberService.validateManagerRole(
+      memberDto.memberName,
+    );
+    return response.status(HttpStatus.OK).json(managerRole);
   }
 
   @Get('/findAll')

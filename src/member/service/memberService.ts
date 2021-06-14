@@ -6,7 +6,6 @@ import * as bcrypt from 'bcrypt';
 import { Connection } from 'typeorm';
 import { Builder } from 'builder-pattern';
 import { RoleRepository } from '../repository/roleRepository';
-import RoleEntity from '../entities/roleEntity';
 
 @Injectable()
 export class MemberService {
@@ -38,16 +37,11 @@ export class MemberService {
 
   async validateMember(memberDto: MemberDto) {
     const member = await this.memberRepository.findByMemberName(memberDto);
+    console.log(member);
     if (typeof member !== 'undefined') {
       throw new HttpException('invalid Member', HttpStatus.NOT_FOUND);
     }
     return member;
-  }
-
-  async validateMemberRole(memberEntity: MemberEntity) {
-    const memberRole = await this.memberRepository.findByMemberRole(
-      memberEntity,
-    );
   }
 
   async createManager(managerName: string) {
@@ -58,9 +52,8 @@ export class MemberService {
     }
 
     await this.roleRepository.createRole();
-    const role = await this.roleRepository.findRole(
-      Number(process.env.managerRoleNo),
-    );
+    const role = await this.roleRepository.findRole(process.env.managerRoleNo);
+
     const member = Builder<MemberEntity>()
       .memberName(process.env.managerName)
       .password(process.env.managerPassword)
@@ -81,7 +74,8 @@ export class MemberService {
     const members: MemberEntity[] = await this.memberRepository.findAll();
     return members;
   }
-}
-function Autowired() {
-  throw new Error('Function not implemented.');
+
+  async validateManagerRole(memberName: string) {
+    return await this.memberRepository.validateManagerRole(memberName);
+  }
 }

@@ -13,9 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection, getConnectionOptions } from 'typeorm';
 import { MemberModule } from './member/member.module';
 import MemberEntity from './member/entities/memberEntity';
-
 import { RoleModule } from './member/role.module';
-import { MemberRepository } from './member/repository/memberRepository';
 import RoleEntity from './member/entities/roleEntity';
 @Module({
   imports: [
@@ -28,19 +26,14 @@ import RoleEntity from './member/entities/roleEntity';
     BridgingsModule,
     TypeOrmModule.forRoot({
       synchronize: false,
-      autoLoadEntities: true, // Entity가 load가 되려면 autoLoadEntity가 true가 되어야 한다.
+      autoLoadEntities: true,
       type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'root',
       password: 'root',
       database: 'testDB',
-      entities: [
-        '${rootDir}/entities/**/*.ts',
-        //'src/**/*.entity{.ts,.js}',
-        MemberEntity,
-        RoleEntity,
-      ],
+      entities: ['${rootDir}/entities/**/*.ts'],
       migrations: ['${rootDir}/database/migrations/**/*.{js,ts}'],
       subscribers: ['${rootDir}/database/subscribers/**/*.{js,ts}'],
     }),
