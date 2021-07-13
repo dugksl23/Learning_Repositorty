@@ -7,10 +7,10 @@
 
 ## 1. 개요
 
-이 문서는 Java 프로그래밍 언어의 소스 코드에 대한 Google Style로 규약된 코딩 스타일이다. 
-Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Google style로 프로그래밍 된 것이라고 규정할 수 있다.
+이 문서는 Java 프로그래밍 언어의 소스 코드에 대한 Google Style로 규약된 코딩 스타일이다. <br>
+Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Google style로 프로그래밍 된 것이라고 규정할 수 있다. <br>
 
-이외에도 코딩 규약은 여러 종류가 있습니다만, Java의 경우에는 Google의 코딩 규약을 많이 사용한다.
+이외에도 코딩 규약은 여러 종류가 있습니다만, Java의 경우에는 Google의 코딩 규약을 많이 사용한다. <br>
 
 
 ## 2. 소스 파일 기본 사항
@@ -200,7 +200,7 @@ public class ArrayList<E> extends AbstractList<E>
    
  - **수평 공백**
     
-    - if, for catch와 같은 keyword 다음에 오는 여는 "(" 사이에 공백문자.
+    - if, for catch와 같은  다음에 오는 여는 "(" 사이에 공백문자.
     - 닫히는 ")" 뒤에 오는 {} 사이에도 공백문자.
     - else, try, catch 다음에 오는 {} 사이에도 공백문자.
     - "," / ":" / ";" or 타입 캐스트 시의 ")" 다음에도 공백 문자. 
@@ -251,13 +251,133 @@ public class ArrayList<E> extends AbstractList<E>
     - 여러 줄의 빈 줄은 허용하지만, 추천하지 않는다.
       
  
- - **변수 정렬**
-
- 
+ - **변수 수평 정렬**
+    - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
+    - 변수 수평 정렬은 Google Java Coding Convention에서는 필요로 하지 않다.
+   
+   ```
+    private int a; int b; int c; int d; // 옳지 않다.
+    private int  a; // 허용되나, 권장하지 않음. 2번의 문자 공백.
+    
+   ```
   
+ - **변수 수평 정렬**
+    - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
+    - 변수 수평 정렬은 Google Java Coding Convention에서는 필요로 하지 않다.
+   
+
+ - **그룹핑**
+ 
+    - 선택적 그룹핑을 통해서 코드 작성자와 리뷰어가 괄호를 생략해도 잘못 해설될 가능성이 없다.
+    - 쉽게 읽을 수 있으며, 가독성이 있다.
+    
+    ```
+      private class MyClass {
+        // 수직 공백
+        int a = 0;
+        int b = 0;
+        
+        // 그룹화
+        {
+          a += 5;
+          a -= 5;
+        }
+        
+        {
+          b += 62;
+          b -= 3;
+        }
+        
+      }
+    ```
+    
+  - **특수한 구조**
+
+     ## Enum class
+     
+     - 상수들의 집합체 / 상수들의 열거형.
+     - 각 Enum 상수는 "," 이후에 열거 또는 줄 바꿈을 허용한다.
+     - 상수를 나타날 때에는 대문자를 사용한다.
+     - Enum은 final static 예약어가 생략되어져 있다. same as interface형
+     - enum의 열거형 상수 뿐 아니라, 추가적으로 생성자의 파라미터를 통해 enum class의 필드에 추가 속성값을 초기값으로 설정을 해주고, getter 함수를 통해 해당 속성을 사용할 수 있다.
+     - enum
+      
+     ```
+
+     public enum DayTest {
+
+         MONDAY("월요일"), TUESDAY("화요일"), WEDNESDAY("수요일"), THURSDAY("목요일"), FRIDAY("금요일"), SATURDAY("목요일"), SUNDAY("일요일");
+         SOMETHING{
+            @Override
+            public String toString() {
+            
+            }
+         }
+
+         private String krName;
+
+         DayTest(String days) {
+             krName = days;
+         }
+
+         public String getKrName(){
+             return this.krName;
+             return "monday~~";
+         }
+
+     }
+
+     private class EnumExample {
+     
+       private final static int MONDAY = 1;
+       private final static int TUSEDAY = 2;
+       private final static int WENDSDAY = 3;
+       private final static int THURSDAY = 4;
+       private final static int FRIDAY = 5;
+       private final static int SATURDAY = 6;
+       private final static int SUNDAY = 7;
+        
+     }
+     
+     
+   
+      class enumExample {
+
+          public static void main(String[] args) {
+
+              DayTest day = DayTest.SOMETHING;
+              switch (day) {
+                  case SOMETHING:
+                      System.out.println("DayTest.SOMETHING);
+                      
+              }
+              
+              
+              DayTest day = DayTest.MONDAY;
+              System.out.println(day.getKrName());
+          }
+          
+      }
+   
+     ```
  
    
+   ## 배열 선언
    
+   - 열거 및 줄 바꿈 가능.
+   - 쉼표 이후에 공백 문자.
+   
+   ```
+   new int[] {1, 2, 3, 4, 5, 6,}
+   new int[] {
+        1,
+        2,
+        3,
+        4,
+        5
+   }
+   
+     
    
    
 
