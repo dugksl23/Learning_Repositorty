@@ -648,7 +648,90 @@ public class ArrayList<E> extends AbstractList<E>
 
    ```
  
+ ---
  
+ ## 6. 프로그래밍 관례
+ 
+ 
+ - **@override 항상 명시** (?)
+ 
+   @Override 어노테이션을 사용할 수 있는 메소드는 반드시 붙인다. 이는 Super class와 상속관계를 갖는 childClass에서 Super class의 메소드를 오버라이딩 하고 있음을 나타내는 것이다.
+  (*abstract class포함)
+   또는 class의 메소드가 interface의 메소드를 구현하고 있음을 나타내고 있거나, interface 메소드가 Super interface 메소드를 재 구현하고 있음을 표현하는 것이기도 하다.
+ 
+  
+ - **throws와 try-catch** 
+ 
+   throws(예외)는 내부적으로 소스 코드를 컴파일 하는 과정에서는 발견하지 못하며, 외부 접근에 의해 프로그램 실행 중에 예상치 못하게 발생하는 오류 사항들을 예외라고 부른다.
+   이러한 예외들을 throws를 사용해서 해당 메소드를 사용하는 사람들에게 예외를 전가시키고, try-cath(예외 처리)를 통해서 Exception의 종류를 보여줌으로서 예상되는 오류를 명시해 주는 것이다.
+   ex) NullPointException
+ 
+   ```
+   try {
+     //... 예외가 발생할 가능성이 있는 코드 작성.
+   } catch (Exception e) {
+     e.printStackTrace();
+     //... 예외 처리 코드 작성
+   }
+ 
+ 
+   int num1 = 100;
+   int num12 = 0;
+ 
+   try {
+     int result = num1 / num2;
+   } catch (Exception e) {
+     e.printStackTrace();
+     throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
+   }
+ 
+   ```
+ 
+ - **static 정적 변수 및 정적 메소드**
+   
+   일반적으로 변수 또는 메소드는 객체를 생성하지 않는다면 사용할 수 없다. 즉, 보통 클래스는 설계도일 뿐이며 객체를 생성(동적 생성)했을 때, 메모리에 적재되고 변수에 값이 저장되기 때문이다.
+   하지만, static으로 선언된 변수나 메소드는 클래스 변수이기 때문에 JVM이 클래스를 읽어 들일 때 자동적으로 메모리에 함께 적재가 된다. 따라서 객체를 따로 생성하지 않고도 사용할 수 있게 된다.
+   
+   
+   ```
+   class Car {
+     
+     static int carNumber;
+ 
+   }
+   
+   piublic class CarTest {
+     
+    @Test
+    public void CarInstanceTest() {
+      
+       Car car = new Car();
+       Car.carNumber = 123; // class로 접근 
+       car.carNumber = 0 // 객체로 접근(x) 
+ 
+    }
+ 
+   }
+ 
+   ```
+ 
+ - **Finalizers**
+ 
+   - 언제 실행이 될 지 알 수가 없으며, 가비지 컬렉터에 의해서 호출이 되기 때문에 임의의 시점에 실행이 된다. 따라서 실행 시간이 중요한 코드는 finalizer에 두지 않는다.
+   - finalizer의 실행 주기는 전적으로 JVM 구현에 달려있어서 JVM 마다 다른 양상은 띈다.
+   - 자바 언어 명세에는 finalizer의 실행 시기를 보장하지는 않는다.
+   - finalizer 수행 중에 예외가 발생하면 예외가 무시된다.
+   - 엄청난 성능 저하를 일으킨다. 객체 소멸이 약 430배 느려진다.
+   - 해결책? 각각 인스턴스에 대해서 자신의 종료 여부를 유지 관리해야 한다. 예를 들면, InputStream 과 OputStream은 각각 close() 함수를 별도로 제공하고 있다. 
+            현재는 쓰지 않는 것을 권장하고 있다.
+ 
+           
+ 
+  
+ 
+  
+ 
+
  
   
  
