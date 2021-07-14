@@ -236,6 +236,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    - 일반 연산자 앞에서는 줄 바꿈이 없다.
    - 대입 연산자에서는 뒤에서 줄 바꿈이 일어난다. ex) Tab을 통한 들여쓰기 +4 공간 사용.
     <br>
+    
      ```
      public static void main(String[] args) {
 
@@ -243,6 +244,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
                result();
      }
      ```
+    
     <br>
    
    - 메소드 및 생성자의 이름에는 괄호"("를 부착한 상태로 유지한다.
@@ -252,13 +254,6 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      <br>
 
      ```
-      public static void main(String[] args) {
-
-          int num = 
-                result();
-      }
-
-
       public static int result() {
 
           Scanner sc = new Scanner(System.in);
