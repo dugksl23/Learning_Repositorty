@@ -73,6 +73,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
    ![스크린샷 2021-07-13 오전 11 11 19](https://user-images.githubusercontent.com/68539491/125379194-0f549600-e3cb-11eb-8107-41af82a0a27b.png)
    
+   ![image](https://user-images.githubusercontent.com/68539491/125582901-f6ad9826-6d79-4405-b0b7-3635d90d2ac6.png)
+
  - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.(*class 내의 또 다른 class 선언)
  - 클래스 내용의 순서 
     * 클래스 멤버의 순서는 절대적인 것이 없다. 하지만, 순서가 논리적이여야 한다. <br>
@@ -80,6 +82,68 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     * class 생성자의 오버로딩을 통해 여러개가 존재할 경우, 이들은 순차적으로 작성되어야만 한다. 중간에 다른 멤버를 작성할 순 없다.<br>
 
     ```
+
+
+    public class JoinMemberDto {
+
+        int idx;
+        String memberName;
+        String password;
+        int address;
+        int tel;
+
+        public JoinMemberDto() {
+        }
+
+        public JoinMemberDto(int idx, String memberName, String password, int address, int tel) {
+            this.idx = idx;
+            this.memberName = memberName;
+            this.password = password;
+            this.address = address;
+            this.tel = tel;
+        }
+
+        public int getIdx() {
+            return idx;
+        }
+
+        public void setIdx(int idx) {
+            this.idx = idx;
+        }
+
+        public String getMemberName() {
+            return memberName;
+        }
+
+        public void setMemberName(String memberName) {
+            this.memberName = memberName;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public int getAddress() {
+            return address;
+        }
+
+        public void setAddress(int address) {
+            this.address = address;
+        }
+
+        public int getTel() {
+            return tel;
+        }
+
+        public void setTel(int tel) {
+            this.tel = tel;
+        }
+    }
+
     
     ```
     
