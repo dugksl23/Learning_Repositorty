@@ -152,9 +152,6 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
     ```
     
-    
-    
-<br>
 <br>
     
     
@@ -220,7 +217,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
        return a + b;
     }
     
-    public static int calculator(String operator, int a, int b){
+    public static int calculator(String operator, int a, int b) {
        
        if(operator == "+") return sum(a, b);
        else return -1;
@@ -241,20 +238,20 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      public static void main(String[] args) {
 
          int num = 
-               result();
+                calculator();
      }
      ```
     
     <br>
    
-   - 메소드 및 생성자의 이름에는 괄호"("를 부착한 상태로 유지한다.
+   - 메소드 및 생성자의 이름에는 괄호"("를 부착한 상태로 유지한다. (*IJ의 자동 정렬 기능에서는 공백 문자를 사용한다.)
    - 한 줄로 표현해야 하는 줄을 여러개의 줄로 나누었다고 했을 경우에는 줄바꿈을 해야 한다. <br>
      하지만, 줄 바꿈을 모든 상황에서 적용할 수 있는 포괄적인 공식은 없으며 하나의 구문에서 줄 바꿈을 하는 여러가지 방식이 존재한다.<br>
      ex) 메소드 또는 지역변수를 활용하여 코드의 라인을 줄일 수 있다.
      <br>
 
      ```
-      public static int result() {
+      public static int calculator() {
 
           Scanner sc = new Scanner(System.in);
           System.out.println("연산할 숫자를 입력해주세요. : a ");
@@ -266,12 +263,14 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
           System.out.println("연산할 부호를 입력해주세요. : +, -, *, / ");
           String operator = sc.next();
 
-          return calculator(operator, a, b);
+          return result(operator, a, b);
 
       }
 
-      public static int calculator(String operator, int a, int b) {
-          if (operator == "+") return sum(3, 4);
+      public static int result(String operator, int a, int b) {
+          if (operator == "+") return sum(a, b); \
+          // or 
+          IntStream.
           else return -1;
       }
 
@@ -280,6 +279,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       }
 
      ```
+     <br>
    
    
  - **수평 공백**
@@ -316,9 +316,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
          e.printStackTrace();
       }
 
-
     ```
-    
+<br>
+
  - **수평 공백이 허용되는 예외**
     
     - @Anotation({a, b});
@@ -327,13 +327,14 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       (Car::new)<br>
     - 배열 내의 배열
       String[][] arr = {{"1", "2,", "3"}}  
+       <br>
    
  - **수직 공백**
 
     - 수직 공백은 한 줄 공백이라고 한다.
     - 필드, 생성자, 중첩 메소드. 클래스 사이
     - 여러 줄의 빈 줄은 허용하지만, 추천하지 않는다.
-      
+       <br>
  
  - **변수 수평 정렬**
     - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
@@ -344,11 +345,12 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     private int  a; // 허용되나, 권장하지 않음. 2번의 문자 공백.
     
    ```
-  
+   <br>
+   
  - **변수 수평 정렬**
     - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
     - 변수 수평 정렬은 Google Java Coding Convention에서는 필요로 하지 않다.
-   
+    <br>
 
  - **그룹핑**
  
@@ -374,7 +376,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
         
       }
     ```
-    
+     <br>
   - **특수한 구조**
 
      ## Enum class
@@ -444,8 +446,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       }
    
      ```
- 
-   
+    <br>
      ## 배열 선언 (배열 초기화)
 
      - 열거 및 줄 바꿈 가능.
@@ -481,8 +482,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       String arg[]; // 불허
 
      ```
-     
- - **특수한 구조**
+  <br>    
+ - **Swtich 구문**
   
    - Google Java Style guid에서는 스페이스 +2의 공백 문자를 들여쓰기의 기준으로 설정하고 있다.
    - switch 구문의 default 구문은 해당 코드가 없더라도 넣어야 한다.
@@ -496,6 +497,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      }
      
    ```
+    <br>
  - **Anodation 어노테이션**
  
    - 어노테이션은 documentation block 이후의 클래스, 메소드, 생성자에 바로 적용이 된다.
@@ -528,9 +530,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       return new ResponseEntity<>(HttpStatus.OK);
 
    }
-   ``
-   
-  - **블럭 주석**
+   ```
+    <br>
+     - **블럭 주석**
   
     - 블럭 주석은 컴파일 시 해당 코드 라인들을 무시한다.
     - 주석의 종류
@@ -539,6 +541,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       3) 문서 주석 : /** 문서 내용 **/
 
 
+  <br>  
    
   - **수정자(접근제한자)**
   
@@ -548,7 +551,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     ```
      public protected private abstract default final static stransient volatile synchronized natice strictfp
     ```
-    
+    <br>  
   - **숫자형 리터럴**
 
     - long 형과 float형 변수는 대문자 L과 F를 접미어로 사용하여, 숫자의 자릿수를 혼동되지 않게끔 한다.
@@ -560,7 +563,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       long num2 = 300000000L (x)
           
     ```      
- 
+ <br>  
  ---
  
  ## 5. 네이밍
