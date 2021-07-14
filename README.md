@@ -77,6 +77,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    
    ![image](https://user-images.githubusercontent.com/68539491/125582901-f6ad9826-6d79-4405-b0b7-3635d90d2ac6.png)
 
+<br>
+
  - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.(*class 내의 또 다른 class 선언)
  - 클래스 내용의 순서 
     * 클래스 멤버의 순서는 절대적인 것이 없다. 하지만, 순서가 논리적이여야 한다. <br>
