@@ -323,11 +323,25 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
     - @Anotation({a, b});
     - 람다식 객체 및 메소드 참조 표현식 "::" <br>
-      (Integer::intValue)<br>
-      (Car::new)<br>
-    - 배열 내의 배열
-      String[][] arr = {{"1", "2,", "3"}}  
-       <br>
+
+    ```
+    int[] arr = Arrays.asList(1, 2. 3. 4. 5);
+    arr.stream()
+             .forEach(System.out::println);
+   
+   List<Car> cars = Arrays.of(car1, car2);
+   List<Integer> carsIdx =  cars.stream()
+                                    .mapToInt(Car::Idx)
+                                    .collect(Collectors.toList());
+    ```
+    <br>
+    - 배열 내의 배열<br>
+    
+    ```
+     String[][] arr = {{"1", "2,", "3"}}  
+     ```
+    <br>
+    
    
  - **수직 공백**
 
@@ -482,7 +496,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       String arg[]; // 불허
 
      ```
-  <br>    
+  <br>  
+  
  - **Swtich 구문**
   
    - Google Java Style guid에서는 스페이스 +2의 공백 문자를 들여쓰기의 기준으로 설정하고 있다.
@@ -497,7 +512,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      }
      
    ```
+   
     <br>
+    
  - **Anodation 어노테이션**
  
    - 어노테이션은 documentation block 이후의 클래스, 메소드, 생성자에 바로 적용이 된다.
