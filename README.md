@@ -43,15 +43,6 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
  *
  */
  
-<!-- 
- * javadoc이란? JDK 와 함께 패키지로 제공되는 특수 도구이다.<br>
-   HTML 형식으로 Java 소스 코드의 코드 문서를 생성하는 데 사용된다.쉽게 말해서 주석이라고 이해하면 편하다.
- * javadoc의 주석
-   1) 한 줄 주석 : //
-   2) 여러줄 주석 : /* ~~~ */
-   3) 문서 주석 : /** 문서 내용 **/
- -->
-
 package java.util;
 
 import java.util.function.Consumer;
@@ -730,27 +721,54 @@ public class ArrayList<E> extends AbstractList<E>
  
  ## 7. Javadoc
   
-  - **기본 포멧팅**
+  * javadoc이란? JDK 와 함께 패키지로 제공되는 특수 도구이며, HTML 형식으로 Java 소스 코드의 코드 문서를 생성하는 데 사용된다. <br>
+    즉, API 문서를 HTML 형식을 생성해준다는 것이다. HTML 형식이기에 하이퍼링크를 통해 접근이 가능하다는 장점이 있다.
  
-  ```
-  /**
-  * JavaDoc Example
-  *
-  * @param a
-  */
+  * javadoc의 주석의 종류
  
-  ```
+    1) 한 줄 주석 : //
+    2) 여러줄 주석 : /* ~~~ */
+    3) 문서 주석 : /** 문서 내용 **/
+
+   - **기본 포멧팅**
+
+   ```
+   /**
+   * Resizable-array implementation of the <tt>List</tt> interface.  Implements
+   * all optional list operations, and permits all elements, including
+   * <tt>null</tt>.  In addition to implementing the <tt>List</tt> interface,
+   * this class provides methods to manipulate the size of the array that is
+   * used internally to store the list.  (This class is roughly equivalent to
+   * <tt>Vector</tt>, except that it is unsynchronized.)
+   * <a href="{@docRoot}/../technotes/guides/collections/index.html">
+   * Java Collections Framework</a>.
+   
+   errrr//...
+   
+   * @author  Josh Bloch
+   * @author  Neal Gafter
+   * @see     Collection
+   * @see     List
+   * @see     LinkedList
+   * @see     Vector
+   * @since   1.2
+   */
+   
+   <!-- Java ArrayList의 Javadoc -->
+
+   ```
   
-  - **한줄 포멧팅**
+  * **한줄 포멧팅**
   
   ```
-  /** An especially short bit of Javadoc. */
-  ```
-  
+    /**
+     * A version of rangeCheck used by add and addAll.
+     */
+  ``` 
  
-  - /** 다음은 공백이며, 줄바꿈을 해야 한다.
-  - 문단과 문단 사이에는 공백 문자가 들어가며, @ 시작하기 전에도 공백 문자가 들어간다.
-  - @param, @return, @throws, @deprecated 순으로 사용된다. 
+  * /** 다음은 공백이며, 줄바꿈을 해야 한다.
+  * 문단과 문단 사이에는 공백 문자가 들어가며, @ 시작하기 전에도 공백 문자가 들어간다.
+  * @param, @return, @throws, @deprecated 순으로 사용된다. 
     설명은 반드시 기술해야 하며, 한 문장을 넘어가면 4개 이상의 공백 문자(스페이스)로 들여쓰기를 한다.
   
  
