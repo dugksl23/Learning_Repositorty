@@ -7,16 +7,16 @@
 
 ## 1. 개요
 
-이 문서는 Java 프로그래밍 언어의 소스 코드에 대한 Google Style로 규약된 코딩 스타일이다. <br>
-Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Google style로 프로그래밍 된 것이라고 규정할 수 있다. <br>
+이 문서는 Java 프로그래밍 소스 코드에 대한 Google Style로 규약된 코딩 스타일이다. <br>
+Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Google style로 프로그래밍 된 것이라고 규정할 수 있다.<br>
 
-이외에도 코딩 규약은 여러 종류가 있습니다만, Java의 경우에는 Google의 코딩 규약을 많이 사용한다. 
+이외에도 코딩 규약은 여러 종류가 있지만, Java의 경우에는 Google의 코딩 규약을 많이 사용한다. 
 <br>
 <br>
 
 ## 2. 소스 파일 기본 사항
 
- - 소스 파일 이름(확장자는 .java로 지정.)이 포함된 최상위 클래스의 대소문자 구별을 통해 명명하며, 첫글자는 대문자로 한다.
+ - 소스 파일 이름(확장자는 .java로 지정.)이 포함된 최상위 클래스를 대소문자 구별을 통해 작성하며, 첫글자는 대문자로 한다.
  - 파일의 인코딩은 UTF-8로 인코딩 한다. 
    ex) IJ
  
@@ -24,42 +24,47 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
 
  
  
- - 공백 문자는 소스 파일에서 아무 곳에서나 나타나는 유일한 공백 문자입니다. <br>
-   ex) 0x20(32): 스페이스 키(공백), 그러나 문자의 진수 0x00(0), NULL: 널 문자는 사용하지 않는다.
+ - 공백 문자는 소스 파일에서 아무 곳에서나 사용 가능한 유일한 문자입니다. <br>
+   ex) 0x20(32) 스페이스 키(공백) -> ASCII CODE 에서 유일한 공백 문자이다.
+       0x00(0) NUL (NULL Character) -> 널 문자는 0으로 대입이 된다. 
+       
  - 코드 내에서 특수 문자를 사용할 때, 이스케이프 시퀀스를 사용한다. <br> 
-   ex) \b, \t, \n, \f, \r, \", \', \ or \\ 등을 사용한다. 
+ 
+   <img width="670" alt="스크린샷 2021-07-14 오후 4 10 39" src="https://user-images.githubusercontent.com/68539491/125578960-c1d6f62b-8d5a-420d-8286-de98879719d7.png"> 
 <br>
 <br>
 
 ## 3. 소스 파일의 구조
 
-![스크린샷 2021-07-13 오전 11 04 54](https://user-images.githubusercontent.com/68539491/125378687-2b0b6c80-e3ca-11eb-8c25-8ee1f7a3fb34.png)
+소스 파일 구조 또한 코딩 규칙(convention)이라고 볼 수 있다. 개발 뿐만 아니라, 유지보수에서도 통일성 있는 규격을 가진다면 가독성을 높일 수 있고, 동일성을 보장받을 수 있게 된다.
+Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동일성을 보장하기 위해서 패키지(package)로 구성하였다.
+
+   ![스크린샷 2021-07-13 오전 11 04 54](https://user-images.githubusercontent.com/68539491/125378687-2b0b6c80-e3ca-11eb-8c25-8ee1f7a3fb34.png)
 
 
-```
-/*
- * Copyright (c) 1997, 2017, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
- */
- 
-package java.util;
+ ```
+ /*
+  * Copyright (c) 1997, 2017, Oracle and/or its affiliates. All rights reserved.
+  * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+  *
+  */
 
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-import sun.misc.SharedSecrets;
+ package java.util;
 
-public class ArrayList<E> extends AbstractList<E>
-        implements List<E>, RandomAccess, Cloneable, java.io.Serializable
-{
-    private static final long serialVersionUID = 8683452581122892189L;
+ import java.util.function.Consumer;
+ import java.util.function.Predicate;
+ import java.util.function.UnaryOperator;
+ import sun.misc.SharedSecrets;
 
-    ...
-}
+ public class ArrayList<E> extends AbstractList<E>
+         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+ {
+     private static final long serialVersionUID = 8683452581122892189L;
 
-```
+     ...
+ }
 
+ ```
 
  - Package 문의 경우에는 되도록 한문장으로 써야 한다.
  - import 문에서 와일드 카드 ( * ) 는 사용하지 않는다.
@@ -68,11 +73,18 @@ public class ArrayList<E> extends AbstractList<E>
  
    ![스크린샷 2021-07-13 오전 11 11 19](https://user-images.githubusercontent.com/68539491/125379194-0f549600-e3cb-11eb-8107-41af82a0a27b.png)
    
- - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.
+ - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.(*class 내의 또 다른 class 선언)
  - 클래스 내용의 순서 
-    * 클래스 멤버의 순서는 절대적인 것이 없다. 다만, 이들의 순서가 논리적이여야 한다. <br>
+    * 클래스 멤버의 순서는 절대적인 것이 없다. 하지만, 순서가 논리적이여야 한다. <br>
       ex) 새 메소드가 추가되었다고 하여, class의 가장 마지막에 구현되는 것은 논리적이지 않다.
-    * class 생성자의 오버로딩을 통해 여러개가 존재할 경우, 이들은 순차적으로 작성되어야만 한다. 중간에 다른 멤버를 작성할 순 없다.
+    * class 생성자의 오버로딩을 통해 여러개가 존재할 경우, 이들은 순차적으로 작성되어야만 한다. 중간에 다른 멤버를 작성할 순 없다.<br>
+
+    ```
+    
+    ```
+    
+    
+    
 <br>
 <br>
     
