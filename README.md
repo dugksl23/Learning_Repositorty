@@ -201,13 +201,13 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    
    ```
  
- - **줄 바꿈 없는 잘못된 방식**
+ - **줄 바꿈 없는 방식**
 
    ```
      public static void main(String[] args){sum(3,4)} 
    ```
    
- - **괄호 생략한 잘못된 방식**
+ - **괄호 생략한 방식**
  
    ```
     public static void main(String[] args) {
