@@ -480,15 +480,196 @@ public class ArrayList<E> extends AbstractList<E>
 
     - long 형과 float형 변수는 대문자 L과 F를 접미어로 사용하여, 숫자의 자릿수를 혼동되지 않게끔 한다.
     - 접미어로 소문자는 사용하지 않는다.
-      ex) 300000000l (x)
-          300000000L (x)
+    
+    
+    ```
+      long num = 300000000l (x)
+      long num2 = 300000000L (x)
           
-          
-           
+    ```      
+ 
+ ---
+ 
+ ## 5. 네이밍
+
+ - **모든 식별자에 적용되는 규칙**
+
+   모든 식별자들은 ASCII 와 숫자 값만을 사용해야 한다. 식별자에 prefix 또는 suffixes는 사용하지 않는다.<br>
+   아래와 같은 형태의 식별자는 사용되지 않는다.
+ 
+   ex) name_  snake case
+       mName camel case
+
+ - **패키지 이름**
+   
+   패키지 이름은 모두 소문자로 이루어진다.
+   snake case를 사용하지 않으며, 단순히 단어들이 연속으로 쓰여진 형태이다.
+   
+   ```
+   com.example.googlestyle
+   
+   ```
+   
+ - **클래스 및 인터페이스 이름**
+   
+   클래스 이름은 UpperCamelCase로 작성이 되며, 명사구로 명명되어져야 한다.
+   
+   ```
+   Character, DataList
+   ```
+   
+   그러나 간혹 형용사 또는 형용사구로 대신할 수 있다.
+   
+   ```
+   actable, immutable
+   ```
+   
+   JUnit을 통한 테스트 클래스는 테스트 하는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
+   
+   ```
+   RegistrationTest
+   SignOutTest
+   
+   ```
+   
+ - **메소드 이름**
+   
+   메소드의 이름은 lowerCase로 작성이 되며, 동사 또는 동사구로 명명 되어져야 한다.
+   
+   ```
+   signUpMember
+   sendMessage
+   ```
+   
+   JUnit을 통한 메소드 테스트의 명명 규칙을 lowerCase로 작성이 되며, 동사구 또는 동사로 명명 되어져야 한다.
+   다만, 전형적인 하나의 패턴을 가지고 있다. ex) <methodUnderTest>_<state> -> pop_emptyStack
+   
+   ```
+   signUpMemberTest
+   sendMessageTest
+   signOutMemberTest
+   signOutMember_fail
+   ```
+   
+ - **상수**
+   
+   상수는 Constant_case를 사용한다. 모두 대문자를 작성되며, 단어 사이에 밑줄을 표시하여 명사구 또는 명사로 명명 되어져야 한다.
+   또한 상수는 static final 키워드로 정의된 필드이며, 이 필드에 정의된 내용은 불변해야 한다.
+ 
+   ```
+   static final int MONDAY = 1;
+   static final int TUESDAY = 2;
+   static final int WEDESDAY = 3;
+   static final int THURSDAY = 4;
+   static final int FRIDAY = 5;
+   static final int SATURDAY = 6;
+   static final int SUNDAY = 7;
+ 
+   static final int SUBTRACT_INT_VALUE = 1;
+   static final int FIRST_INT_VALUE = 2;
+   static final int SECOND_INT_VALUE = 3;
+
+   ```
+ 
+ - **class의 멤버변수 field**
+  
+   상수가 아닌 class의 field는 loswerCamel case로 작성된다.
+ 
+   ```
+   int idx;
+   String userName;
+   int userPassword;
+   int address;
+ 
+   ```
+ 
+ - **매개변수 Parameter**
+  
+   매개변수의 이름은 lowerCase로 작성이 된다.<br>
+   public 메소드에서 한 문자로 된 파라미터 네이밍은 피해야 한다.(?)
+ 
+   ```
+   public static void main(String[] args){
+     // ...
+   }
+ 
+   ```
+ 
+ - **지역변수 local variable**
+  
+   지역변수의 이름은 lowerCase로 작성이 된다. 또한 final처럼 constant_case로서 상수처럼 사용해선 안 되기에 상수 스타일로 네이밍이 되어져선 안 된다.
+  
+   ```
+   public static void main(String[] args){
+     
+      int idx;
+      // ...
+ 
+   }
+ 
+   ```
+ 
+ 
+ - **타입 변수 primitive variable**
+  
+   각각의 기본형 타입 변수는 아래 둘 중 하나의 방법으로 작성된다.
+   1) 하나의 대문자, 선택적으로 하나의 숫자 추가 기능.
+   2) 클래스 명명 규칙 + 대문자 
+ 
+   ```
+   E, T, T2
+   RequestT
+   ```
+ 
+ - **타입 변수 primitive variable**
+  
+   각각의 기본형 타입 변수는 아래 둘 중 하나의 방법으로 작성된다.
+   1) 하나의 대문자, 선택적으로 하나의 숫자 추가 기능.
+   2) 클래스 명명 규칙 + 대문자 
+ 
+   ```
+   E, T, T2
+   RequestT
+   ```
+ 
+ - **Camel case**
+   
+   Java에서 대체적으로 사용되는 coding style 또는 convention은 Camel case이다.
+   Camel case는 첫글자는 소문자로 시작하며, 합성어의 첫글자만 대문자로 시작하는 규칙을 가지고 있다.
+   이러한 모양새가 낙타와 비슷하다고 하여 카멜 케이스라고 불리고 있다. 단, 패키지, 클래스, 인터페이스, enum과 같은 명명 규칙에는 예외가 된다.
+ 
+ 
+   ```
+   int memberName;
+ 
+   public void fetchUserDetail(){
+     //...
+   }
+
+   ```
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+      
+    
+
+
     
    
    
-   
+
 
 
    
