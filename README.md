@@ -187,7 +187,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    <br>
    
      ```
-      public class GoogleJavaConvention {
+      public class Calculation {
 
         public staic void main(String[] args) {
 
