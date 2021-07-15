@@ -280,7 +280,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      <br>
    
    
- - **수평 공백** (?)
+ - **수평 공백** 
     
     - if, for catch와 같은  다음에 오는 여는 "(" 사이에 공백문자.
     - 닫히는 ")" 뒤에 오는 {} 사이에도 공백문자.
@@ -325,28 +325,29 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
  - **수평 공백이 허용되는 예외**
     
-    - @Anotation({a, b});
+    - @PostMapping({"/api/register/userInfo"})
     - 람다식 객체 및 메소드 참조 표현식 "::" <br>
 
     ```
-    int[] arr = Arrays.asList(1, 2. 3. 4. 5);
+    int[] arr = Arrays.asList(1, 2, 3, 4, 5);
     arr.stream()
-             .forEach(System.out::println);
+           .forEach(System.out::println);
    
-   List<Car> cars = Arrays.of(car1, car2);
-   List<Integer> carsIdx =  cars.stream()
-                                    .mapToInt(Car::Idx)
+    Car[] cars = Sttream.of(car1, car2).toArray(Car[]::new);
+    List<Integer> carsIdx =  cars.stream()
+                                    .mapToObj(Car::number)
                                     .collect(Collectors.toList());
+    ```
+    
     <br>
     - 배열 내의 배열<br>
-    
     ```
-     String[][] arr = {{"1", "2,", "3"}}  
-     ```
+    String[][] arr = {{"1", "2,", "3"}}  
+    ```
     <br>
     
    
- - **수직 공백** (?)
+ - **수직 공백 (줄 바꿈 공백)**
 
     - 수직 공백은 한 줄 공백이라고 한다.
     - 필드, 생성자, 중첩 메소드. 클래스 사이
