@@ -637,19 +637,17 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    클래스 이름은 UpperCamelCase로 작성이 되며, 명사구로 명명되어져야 한다.
    
    ```
-   Character, DataList
+   Character, DataList, Controller
    ```
  
-<br>
  
    그러나 간혹 형용사 또는 형용사구로 대신할 수 있다.
    
    ```
-   actable, immutable
+   Actable, Immutable
    ```
    
-<br>
-   
+  
    JUnit을 통한 클래스(Entity)를 TDD를 하는 경우에는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
    
    ```
