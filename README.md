@@ -621,10 +621,12 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    모든 식별자들은 ASCII CODE와 숫자 값만을 사용해야 한다. <br>
    아래와 같은 형태의 식별자는 사용되지 않는다.
  
-   ex) name_  snake case
-       <br>
-       mName camel case
- <br>      
+   ex) 
+ 
+   name_ (snake case) <br>
+   mName (camel case)
+ 
+ <br>       
        
 
  - **패키지 이름**
@@ -645,14 +647,18 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    ```
    Character, DataList
    ```
-   
+ 
+  <br>
+ 
    그러나 간혹 형용사 또는 형용사구로 대신할 수 있다.
    
    ```
    actable, immutable
    ```
    
-   JUnit을 통한 테스트 클래스는 테스트 하는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
+   <br>
+   
+   JUnit을 통한 클래스(Entity)를 TDD를 하는 경우에는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
    
    ```
    RegistrationTest
@@ -671,9 +677,15 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    sendMessage
    ```
    
-   JUnit을 통한 메소드 테스트의 명명 규칙을 lowerCase로 작성이 되며, 동사구 또는 동사로 명명 되어져야 한다.
-   다만, 전형적인 하나의 패턴을 가지고 있다. ex) <methodUnderTest>_<state> -> pop_emptyStack
+   <br>
    
+   JUnit을 통해 메소드를 TDD 하는 경우에는 lowerCase로 작성이 되며, 동사구 또는 동사로 명명 되어져야 한다.
+   또는, TDD의 목적은 모든 경우의 수를 상정하고 해당 API를 테스트하는 것에 있다. 그렇기에 전형적인 하나의 패턴을 가지고 있다.
+   ex) <methodUnderTest>_<state> -> pop_emptyStack
+   
+   다시 말하면, "테스트할 메소드 이름 + Test" + "_" + "예상 결과"로 작성하면 된다.
+   이는 해당 TDD의 결과값이 empty임을 예상하고 진행하는 TDD이기에 문제가 되지 않는다.
+ 
    ```
    signUpMemberTest
    sendMessageTest
@@ -683,10 +695,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
  <br>
    
- - **상수**
+ - **상수 Constant**
    
    상수는 Constant_case를 사용한다. 모두 대문자를 작성되며, 단어 사이에 밑줄을 표시하여 명사구 또는 명사로 명명 되어져야 한다.
-   또한 상수는 static final 키워드로 정의된 필드이며, 이 필드에 정의된 내용은 불변해야 한다.
+   또한, 상수는 static final 키워드로 정의된 필드이며, 이 필드에 정의된 내용은 불변해야 한다.
+   JS의 const와 같은 기능을 한다.
  
    ```
    static final int MONDAY = 1;
@@ -702,9 +715,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    static final int SECOND_INT_VALUE = 3;
 
    ```
-<br>
  
- - **class의 멤버변수 field**
+<br>
+
+ 
+ - **class의 멤버변수 Field**
   
    상수가 아닌 class의 field는 loswerCamel case로 작성된다.
  
@@ -715,7 +730,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    int address;
  
    ```
+ 
  <br>
+ 
  
  - **매개변수 Parameter**
   
@@ -728,9 +745,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
  
    ```
+ 
  <br>
  
- - **지역변수 local variable**
+ 
+ - **지역변수 Local variable**
   
    지역변수의 이름은 lowerCase로 작성이 된다. 또한 final처럼 constant_case로서 상수처럼 사용해선 안 되기에 상수 스타일로 네이밍이 되어져선 안 된다.
   
@@ -745,25 +764,12 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    ```
  <br>
  
- - **타입 변수 primitive variable**
-  
-   각각의 기본형 타입 변수는 아래 둘 중 하나의 방법으로 작성된다.
-   1) 하나의 대문자, 선택적으로 하나의 숫자 추가 기능.
-   2) 클래스 명명 규칙 + 대문자 
- 
-   ```
-   E, T, T2
-   RequestT
-   ```
-
- <br>
- 
  
  - **Camel case**
    
-   Java에서 대체적으로 사용되는 coding style 또는 convention은 Camel case이다.
-   Camel case는 첫글자는 소문자로 시작하며, 합성어의 첫글자만 대문자로 시작하는 규칙을 가지고 있다.
-   이러한 모양새가 낙타와 비슷하다고 하여 카멜 케이스라고 불리고 있다. 단, 패키지, 클래스, 인터페이스, enum과 같은 명명 규칙에는 예외가 된다.
+   Java에서 대체적으로 사용되는 coding convention은 Camel case이다.
+   Camel case는 첫글자를 소문자로 시작하며, 합성어의 첫글자만 대문자로 시작하는 규칙을 가지고 있다.
+   이러한 모양이 마치 낙타와 비슷하다고 하여 카멜 케이스라고 불리고 있다. 단, 패키지, 클래스, 인터페이스, enum과 같은 명명 규칙에는 예외가 된다.
  
  
    ```
@@ -784,15 +790,16 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
  - **@override 항상 명시**
  
-   @Override 어노테이션을 사용할 수 있는 메소드는 반드시 붙인다. 이는 Super class와 상속관계를 갖는 childClass에서 Super class의 메소드를 오버라이딩 하고 있음을 나타내는 것이다.
-  (*abstract class포함)
-   또는 class의 메소드가 interface의 메소드를 구현하고 있음을 나타내고 있거나, interface 메소드가 Super interface 메소드를 재 구현하고 있음을 표현하는 것이기도 하다.
- 
+   @Override 어노테이션을 사용할 수 있는 메소드는 반드시 붙인다. 이는 Super class와 상속관계를 갖는 ChildClass에서 Super class의 메소드를 오버라이딩 하고 있음을 나타내는 것이다.
+  (*abstract class포함)<br>
+   또는 class의 메소드가 interface의 메소드를 구현하고 있음을 나타내고 있거나, interface 메소드가 Super interface 메소드를 정의하고 있음을 표현하는 것이기도 하다.
+  
+  <br>
   
  - **throws와 try-catch** 
  
    throws(예외)는 내부적으로 소스 코드를 컴파일 하는 과정에서는 발견하지 못하며, 외부 접근에 의해 프로그램 실행 중에 예상치 못하게 발생하는 오류 사항들을 예외라고 부른다.
-   이러한 예외들을 throws를 사용해서 해당 메소드를 사용하는 사람들에게 예외를 전가시키고, try-cath(예외 처리)를 통해서 Exception의 종류를 보여줌으로서 예상되는 오류를 명시해 주는 것이다.
+   이러한 예외들을 throws를 사용해서 해당 메소드를 사용하는 사용자들에게 예외를 전가시키고, try-cath(예외 처리)를 통해서 Exception의 종류를 보여줌으로서 예상되는 오류를 명시해 주는 것이다.<br>
    ex) NullPointException
  
    ```
@@ -834,6 +841,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    piublic class CarTest {
      
     @Test
+    @DisplayName("Car 클래스의 Instance 테스트")
     public void CarInstanceTest() {
       
        Car car = new Car();
@@ -849,8 +857,10 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
  
  - **Finalizers**
- 
-   - 언제 실행이 될 지 알 수가 없으며, 가비지 컬렉터에 의해서 호출이 되기 때문에 임의의 시점에 실행이 된다. 실행 시간이 중요한 코드는 finalizer에 두지 않는다.
+   
+   - finalizer는 객체가 소멸될 때 메모리를 관리할 수 있도록 호출되기로 약속이 된 메소드이다. 
+   - 언제 실행이 될 지 알 수가 없으며, 가비지 컬렉션(garbage collection)에 의해서 호출이 되기 때문에 임의의 시점에 실행이 된다. 
+   - 실행 시간이 중요한 코드는 finalizer에 두지 않는다.
    - finalizer의 실행 주기는 전적으로 JVM 구현에 달려있기에 JVM 마다 다른 양상은 띈다.
    - 자바 언어 명세에는 finalizer의 실행 시기를 보장하지는 않는다.
    - finalizer 수행 중에 예외가 발생하면 예외가 무시된다.
@@ -864,7 +874,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
  ## 7. Javadoc
   
-  * javadoc이란? JDK 와 함께 패키지로 제공되는 특수 도구이며, HTML 형식으로 Java 소스 코드의 코드 문서를 생성하는 데 사용된다. <br>
+  * javadoc이란? <br>
+    JDK 와 함께 패키지로 제공되는 특수 도구이며, HTML 형식으로 Java 소스 코드의 코드 문서를 생성하는 데 사용된다. <br>
     즉, API 문서를 HTML 형식을 생성해준다는 것이다. HTML 형식이기에 하이퍼링크를 통해 접근이 가능하다는 장점이 있다.
  
   * javadoc의 주석의 종류
