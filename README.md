@@ -630,8 +630,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    ```
    signupMemberTest
    sendMessageTest
-   signOutMemberTest
-   signOutMember_fail
+   signoutMemberTest
+   signoutMember_fail
    ```
  
  <br>
