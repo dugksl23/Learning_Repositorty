@@ -680,9 +680,15 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    public 메소드에서 한 문자로 된 파라미터 네이밍은 피해야 한다.
  
    ```
-   public static void method(int a){
-     // ...
+   public static void method(int args){
+     // 가능
    }
+ 
+   public static void method(int a){
+     // 불가능
+   }
+ 
+  
  
    ```
  
