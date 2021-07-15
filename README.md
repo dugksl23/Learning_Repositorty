@@ -522,10 +522,10 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      
      ```
      @PostMapping({value = '/api/register/Member'})
-     public void signUpMember(@valid @ReqeustBody MemberDto memberDto) {
+     public void registerMember(@valid @ReqeustBody MemberDto memberDto) {
 
         Optional<MemberEntity> signUpMember = Optional.of(memberDto.toEntity());
-        memberService.signUpMember(signUpEntity.get());
+        memberService.registerMember(signUpEntity.get());
 
         return new ResponseEntity<>(HttpStatus.OK);
 
