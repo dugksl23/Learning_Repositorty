@@ -169,34 +169,34 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    - 닫는 괄호 뒤에는 줄 바꿈이 있다.
    <br>
    
-   ```
-    public class GoogleJavaConvention {
-    
-      public staic void main(String[] args) {
-        
-        int result = calcurator("+", 3, 4);
-        
-      }
-    
-    
-       public static int calculator(String operator, int a, int b) {
-         
-         if (operator == "+") {
-           return sum(a, b);
+     ```
+      public class GoogleJavaConvention {
+
+        public staic void main(String[] args) {
+
+          int result = calcurator("+", 3, 4);
+
+        }
+
+
+         public static int calculator(String operator, int a, int b) {
+
+           if (operator == "+") {
+             return sum(a, b);
+           }
+
          }
-       
-       }
-    
-       public static int sum (int a, int b) {
-       
-         return a + b;
-       
-       }
-    
-    
-    }
-   
-   ```
+
+         public static int sum (int a, int b) {
+
+           return a + b;
+
+         }
+
+
+      }
+
+     ```
  
  - **줄 바꿈 없는 방식**
 
@@ -289,38 +289,38 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     - 연산자의 앞뒤로도 공백문자
     <br>
     
-    ``` 
-      if (true) {
-         // ...         
-      }
-      
-      float num = a + i;
+     ``` 
+       if (true) {
+          // ...         
+       }
 
-      if (booleanTest) { 
+       float num = a + i;
+
+       if (booleanTest) { 
+          // ...
+       } else {
+          // ...
+       }
+
+       for (int i = 0; i < 10; i++) {
          // ...
-      } else {
-         // ...
-      }
+       }
 
-      for (int i = 0; i < 10; i++) {
-        // ...
-      }
-      
-      
-      List<Car> cars = Stream.of(new Car(1), new Car(2)).collect(Collectors.toList());
-      for (Car car : cars) {
-          System.out.println(car.getNumber())
-      }
-      
-      (Integer) num; 
 
-      try {
-         calculator("+", 3, 4);
-      } catch (Error e) {
-         e.printStackTrace();
-      }
+       List<Car> cars = Stream.of(new Car(1), new Car(2)).collect(Collectors.toList());
+       for (Car car : cars) {
+           System.out.println(car.getNumber())
+       }
 
-    ```
+       (Integer) num; 
+
+       try {
+          calculator("+", 3, 4);
+       } catch (Error e) {
+          e.printStackTrace();
+       }
+
+     ```
 <br>
 
  - **수평 공백이 허용되는 예외**
@@ -328,24 +328,24 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     - @PostMapping({"/api/register/userInfo"})
     - 람다식 객체 및 메소드 참조 표현식 "::" <br>
 
-    ```
-    int[] arr = Arrays.asList(1, 2, 3, 4, 5);
-    arr.stream()
-           .forEach(System.out::println);
-   
-    Car[] cars = Sttream.of(car1, car2).toArray(Car[]::new);
-    List<Integer> carsIdx =  cars.stream()
-                                    .mapToObj(Car::number)
-                                    .collect(Collectors.toList());
-    ```
+      ```
+      int[] arr = Arrays.asList(1, 2, 3, 4, 5);
+      arr.stream()
+             .forEach(System.out::println);
+
+      Car[] cars = Sttream.of(car1, car2).toArray(Car[]::new);
+      List<Integer> carsIdx =  cars.stream()
+                                      .mapToObj(Car::number)
+                                      .collect(Collectors.toList());
+      ```
     
     <br>
     - 배열 내의 배열
     <br>
     
-    ```
-    String[][] arr = {{"1", "2,", "3"}}  
-    ```
+      ```
+      String[][] arr = {{"1", "2,", "3"}}  
+      ```
     
     <br>
     
@@ -360,11 +360,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  - **변수 수평 정렬**
     - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
     - 변수 수평 정렬은 Google Java Coding Convention에서는 필요로 하지 않다.
-   
-   ```
-    private int a; int b; int c; int d; // 옳지 않다.
-    private int  a; // 허용되나, 권장하지 않음. 2번의 문자 공백.
-    
+
+      ```
+       private int a; int b; int c; int d; // 옳지 않다.
+       private int  a; // 허용되나, 권장하지 않음. 2번의 문자 공백.
+
    ```
    <br>
    
@@ -534,7 +534,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
  - **Annotation 어노테이션**
  
-   - 어노테이션은 documentation block 이후의 클래스, 메소드, 생성자에 바로 적용이 된다.
+   - 어노테이션은 Documentation block 이후의 클래스, 메소드, 생성자에 바로 적용이 된다.
    - 각각의 어노테이션은 한 줄에 하나씩 쓴다.
 
      ```
@@ -556,11 +556,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    <br>
 
 
-   - documentation block 바로 다음 필드에도 어노테이션이 적용될 수 있다.<br>
+   - Documentation block 바로 다음 필드에도 어노테이션이 적용될 수 있다.<br>
      이 경우에는 어노테이션을 매개변수에 한줄로 사용 가능하다.
      
      ```
-     @PostMapping({value = 'signUpMember'})
+     @PostMapping({value = '/api/register/Member'})
      public void signUpMember(@valid @ReqeustBody MemberDto memberDto) {
 
         Optional<MemberEntity> signUpMember = Optional.of(memberDto.toEntity());
@@ -574,11 +574,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
     - **블럭 주석**
   
-    - 블럭 주석은 컴파일 시 해당 코드 라인들을 무시한다.
-    - 주석의 종류
-      1) 한 줄 주석 : //
-      2) 여러줄 주석 : /* ~~~ */
-      3) 문서 주석 : /** 문서 내용 **/
+      - 블럭 주석은 컴파일 시 해당 코드 라인들을 무시한다.
+      - 주석의 종류
+        1) 한 줄 주석 : //
+        2) 여러줄 주석 : /* ~~~ */
+        3) 문서 주석 : /** 문서 내용 **/
 
 
   <br>  
@@ -588,24 +588,24 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     - 클래스와 메소드 및 필드의 제한자는 자바 언어 명세서에 권장되는 포멧팅(예약어)를 따른다.
     - 한 줄에 열거형으로 사용할 경우에는 아래와 같은 순서를 따른다.
     
-    ```
-     public protected private abstract default final static stransient volatile synchronized natice strictfp
-    ```
+      ```
+       public protected private abstract default final static stransient volatile synchronized natice strictfp
+      ```
     <br>  
   - **숫자형 리터럴**
 
     - long 형과 float형 변수는 대문자 L과 F를 접미어로 사용하여, 숫자의 자릿수를 혼동되지 않게끔 한다.
     - 접미어로 소문자는 사용하지 않는다.
-    
-    
-    ```
-      long num = 300000000l (x)
-      long num2 = 300000000L (x)
-          
+
+
+      ```
+        long num = 300000000l (x)
+        long num2 = 300000000L (x)
+
     ```      
  <br>  
- ---
  
+
  ## 5. 네이밍
 
  - **모든 식별자에 적용되는 규칙**
