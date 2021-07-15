@@ -524,8 +524,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      @PostMapping({value = '/api/register/Member'})
      public void registerMember(@valid @ReqeustBody MemberDto memberDto) {
 
-        Optional<MemberEntity> signUpMember = Optional.of(memberDto.toEntity());
-        memberService.registerMember(signUpEntity.get());
+        Optional<MemberEntity> signupMember = Optional.of(memberDto.toEntity());
+        memberService.registerMember(signupEntity.get());
 
         return new ResponseEntity<>(HttpStatus.OK);
 
@@ -614,7 +614,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    메소드의 이름은 lowerCase로 작성이 되며, 동사 또는 동사구로 명명 되어져야 한다.
    
    ```
-   signUpMember
+   signupMember
    sendMessage
    ```
    
@@ -628,7 +628,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    이는 해당 테스트 코드의 결과값이 empty임을 예상하고 진행하는 것이기에 문제가 되지 않는다.
  
    ```
-   signUpMemberTest
+   signupMemberTest
    sendMessageTest
    signOutMemberTest
    signOutMember_fail
