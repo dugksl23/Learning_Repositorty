@@ -244,9 +244,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
     <br>
    
-   - 메소드 및 생성자의 이름에는 괄호"("를 부착한 상태로 유지한다. (*IJ의 자동 정렬 기능에서는 공백 문자를 사용한다.)
-   - 한 줄로 표현해야 하는 줄을 여러개의 줄로 나누었다고 했을 경우에는 줄바꿈을 해야 한다. <br>
-     하지만, 줄 바꿈을 모든 상황에서 적용할 수 있는 포괄적인 공식은 없으며 하나의 구문에서 줄 바꿈을 하는 여러가지 방식이 존재한다.<br>
+   - 메소드 및 생성자의 이름에는 괄호"("를 부착한 상태로 유지한다.
+   - 한 줄로 표현해야 하는 줄을 여러 개의 줄로 나누었다고 했을 경우에는 줄바꿈을 해야 한다. <br>
+     하지만, 줄 바꿈을 모든 상황에서 적용할 수 있는 포괄적인 공식은 없으며, 하나의 구문에서 줄 바꿈을 하는 방식은 각각 존재한다.<br>
      ex) 메소드 또는 지역변수를 활용하여 코드의 라인을 줄일 수 있다.
      <br>
 
@@ -268,9 +268,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       }
 
       public static int result(String operator, int a, int b) {
-          if (operator == "+") return sum(a, b); \
-          // or 
-          IntStream.
+          if (operator == "+") return sum(a, b);
           else return -1;
       }
 
@@ -286,7 +284,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
     - if, for catch와 같은  다음에 오는 여는 "(" 사이에 공백문자.
     - 닫히는 ")" 뒤에 오는 {} 사이에도 공백문자.
-    - else, try, catch 다음에 오는 {} 사이에도 공백문자.
+    - else, try 다음에 오는 {} 사이에도 공백문자.
     - "," / ":" / ";" or 타입 캐스트 시의 ")" 다음에도 공백 문자. 
     - 연산자의 앞뒤로도 공백문자
     <br>
@@ -306,6 +304,12 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
       for (int i = 0; i < 10; i++) {
         // ...
+      }
+      
+      
+      List<Car> cars = Stream.of(new Car(1), new Car(2)).collect(Collectors.toList());
+      for (Car car : cars) {
+          System.out.println(car.getNumber())
       }
       
       (Integer) num; 
@@ -333,7 +337,6 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    List<Integer> carsIdx =  cars.stream()
                                     .mapToInt(Car::Idx)
                                     .collect(Collectors.toList());
-    ```
     <br>
     - 배열 내의 배열<br>
     
