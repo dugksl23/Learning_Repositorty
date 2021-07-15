@@ -341,9 +341,6 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
       ```
         private class MyClass {
-          // 수직 공백
-          int a = 0;
-          int b = 0;
 
           // 그룹화
           {
