@@ -407,9 +407,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      - 상수들의 집합체 or 상수들의 열거형.
      - 각 Enum 상수는 "," 이후에 열거 또는 줄 바꿈을 허용한다.
      - 상수를 나타날 때에는 대문자를 사용한다.
-     - Enum은 final static 예약어가 생략되어져 있다. same as interface형
-     - enum의 열거형 상수 뿐 아니라, 추가적으로 생성자의 파라미터를 통해 enum class의 필드에 초기값으로 설정하고, getter 함수를 통해 해당 속성을 사용할 수 있다.
-     
+     - Enum은 final static 예약어가 생략되어져 있다. same as interface
+     - enum의 열거형 상수 및 생성자의 매개변수를 통해 enum class의 필드에 값을 초기화하고, getter 함수를 통해 해당 속성을 사용할 수 있다.
+     <br>
       
      ```
 
@@ -419,7 +419,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
          SOMETHING{
             @Override
             public String toString() {
-            
+               return "SOMETHING";
             }
          }
 
@@ -456,12 +456,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
               DayTest day = DayTest.SOMETHING;
               switch (day) {
                   case SOMETHING:
-                      System.out.println("DayTest.SOMETHING);
+                      System.out.println("SOMETHING");
                       
               }
               
-              
-              DayTest day = DayTest.MONDAY;
+              DayTest day2 = DayTest.MONDAY;
               System.out.println(day.getKrName());
           }
           
@@ -469,8 +468,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    
      ```
     <br>
-     ## 배열 선언 (배열 초기화)
-
+    
+     ## 배열 
+     
      - 열거 및 줄 바꿈 가능.
      - 쉼표 이후에 공백 문자.
 
