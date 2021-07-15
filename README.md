@@ -409,6 +409,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
        - 상수를 나타날 때에는 대문자를 사용한다.
        - Enum은 final static 예약어가 생략되어져 있다. same as interface
        - enum의 열거형 상수 및 생성자의 매개변수를 통해 enum class의 필드에 값을 초기화하고, getter 함수를 통해 해당 속성을 사용할 수 있다.
+       
        <br>
 
        ```
@@ -471,9 +472,14 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
        
     - **배열**
+       <br>
+
      
        - 열거 및 줄 바꿈 가능.
        - 쉼표 이후에 공백 문자.
+       
+       <br>
+
 
        ```
        new int[] {
@@ -511,7 +517,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
   
    - Google Java Style guid에서는 스페이스 +2의 공백 문자를 들여쓰기의 기준으로 설정하고 있다.
    - switch 구문의 default 구문은 해당 코드가 없더라도 넣어야 한다.
-     
+   
+       <br>
+  
    ```
      int num = 1;
      switch (1) {
@@ -529,6 +537,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    - 어노테이션은 documentation block 이후의 클래스, 메소드, 생성자에 바로 적용이 된다.
    - 각각의 어노테이션은 한 줄에 하나씩 쓴다.
    
+       <br>
+
    ```
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -537,6 +547,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
    - 예외적으로, 매개변수가 없는 어노테이션은 열거형으로 작성 가능.
    
+       <br>
+
    ```
    @Nullable public String getName(){ 
        //... 
@@ -546,6 +558,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    - documentation block 바로 다음 필드에도 어노테이션이 적용될 수 있다.<br>
      이 경우에는 어노테이션을 매개변수에 한줄로 사용 가능하다.
      
+       <br>
+
    ```
    @PostMapping({value = 'signUpMember'})
    public void signUpMember(@valid @ReqeustBody MemberDto memberDto) {
@@ -558,6 +572,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
    ```
     <br>
+    
      - **블럭 주석**
   
     - 블럭 주석은 컴파일 시 해당 코드 라인들을 무시한다.
