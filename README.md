@@ -845,8 +845,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     public void CarInstanceTest() {
       
        Car car = new Car();
-       Car.carNumber = 123; // class로 접근 
-       car.carNumber = 0 // 객체로 접근(x) 
+       Car.carNumber = 123; // class로 접근은 허용.
+       car.carNumber = 0 // 객체로 접근은 권장하지 않는다. 
  
     }
  
