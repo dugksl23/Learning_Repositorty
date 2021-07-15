@@ -79,11 +79,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
 <br>
 
- - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.(*class 내의 또 다른 class 선언)
+ - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.<br>(*class 내의 또 다른 class 선언)
  - 클래스 내용의 순서 
     * 클래스 멤버의 순서는 절대적인 것이 없다. 하지만, 순서가 논리적이여야 한다. <br>
       ex) 새 메소드가 추가되었다고 하여, class의 가장 마지막에 구현되는 것은 논리적이지 않다.
-    * class 생성자의 오버로딩을 통해 여러개가 존재할 경우, 이들은 순차적으로 작성되어야만 한다. 중간에 다른 멤버를 작성할 순 없다.
+    * class 생성자의 오버로딩을 통해 여러 개가 존재할 경우, 이들은 순차적으로 작성되어야만 한다. 중간에 다른 멤버를 작성할 순 없다.
     <br>
     
     ```
@@ -178,21 +178,19 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
         }
 
-
-         public static int calculator(String operator, int a, int b) {
+        public static int calculator(String operator, int a, int b) {
 
            if (operator == "+") {
              return sum(a, b);
            }
 
-         }
+        }
 
-         public static int sum (int a, int b) {
+        public static int sum (int a, int b) {
 
            return a + b;
 
          }
-
 
       }
 
@@ -211,7 +209,6 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
             
          int num = calculator("+", 3, 4);
     }
-    
     
     public static int sum (int a, int b) {
        return a + b;
@@ -329,7 +326,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     - 람다식 객체 및 메소드 참조 표현식 "::" <br>
 
       ```
-      int[] arr = Arrays.asList(1, 2, 3, 4, 5);
+      var arr = new int[](1, 2, 3, 4, 5);
       arr.stream()
              .forEach(System.out::println);
 
@@ -344,7 +341,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     - 배열 내의 배열
 
       ```
-      String[][] arr = {{"1", "2,", "3"}}  
+      var arr3 = new String[][]{{"1","2"}};
+ 
       ```
 
     <br>
@@ -369,18 +367,12 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       ```
  
  <br>
-   
- - **변수 수평 정렬**
-    - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
-    - 변수 수평 정렬은 Google Java Coding Convention에서는 권장하지 않는다.
-    <br>
 
  - **그룹핑 (추천)**
  
-    - 코드 작성자와 리뷰어가 더욱 쉽게 상호 간의 동의가 있을 때 사용한다.
+    - 코드 작성자와 리뷰어가 상호 간의 동의가 있을 때 사용한다.
     - 선택적 그룹핑을 통해서 가독성을 높힐 수 있다.    
-    - 수직 공백이 내포되어 있다.
-   
+    
       ```
         private class MyClass {
           // 수직 공백
@@ -607,7 +599,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
       ```
         long num = 300000000l (x)
-        long num2 = 300000000L (x)
+        long num2 = 300000000L (o)
 
       ```      
     
@@ -648,7 +640,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    Character, DataList
    ```
  
-  <br>
+<br>
  
    그러나 간혹 형용사 또는 형용사구로 대신할 수 있다.
    
@@ -656,7 +648,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    actable, immutable
    ```
    
-   <br>
+<br>
    
    JUnit을 통한 클래스(Entity)를 TDD를 하는 경우에는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
    
