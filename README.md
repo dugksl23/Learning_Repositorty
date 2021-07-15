@@ -366,7 +366,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
        private int a; int b; int c; int d; // 옳지 않다.
        private int  a; // 허용되나, 권장하지 않음. 2번의 문자 공백.
 
-   ```
+      ```
  
  <br>
    
