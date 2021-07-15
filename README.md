@@ -618,11 +618,13 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
  - **모든 식별자에 적용되는 규칙**
 
-   모든 식별자들은 ASCII 와 숫자 값만을 사용해야 한다. 식별자에 prefix 또는 suffixes는 사용하지 않는다.<br>
+   모든 식별자들은 ASCII CODE와 숫자 값만을 사용해야 한다. <br>
    아래와 같은 형태의 식별자는 사용되지 않는다.
  
    ex) name_  snake case
        mName camel case
+ <br>      
+       
 
  - **패키지 이름**
    
@@ -633,7 +635,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    com.example.googlestyle
    
    ```
-   
+ <br>
+  
  - **클래스 및 인터페이스 이름**
    
    클래스 이름은 UpperCamelCase로 작성이 되며, 명사구로 명명되어져야 한다.
@@ -655,7 +658,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    SignOutTest
    
    ```
-   
+
+<br>
+  
  - **메소드 이름**
    
    메소드의 이름은 lowerCase로 작성이 되며, 동사 또는 동사구로 명명 되어져야 한다.
@@ -674,6 +679,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    signOutMemberTest
    signOutMember_fail
    ```
+ 
+ <br>
    
  - **상수**
    
@@ -694,6 +701,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    static final int SECOND_INT_VALUE = 3;
 
    ```
+<br>
  
  - **class의 멤버변수 field**
   
@@ -706,6 +714,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    int address;
  
    ```
+ <br>
  
  - **매개변수 Parameter**
   
@@ -718,6 +727,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
  
    ```
+ <br>
  
  - **지역변수 local variable**
   
@@ -732,18 +742,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
  
    ```
- 
- 
- - **타입 변수 primitive variable**
-  
-   각각의 기본형 타입 변수는 아래 둘 중 하나의 방법으로 작성된다.
-   1) 하나의 대문자, 선택적으로 하나의 숫자 추가 기능.
-   2) 클래스 명명 규칙 + 대문자 
- 
-   ```
-   E, T, T2
-   RequestT
-   ```
+ <br>
  
  - **타입 변수 primitive variable**
   
@@ -755,6 +754,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    E, T, T2
    RequestT
    ```
+
+ <br>
+ 
  
  - **Camel case**
    
@@ -771,13 +773,15 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
 
    ```
+
+ <br>
  
- ---
+
  
  ## 6. 프로그래밍 관례
  
  
- - **@override 항상 명시** (?)
+ - **@override 항상 명시**
  
    @Override 어노테이션을 사용할 수 있는 메소드는 반드시 붙인다. 이는 Super class와 상속관계를 갖는 childClass에서 Super class의 메소드를 오버라이딩 하고 있음을 나타내는 것이다.
   (*abstract class포함)
@@ -810,6 +814,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
  
    ```
+ <br>
+ 
  
  - **static 정적 변수 및 정적 메소드**
    
@@ -838,6 +844,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    }
  
    ```
+ <br>
+ 
  
  - **Finalizers**
  
@@ -850,8 +858,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
            ex) InputStream 과 OputStream은 각각 close() 함수를 별도로 제공 -> 현재는 쓰지 않는 것을 권장.
  
  
- ---
+ <br>
  
+
  ## 7. Javadoc
   
   * javadoc이란? JDK 와 함께 패키지로 제공되는 특수 도구이며, HTML 형식으로 Java 소스 코드의 코드 문서를 생성하는 데 사용된다. <br>
@@ -863,41 +872,43 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     2) 여러줄 주석 : /* ~~~ */
     3) 문서 주석 : /** 문서 내용 **/
 
+ <br>
+
    - **기본 포멧팅**
 
-   ```
-   /**
-   * Resizable-array implementation of the <tt>List</tt> interface.  Implements
-   * all optional list operations, and permits all elements, including
-   * <tt>null</tt>.  In addition to implementing the <tt>List</tt> interface,
-   * this class provides methods to manipulate the size of the array that is
-   * used internally to store the list.  (This class is roughly equivalent to
-   * <tt>Vector</tt>, except that it is unsynchronized.)
-   * <a href="{@docRoot}/../technotes/guides/collections/index.html">
-   * Java Collections Framework</a>.
-   
-   errrr//...
-   
-   * @author  Josh Bloch
-   * @author  Neal Gafter
-   * @see     Collection
-   * @see     List
-   * @see     LinkedList
-   * @see     Vector
-   * @since   1.2
-   */
-   
-   <!-- Java ArrayList의 Javadoc -->
+     ```
+     /**
+     * Resizable-array implementation of the <tt>List</tt> interface.  Implements
+     * all optional list operations, and permits all elements, including
+     * <tt>null</tt>.  In addition to implementing the <tt>List</tt> interface,
+     * this class provides methods to manipulate the size of the array that is
+     * used internally to store the list.  (This class is roughly equivalent to
+     * <tt>Vector</tt>, except that it is unsynchronized.)
+     * <a href="{@docRoot}/../technotes/guides/collections/index.html">
+     * Java Collections Framework</a>.
 
-   ```
-  
+     * @author  Josh Bloch
+     * @author  Neal Gafter
+     * @see     Collection
+     * @see     List
+     * @see     LinkedList
+     * @see     Vector
+     * @since   1.2
+     */
+
+     <!-- Java ArrayList의 Javadoc -->
+
+     ```
+ 
+<br>
+ 
   * **한줄 포멧팅**
   
-  ```
-    /**
-     * A version of rangeCheck used by add and addAll.
-     */
-  ``` 
+   ```
+     /**
+      * A version of rangeCheck used by add and addAll.
+      */
+   ``` 
  
   * /** 다음은 공백이며, 줄바꿈을 해야 한다.
   * 문단과 문단 사이에는 공백 문자가 들어가며, @ 시작하기 전에도 공백 문자가 들어간다.
