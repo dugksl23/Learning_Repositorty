@@ -670,11 +670,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    <br>
    
    JUnit을 통해 메소드를 TDD 하는 경우에는 lowerCase로 작성이 되며, 동사구 또는 동사로 명명 되어져야 한다.
-   또는, TDD의 목적은 모든 경우의 수를 상정하고 해당 API를 테스트하는 것에 있다. 그렇기에 전형적인 하나의 패턴을 가지고 있다.
+   또한 TDD의 목적은 모든 경우의 수를 상정하고 해당 API를 테스트하는 것에 있다. 그렇기에 전형적인 하나의 패턴을 가지고 있다.<br>
    ex) <methodUnderTest>_<state> -> pop_emptyStack
    
-   다시 말하면, "테스트할 메소드 이름 + Test" + "_" + "예상 결과"로 작성하면 된다.
-   이는 해당 TDD의 결과값이 empty임을 예상하고 진행하는 TDD이기에 문제가 되지 않는다.
+   "테스트할 메소드 이름 + Test" + "_" + "예상 결과"로 작성하면 된다.
+   이는 해당 테스트 코드의 결과값이 empty임을 예상하고 진행하는 것이기에 문제가 되지 않는다.
  
    ```
    signUpMemberTest
@@ -688,9 +688,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  - **상수 Constant**
    
    상수는 Constant_case를 사용한다. 모두 대문자를 작성되며, 단어 사이에 밑줄을 표시하여 명사구 또는 명사로 명명 되어져야 한다.
-   또한, 상수는 static final 키워드로 정의된 필드이며, 이 필드에 정의된 내용은 불변해야 한다.
-   JS의 const와 같은 기능을 한다.
- 
+   상수는 static final 키워드로 정의된 필드이며, 이 필드에 정의된 내용은 불변해야 한다.
+
    ```
    static final int MONDAY = 1;
    static final int TUESDAY = 2;
@@ -727,10 +726,10 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  - **매개변수 Parameter**
   
    매개변수의 이름은 lowerCase로 작성이 된다.<br>
-   public 메소드에서 한 문자로 된 파라미터 네이밍은 피해야 한다.(?)
+   public 메소드에서 한 문자로 된 파라미터 네이밍은 피해야 한다.
  
    ```
-   public static void main(String[] args){
+   public static void method(int a){
      // ...
    }
  
@@ -741,7 +740,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
  - **지역변수 Local variable**
   
-   지역변수의 이름은 lowerCase로 작성이 된다. 또한 final처럼 constant_case로서 상수처럼 사용해선 안 되기에 상수 스타일로 네이밍이 되어져선 안 된다.
+   지역변수의 이름은 lowerCase로 작성이 된다.<vbr>
+   상수처럼 사용해선 안 되기에 상수 스타일로 네이밍이 되어져선 안 된다.
   
    ```
    public static void main(String[] args){
@@ -790,7 +790,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
    throws(예외)는 내부적으로 소스 코드를 컴파일 하는 과정에서는 발견하지 못하며, 외부 접근에 의해 프로그램 실행 중에 예상치 못하게 발생하는 오류 사항들을 예외라고 부른다.
    이러한 예외들을 throws를 사용해서 해당 메소드를 사용하는 사용자들에게 예외를 전가시키고, try-cath(예외 처리)를 통해서 Exception의 종류를 보여줌으로서 예상되는 오류를 명시해 주는 것이다.<br>
-   ex) NullPointException
+   ex) NullPointException, IllegalArgumentException
  
    ```
    try {
