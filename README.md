@@ -507,7 +507,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
           new int[]
                {0, 1, 2, 3, 4}
 
-          ```
+          ``` 
 
        - 대괄호는 변형에 붙인다.
 
@@ -521,7 +521,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
  - **Swtich 구문**
   
-   - Google Java Style guid에서는 스페이스 +2의 공백 문자를 들여쓰기의 기준으로 설정하고 있다.
+   - Google Java Style guide에서는 스페이스 +2의 공백 문자를 들여쓰기의 기준으로 설정하고 있다.
    - switch 구문의 default 구문은 해당 코드가 없더라도 넣어야 한다.
    
        <br>
@@ -597,7 +597,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       ```
        public protected private abstract default final static stransient volatile synchronized natice strictfp
       ```
-    <br>  
+    <br>
+    
   - **숫자형 리터럴**
 
     - long 형과 float형 변수는 대문자 L과 F를 접미어로 사용하여, 숫자의 자릿수를 혼동되지 않게끔 한다.
@@ -608,7 +609,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
         long num = 300000000l (x)
         long num2 = 300000000L (x)
 
-    ```      
+      ```      
+    
  <br>  
  
 
