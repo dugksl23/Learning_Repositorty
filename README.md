@@ -402,110 +402,111 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      <br>
   - **특수한 구조**
 
-     ## Enum class
+    - **Enum class**
      
-     - 상수들의 집합체 or 상수들의 열거형.
-     - 각 Enum 상수는 "," 이후에 열거 또는 줄 바꿈을 허용한다.
-     - 상수를 나타날 때에는 대문자를 사용한다.
-     - Enum은 final static 예약어가 생략되어져 있다. same as interface
-     - enum의 열거형 상수 및 생성자의 매개변수를 통해 enum class의 필드에 값을 초기화하고, getter 함수를 통해 해당 속성을 사용할 수 있다.
-     <br>
-      
-     ```
+       - 상수들의 집합체 or 상수들의 열거형.
+       - 각 Enum 상수는 "," 이후에 열거 또는 줄 바꿈을 허용한다.
+       - 상수를 나타날 때에는 대문자를 사용한다.
+       - Enum은 final static 예약어가 생략되어져 있다. same as interface
+       - enum의 열거형 상수 및 생성자의 매개변수를 통해 enum class의 필드에 값을 초기화하고, getter 함수를 통해 해당 속성을 사용할 수 있다.
+       <br>
 
-     public enum DayTest {
+       ```
 
-         MONDAY("월요일"), TUESDAY("화요일"), WEDNESDAY("수요일"), THURSDAY("목요일"), FRIDAY("금요일"), SATURDAY("목요일"), SUNDAY("일요일");
-         SOMETHING{
-            @Override
-            public String toString() {
-               return "SOMETHING";
-            }
-         }
+       public enum DayTest {
 
-         private String krName;
-
-         DayTest(String days) {
-             krName = days;
-         }
-
-         public String getKrName(){
-             return this.krName;
-         }
-
-     }
-
-     private class EnumExample {
-     
-       private final static int MONDAY = 1;
-       private final static int TUSEDAY = 2;
-       private final static int WENDSDAY = 3;
-       private final static int THURSDAY = 4;
-       private final static int FRIDAY = 5;
-       private final static int SATURDAY = 6;
-       private final static int SUNDAY = 7;
-        
-     }
-     
-     
-   
-      class enumExample {
-
-          public static void main(String[] args) {
-
-              DayTest day = DayTest.SOMETHING;
-              switch (day) {
-                  case SOMETHING:
-                      System.out.println("SOMETHING");
-                      
+           MONDAY("월요일"), TUESDAY("화요일"), WEDNESDAY("수요일"), THURSDAY("목요일"), FRIDAY("금요일"), SATURDAY("목요일"), SUNDAY("일요일");
+           SOMETHING{
+              @Override
+              public String toString() {
+                 return "SOMETHING";
               }
-              
-              DayTest day2 = DayTest.MONDAY;
-              System.out.println(day.getKrName());
-          }
-          
-      }
-   
-     ```
-    <br>
-    
-     ## 배열 
+           }
+
+           private String krName;
+
+           DayTest(String days) {
+               krName = days;
+           }
+
+           public String getKrName(){
+               return this.krName;
+           }
+
+       }
+
+       private class EnumExample {
+
+         private final static int MONDAY = 1;
+         private final static int TUSEDAY = 2;
+         private final static int WENDSDAY = 3;
+         private final static int THURSDAY = 4;
+         private final static int FRIDAY = 5;
+         private final static int SATURDAY = 6;
+         private final static int SUNDAY = 7;
+
+       }
+
+
+
+        class enumExample {
+
+            public static void main(String[] args) {
+
+                DayTest day = DayTest.SOMETHING;
+                switch (day) {
+                    case SOMETHING:
+                        System.out.println("SOMETHING");
+
+                }
+
+                DayTest day2 = DayTest.MONDAY;
+                System.out.println(day.getKrName());
+            }
+
+        }
+
+       ```
+      <br>
+
+       
+    - **배열**
      
-     - 열거 및 줄 바꿈 가능.
-     - 쉼표 이후에 공백 문자.
+       - 열거 및 줄 바꿈 가능.
+       - 쉼표 이후에 공백 문자.
 
-     ```
-     new int[] {
-         1, 2, 3, 4, 5, 6
-     }
+       ```
+       new int[] {
+           1, 2, 3, 4, 5, 6
+       }
 
-     new int[] {
-          1,
-          2,
-          3,
-          4,
-          5
-     }
+       new int[] {
+            1,
+            2,
+            3,
+            4,
+            5
+       }
 
-     new int[]{
-       0, 1,
-       2, 3
-     }
+       new int[]{
+         0, 1,
+         2, 3
+       }
 
-     new int[]
-          {0, 1, 2, 3, 4}
+       new int[]
+            {0, 1, 2, 3, 4}
 
-     ```
+       ```
 
-     - 대괄호는 변형에 붙인다.
+       - 대괄호는 변형에 붙인다.
 
-     ```
-      String[] arg; // 허용
-      String arg[]; // 불허
+       ```
+        String[] arg; // 허용
+        String arg[]; // 불허
 
-     ```
-  <br>  
-  
+       ```
+    <br>  
+
  - **Swtich 구문**
   
    - Google Java Style guid에서는 스페이스 +2의 공백 문자를 들여쓰기의 기준으로 설정하고 있다.
