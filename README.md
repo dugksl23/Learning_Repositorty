@@ -1,7 +1,7 @@
 # Google-Java-Style-Guide
 
 
-## made by 요한 김 <br>
+## made by 김 요한 <br>
 
 # 목차
 #### 1. 개요
