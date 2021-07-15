@@ -213,9 +213,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      ```
  
  - **줄 바꿈 없는 방식 (권장하지 않음)**
-
+   중괄호 사이에 문자가 없다면 문제가 되지 않난다.
    ```
-     public static void main(String[] args){sum(3,4)} 
+     public static void main(String[] args){sum(3,4)} // 불가능
+     public static void main(String[] args){}         // 가능
+     
    ```
    
  - **괄호 생략한 방식**
@@ -239,59 +241,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
     
    ```
    <br>
-  
- - **Line - Wrapping**
-  
-   - 각 구문은 하나의 줄 바꿈을 가진다. 
-   - 일반 연산자 앞에서는 줄 바꿈이 없다.
-   - 대입 연산자에서는 뒤에서 줄 바꿈이 일어난다. ex) Tab을 통한 들여쓰기 +4 공간 사용.
-    <br>
-    
-     ```
-     public static void main(String[] args) {
-
-         int num = 
-                calculator();
-     }
-     ```
-    
-    <br>
-   
-   - 메소드 및 생성자의 이름에는 괄호"("를 부착한 상태로 유지한다.
-   - 한 줄로 표현해야 하는 줄을 여러 개의 줄로 나누었다고 했을 경우에는 줄바꿈을 해야 한다. <br>
-     하지만, 줄 바꿈을 모든 상황에서 적용할 수 있는 포괄적인 공식은 없으며, 하나의 구문에서 줄 바꿈을 하는 방식은 각각 존재한다.<br>
-     ex) 메소드 또는 지역변수를 활용하여 코드의 라인을 줄일 수 있다.
-     <br>
-
-     ```
-      public static int calculator() {
-
-          Scanner sc = new Scanner(System.in);
-          System.out.println("연산할 숫자를 입력해주세요. : a ");
-          int a = sc.nextInt();
-
-          System.out.println("연산할 숫자를 입력해주세요. : b ");
-          int b = sc.nextInt();
-
-          System.out.println("연산할 부호를 입력해주세요. : +, -, *, / ");
-          String operator = sc.next();
-
-          return result(operator, a, b);
-
-      }
-
-      public static int result(String operator, int a, int b) {
-          if (operator == "+") return sum(a, b);
-          else return -1;
-      }
-
-      public static int sum(int a, int b) {
-          return a + b;
-      }
-
-     ```
-     <br>
-   
+     
    
  - **수평 공백** 
     
