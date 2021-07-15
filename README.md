@@ -415,62 +415,62 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
        
        <br>
 
-       ```
+         ```
 
-       public enum DayTest {
+         public enum DayTest {
 
-           MONDAY("월요일"), TUESDAY("화요일"), WEDNESDAY("수요일"), THURSDAY("목요일"), FRIDAY("금요일"), SATURDAY("목요일"), SUNDAY("일요일");
-           SOMETHING{
-              @Override
-              public String toString() {
-                 return "SOMETHING";
-              }
-           }
-
-           private String krName;
-
-           DayTest(String days) {
-               krName = days;
-           }
-
-           public String getKrName(){
-               return this.krName;
-           }
-
-       }
-
-       private class EnumExample {
-
-         private final static int MONDAY = 1;
-         private final static int TUSEDAY = 2;
-         private final static int WENDSDAY = 3;
-         private final static int THURSDAY = 4;
-         private final static int FRIDAY = 5;
-         private final static int SATURDAY = 6;
-         private final static int SUNDAY = 7;
-
-       }
-
-
-
-        class enumExample {
-
-            public static void main(String[] args) {
-
-                DayTest day = DayTest.SOMETHING;
-                switch (day) {
-                    case SOMETHING:
-                        System.out.println("SOMETHING");
-
+             MONDAY("월요일"), TUESDAY("화요일"), WEDNESDAY("수요일"), THURSDAY("목요일"), FRIDAY("금요일"), SATURDAY("목요일"), SUNDAY("일요일");
+             SOMETHING{
+                @Override
+                public String toString() {
+                   return "SOMETHING";
                 }
+             }
 
-                DayTest day2 = DayTest.MONDAY;
-                System.out.println(day.getKrName());
-            }
+             private String krName;
 
-        }
+             DayTest(String days) {
+                 krName = days;
+             }
 
-       ```
+             public String getKrName(){
+                 return this.krName;
+             }
+
+         }
+
+         private class EnumExample {
+
+           private final static int MONDAY = 1;
+           private final static int TUSEDAY = 2;
+           private final static int WENDSDAY = 3;
+           private final static int THURSDAY = 4;
+           private final static int FRIDAY = 5;
+           private final static int SATURDAY = 6;
+           private final static int SUNDAY = 7;
+
+         }
+
+
+
+          class enumExample {
+
+              public static void main(String[] args) {
+
+                  DayTest day = DayTest.SOMETHING;
+                  switch (day) {
+                      case SOMETHING:
+                          System.out.println("SOMETHING");
+
+                  }
+
+                  DayTest day2 = DayTest.MONDAY;
+                  System.out.println(day.getKrName());
+              }
+
+          }
+
+         ```
       <br>
 
        
