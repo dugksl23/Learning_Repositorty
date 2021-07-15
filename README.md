@@ -904,11 +904,11 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
   * **한줄 포멧팅**
   
-   ```
-     /**
-      * A version of rangeCheck used by add and addAll.
-      */
-   ``` 
+     ```
+       /**
+        * A version of rangeCheck used by add and addAll.
+        */
+     ``` 
  
   * /** 다음은 공백이며, 줄바꿈을 해야 한다.
   * 문단과 문단 사이에는 공백 문자가 들어가며, @ 시작하기 전에도 공백 문자가 들어간다.
