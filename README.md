@@ -542,7 +542,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long idx;
      ```
-         <br>
+     <br>
 
      - 예외적으로, 매개변수가 없는 어노테이션은 열거형으로 작성 가능.
 
@@ -552,7 +552,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
      }
      ```
    
+   
    <br>
+
 
    - documentation block 바로 다음 필드에도 어노테이션이 적용될 수 있다.<br>
      이 경우에는 어노테이션을 매개변수에 한줄로 사용 가능하다.
