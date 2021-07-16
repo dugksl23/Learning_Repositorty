@@ -395,13 +395,13 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
          private class EnumExample {
 
-           private final static int MONDAY = 1;
-           private final static int TUSEDAY = 2;
-           private final static int WENDSDAY = 3;
-           private final static int THURSDAY = 4;
-           private final static int FRIDAY = 5;
-           private final static int SATURDAY = 6;
-           private final static int SUNDAY = 7;
+           private final static String MONDAY = "월요일";
+           private final static String TUSEDAY = "화요일";
+           private final static String WENDSDAY = "수요일";
+           private final static String THURSDAY = "목요일";
+           private final static String FRIDAY = "금요일";
+           private final static String SATURDAY = "토요일";
+           private final static String SUNDAY = "일요일";
 
          }
 
