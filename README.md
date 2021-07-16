@@ -92,8 +92,6 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  
    ![스크린샷 2021-07-13 오전 11 11 19](https://user-images.githubusercontent.com/68539491/125379194-0f549600-e3cb-11eb-8107-41af82a0a27b.png)
    
-   ![image](https://user-images.githubusercontent.com/68539491/125582901-f6ad9826-6d79-4405-b0b7-3635d90d2ac6.png)
-
 <br>
 
  - 하나의 소스 파일(.java)에는 하나의 class만 존재해야 하며, nested class는 존재해선 안 된다.<br>(*class 내의 또 다른 class 선언)
