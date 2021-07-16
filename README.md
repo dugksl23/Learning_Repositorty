@@ -47,7 +47,7 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
 
 ## 3. 소스 파일의 구조
 
-소스 파일 구조 또한 코딩 규칙(convention)이라고 볼 수 있다. 
+소스 파일 구조 또한 코딩 규칙(convention)이라고 볼 수 있다. <br>
    ![스크린샷 2021-07-13 오전 11 04 54](https://user-images.githubusercontent.com/68539491/125378687-2b0b6c80-e3ca-11eb-8c25-8ee1f7a3fb34.png)
 
 
