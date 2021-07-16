@@ -365,7 +365,8 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
        - 각 Enum 상수는 "," 이후에 열거 또는 줄 바꿈을 허용한다.
        - 상수를 나타날 때에는 대문자를 사용한다.
        - Enum은 final static 예약어가 생략되어져 있다. same as interface
-       - enum의 열거형 상수 및 생성자의 매개변수를 통해 enum class의 필드에 값을 초기화하고, getter 함수를 통해 해당 속성을 사용할 수 있다.
+       - 고정된 상수들의 집합이기에 외부 접근을 제한하기 위해서 생성자는 private 속성이 default 이다. 
+       - enum의 열거형 상수는 특정 값을 명시할 수 있다. 다만, 이 경우에는 private Enum filed와 생성자를 작성해주어야 한다. public getter 함수를 통해 해당 속성을 사용할 수 있다.
        
        <br>
 
