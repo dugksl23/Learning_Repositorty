@@ -394,13 +394,13 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
 
          private class EnumExample {
 
-           private final static String MONDAY = "월요일";
-           private final static String TUSEDAY = "화요일";
-           private final static String WENDSDAY = "수요일";
-           private final static String THURSDAY = "목요일";
-           private final static String FRIDAY = "금요일";
-           private final static String SATURDAY = "토요일";
-           private final static String SUNDAY = "일요일";
+           final static String MONDAY = "월요일";
+           final static String TUSEDAY = "화요일";
+           final static String WENDSDAY = "수요일";
+           final static String THURSDAY = "목요일";
+           final static String FRIDAY = "금요일";
+           final static String SATURDAY = "토요일";
+           final static String SUNDAY = "일요일";
 
          }
 
