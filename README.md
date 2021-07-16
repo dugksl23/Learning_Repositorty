@@ -598,7 +598,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    ```
    
   
-   JUnit을 통한 클래스(Entity)를 TDD를 하는 경우에는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
+   JUnit을 통한 클래스(Entity)를 테스트를 하는 경우에는 클래스의 이름이 앞에 오고, 뒤에는 Test로 마무리를 한다.
    
    ```
    RegistrationTest
@@ -619,9 +619,9 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    
    <br>
    
-   JUnit을 통해 메소드를 TDD 하는 경우에는 lowerCase로 작성이 되며, 동사구 또는 동사로 명명 되어져야 한다.
-   또한 TDD의 목적은 모든 경우의 수를 상정하고 해당 API를 테스트하는 것에 있다. 그렇기에 전형적인 하나의 패턴을 가지고 있다.<br>
-   ex) <methodUnderTest>_<state> -> pop_emptyStack
+   JUnit을 통해 메소드를 테스트하는 경우에는 lowerCase로 작성이 되며, 동사구 또는 동사로 명명 되어져야 한다.
+   또한 테스트의 결과값을 예측하고 테스트를 하는 패턴을 가지고 있다.<br>
+   ex) <methodTest>_<state> -> signupMember_empty
    
    "테스트할 메소드 이름 + Test" + "_" + "예상 결과"로 작성하면 된다.
    이는 해당 테스트 코드의 결과값이 empty임을 예상하고 진행하는 것이기에 문제가 되지 않는다.
@@ -630,7 +630,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
    signupMemberTest
    sendMessageTest
    signoutMemberTest
-   signoutMember_fail
+   signoutMember_empty
    ```
  
  <br>
