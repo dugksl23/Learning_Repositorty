@@ -174,13 +174,14 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
 
  - **중괄호**
 
-   Google Java coding convention은 K&R Style을 따르며, 중괄호 제거가 가능해도 사용하는 것을 권장한다.<br>
+   Google Java Style은 K&R Style을 따른다.br>
    K&R Style이란? Kernight and Ritchie Style의 약자로서 아래와 같은 규칙을 가진다.
    
    - 여는 괄호 앞에는 줄 바꿈이 없다.
    - 여는 괄호 뒤에는 줄 바꿈이 있다.
    - 닫는 괄호 앞뒤로 줄 바꿈이 있다.
- 
+   - 중괄호 제거가 가능해도 사용하는 것을 권장한다.
+
    <br>
    
      ```
@@ -213,7 +214,7 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  - **줄 바꿈 없는 방식 (권장하지 않음)**
    중괄호 사이에 문자가 없다면 문제가 되지 않난다.
    ```
-     public static void main(String[] args){sum(3,4)} // 불가능
+     public static void main(String[] args) {sum(3,4)} // 불가능
      public static void main(String[] args){}         // 가능
      
    ```
@@ -221,21 +222,21 @@ Google에서는 이러한 점을 고려하여, 다른 소스 코드들과의 동
  - **괄호 생략한 방식**
  
    ```
+    public static int calculator(String operator, int left, int right) {
+       
+       if(operator == "+") return sum(left, right);
+       else return -1;
+       
+    } 
+    
+    public static int sum (int left, int right) {
+       return left + right;
+    }
+    
     public static void main(String[] args) {
             
          int num = calculator("+", 3, 4);
     }
-    
-    public static int sum (int a, int b) {
-       return a + b;
-    }
-    
-    public static int calculator(String operator, int a, int b) {
-       
-       if(operator == "+") return sum(a, b);
-       else return -1;
-       
-    } 
     
    ```
    <br>
