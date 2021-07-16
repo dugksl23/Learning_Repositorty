@@ -172,7 +172,7 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
 
  - **중괄호**
 
-   Google Java Style은 K&R Style을 따른다.br>
+   Google Java Style은 K&R Style을 따른다.<br>
    K&R Style이란? Kernight and Ritchie Style의 약자로서 아래와 같은 규칙을 가진다.
    
    - 여는 괄호 앞에는 줄 바꿈이 없다.
