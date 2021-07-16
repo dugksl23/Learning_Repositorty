@@ -520,7 +520,7 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
      
      ```
      @PostMapping({value = '/api/register/Member'})
-     public void registerMember(@valid @ReqeustBody MemberDto memberDto) {
+     public void registerMember(@Valid @ReqeustBody MemberDto memberDto) {
 
         memberService.registerMember(memberDto.toEntity());
 
