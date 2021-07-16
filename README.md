@@ -321,7 +321,7 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
  
  - **변수 수평 정렬**
     - 변수의 수평 정렬은, 변수를 수평으로 정렬하는 것을 가리킨다.
-    - 변수 수평 정렬은 Google Java Coding Convention에서는 필요로 하지 않다.
+    - 변수 수평 정렬은 Google Java Style에서는 권장하지 않다.
 
       ```
        private int a; int b; int c; int d; // 옳지 않다.
