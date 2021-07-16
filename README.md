@@ -658,7 +658,7 @@ Java 소스 파일은 여기에 있는 규칙을 준수하는 경우에만 Googl
  
  - **class의 멤버변수 Field**
   
-   상수가 아닌 class의 field는 loswerCamel case로 작성된다.
+   상수가 아닌 class의 field는 lowerCamel case로 작성된다.
  
    ```
    int idx;
