@@ -20,7 +20,7 @@ public class TestService {
 
         String str = "";
         log.info("method block 입니다~");
-        if (str == "") {
+        if (str != "") {
             throw new NullPointerException("null 입니다.");
         }
 

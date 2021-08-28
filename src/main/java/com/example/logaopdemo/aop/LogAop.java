@@ -81,7 +81,9 @@ public class LogAop {
         log.info("parameters, {}", parameters[0].toString());
         log.info(" ======== end method Annotation 가져오기 ==========");
         try {
+            log.info(" ======== start methodExecute ==========");
             Object result = joinPoint.proceed(args);
+            log.info(" ======== end methodExecute ==========");
 
             if (args != null) {
                 testLogger.log(TestLogBody.builder()
@@ -103,10 +105,12 @@ public class LogAop {
                     .build());
             testLogger.log(exception.toString());
             // customException 클래스를 주소값으로 보내고, callback으로 정의한뒤 사용.
-            throw customExceptionClass(testLog.CustomExceptionClass(), throwable);
+            Throwable throwable1 = customExceptionClass(testLog.CustomExceptionClass(), throwable);
+            log.info("throwable 1 날리기 전, {}", throwable1.toString());
+            throw throwable1;
 
         }
-
+        log.info("또 왔어요~");
         return null;
     }
 
@@ -130,11 +134,10 @@ public class LogAop {
 
         try {
 
-
             log.info("Exception, {}", e.toString());
             Constructor<? extends Throwable> constructor = CustomExceptionClass.getConstructor(Throwable.class);
             Throwable throwable = constructor.newInstance(e);
-
+            log.info("여긴 오나요?");
             return throwable;
 
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException noSuchMethodException) {
