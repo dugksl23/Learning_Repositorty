@@ -40,5 +40,8 @@
 
 <img width="673" alt="스크린샷 2021-11-02 오후 6 05 15" src="https://user-images.githubusercontent.com/68539491/139817377-fce59f9b-21ba-492a-bbca-2361a67aa530.png">
 
+위의 사진처럼 전가상화든 반가솽하든 추갖거인 os를 설치하여 가상화하는 방법은 어쨌든 성능문제가 있기에, 이를 개선하기 위해 <b>프로세스</b> 격리라는 방식이 등장한다.
+
+
 --- https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html
 
