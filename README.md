@@ -74,3 +74,46 @@
 우분투라는 이미지는 A,B,C라는 3개의 레이어로 구성되어져 있다. nginx 는 우분투를 기반으로 하기에 구성요소는 A,B,C,nginx가 된다. 이때, 우분투의 이미지 레이어는 readOnly 레이어로 구성이 되며, nginx 레이어라는 파일이 추가되거나 수정되면 새로운 레이어가 생성하며, 최종적으로 nginx라는 이미지를 생성한다. webApp 또한 마찬가지의 구성을 갖는다. webApp의 소스를 수정한다면, A,B,C, nginx 레이어를 제외한 새로운 source(2) 레이어만 다운 받으면 되기 때문에 굉장히 효율적으로 이미지를 관리할 수 있다.
 
 컨테이너 생성 또한 레이어 방식을 사용하고 있다. 기존의 이미지 레이어 위에 읽기/쓰기 레이어를 추가한다. 이미지 레이어를 그대로 사용하면 컨테이너가 실행 중에 성성되는 파일이나 변경된 내용은 읽기/쓰기 레이어에 저장되므로 여러개의 컨테이너를 생성해도 최소한의 용량만 사용한다.
+
+
+
+
+---
+
+### 1. Dockerfile 설정 referenced by https://inma.tistory.com/148
+
+```
+FROM openjdk:8-jdk-alpine AS builder # 베이스 이미지 + 이미지 별칭
+COPY gradlew .  # gradlew 복사
+COPY gradle gradle # gradle 복사
+COPY build.gradle . # build.gradle 복사
+COPY settings.gradle . # settings.gradle 복사 
+COPY src src           # web app 복사    
+RUN chmod +x ./gradlew. # gradlew 실행권한 부여 
+RUN ./gradlew bootJar   # gradlew 사용하여 실행 가능한 jar 파일 생성
+
+
+FROM openjdk:8-jdk-alpine  # 베이스 이미지
+COPY --from=builder build/libs/*.jar app.jar # builder 이미지에 build/libs/*.jar 파일으 app.jar로 복사
+
+EXPOSE 80   # container Port 노출
+ENTRYPOINT ["java", "jar", "/app.jar"] # 컨테이너 실행과 함께 jar 파일 실행
+
+
+or 
+
+FROM openjdk:8-jdk-alpine
+COPY build/libs/*.jar app.jar
+EXPOSE 8080
+EXPOSE 80
+ENTRYPOINT ["java","-jar", "app.jar"]
+
+
+
+```
+
+
+### 2. container run
+```
+docker run -p 8080:8080 725ceb80fb     
+```
