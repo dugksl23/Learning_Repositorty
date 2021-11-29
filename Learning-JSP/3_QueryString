@@ -1,0 +1,59 @@
+package com.opentutorials.web;
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/hiyo")
+
+public class Nana extends HttpServlet{
+
+protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+
+	
+	response.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html; charset=UTF-8");
+	
+	
+	System.out.println("안녕");                                //출력 지원 안한다.
+	
+	PrintWriter out=response.getWriter();
+  int cnt=Integer.parseInt(Request.getPamrameter("cnt"));  
+	 
+	for(int i=0; i<cnt; i++)
+  
+  
+  <*
+  Query값
+  
+request란 도구가 있으며, 이것은 HttpSerbletRequest의 입력 도구이다.
+
+그 클래스의 getParameter("cnt")를 호출한다.
+(getter은 기본적으로 전달하는 것을 의미한다.)
+*cnt - count/
+
+​
+사용자가 전달할 때, 쿼리값을 지정해서 전달하면 이 키워드를 읽어들이며, 
+
+사용자와 Server가 서로 합의하여 합이 맞이야 한다
+
+<출력> 
+
+주소 뒤에 + ?cnt=3
+ex) http://localhost:8080/Nana?cnt=5
+
+=> 위처럼 query값을 부여하면 된다.
+ 
+ *>
+
+	out.println((i+1)+" : 안녕 hello!!<br>");
+	}
+	
+}
