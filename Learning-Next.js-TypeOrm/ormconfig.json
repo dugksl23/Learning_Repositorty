@@ -1,0 +1,25 @@
+{
+  "type": "mysql",
+  "host": "127.0.0.1",
+  "port": 3306,
+  "username": "root",
+  "password": "root",
+  "database": "testdb",
+  "logging": true,
+  "entities": [
+    "src/**/*Entity{*.ts}",
+    "src/**/*.Entity{*.ts}",
+    "src/**/*entity{*.ts}",
+    "dist/**/*.entity{.ts,.js}",
+    "dist/**/*.entities{.ts,.js}",
+    "src/**/*.entities{.ts,.js}",
+    "./entities/**/*.js",
+    "./entities/**/*.ts",
+    "_dirname + '/**/*.entity.{ts,js}",
+    "dist/**/*.entity{.ts,.js}"
+  ],
+  "synchronize": true,
+  "autoLoadEntities": true,
+  "migrations": ["${rootDir}/database/migrations/**/*.{js,ts}"],
+  "subscribers": ["${rootDir}/database/subscribers/**/*.{js,ts}"]
+}
