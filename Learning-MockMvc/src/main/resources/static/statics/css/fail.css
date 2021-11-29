@@ -1,0 +1,16 @@
+table .ellipsis {
+  position: relative;
+  min-width: 700px;
+}
+.table .ellipsis a {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: absolute;
+  left: 9px;
+  right: 9px;
+}
+.ellipsis:before {
+  content: '';
+  display: inline-block;
+}
