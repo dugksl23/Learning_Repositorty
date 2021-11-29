@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+</head>
+<body>
+<h1>HOME</h1>
+
+<br>
+
+<div sec:authorize="!isAuthenticated()">
+    <input type="button" onclick="location.href='/goLogin'" value="로그인"><br>
+    <input type="button" onclick="location.href='/goJoin'" value="회원가입"><br>
+</div>
+
+    <input type="button" onclick="location.href='/goBoard'" value="게시판가기"><br>
+
+<div sec:authorize="isAuthenticated()">
+    <form action="#" th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+
+
+</body>
+</html>
