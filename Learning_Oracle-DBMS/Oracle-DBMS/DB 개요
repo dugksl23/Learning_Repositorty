@@ -1,0 +1,45 @@
+-- DataBase 개요 --
+
+- 데이터를 보관해두는 저장 프로그램
+- Load: HDD, SSD에 저장되어 있는 내용을 Ram으로 불러옴
+
+
+
+
+-- SQL -- 
+ 1. data는 table의 형태로 저장이 된다.
+ 2. header : 저장할 data의 제목
+ 3. recoder, row, 행 : 1개(명, 단위)의 데이터 전체의 집합
+ 4. column, 열 : 제목(title)에 맞는 데이터의 집합, column별로 data의 type을 가지고 있다.
+ 
+ 
+ 
+ -- SQL Developer --
+  1. 원래는 SQL Plus 콘솔창으로 contorl.
+  2. 낮은 가독성의 이유로 GUI형으로 나온 것이 SQL Developer이다.
+  
+  
+ --  설정 --
+  1.  관리자 계정 : 설치하자마자 존재하는 계정이며, DB에 계정을 만들어내어
+       Oracle의 설정을 운영하는 목적으로 만들었다.
+  2. Developer 실행 후 관리자 계정 만들기
+  
+  
+  -- 명령어 분류 --
+   1. DML : Data Manipluation Langauge. - 입력, 수정, 삭제, 조회
+   2. DQL : Data Query Language : 조회 명령(데이터를 꺼내오는 명령어)\
+            원래는 DML 범주 안에 포함되는 명령이지만, DQL이 너무 많은 문법 체계를 가지고 있어서 따로 사용한다.
+   3. DDL : Data Definition Language (객체[user] 생성, 수정 및 삭제) - creat
+       -> sql에서는 데이터와 객체를 따로 구분한다.
+   4. DCL : Data Control Language : 객체에 권한을 부여하거나 뺏는 명령 - grand, revoke(권한 부여 및 철회[폐지]하다.)     
+   5. tcl : Transaction Control Language : 트랙잭션을 제어하는 명령
+   
+   
+
+    
+   
+   
+   
+   
+  
+
