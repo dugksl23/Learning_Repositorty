@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ko"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/member/loginProcess}" method="post">
+    <input type="text" name="email" id="username">
+    <input type="text" name="password" id="password">
+    <button type="submit" id="submit">로그인</button>
+</form>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+</body>
+</html>
